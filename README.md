@@ -1,7 +1,12 @@
-# m2w
-> 用于将本地markdown推送至Wordpress后台
+# m2w: Markdow to Wordpress
 
-# 前言
+## 简介
+
+Push `Markdown` to `Wordpress` dashboard via Python
+
+基于Python将本地markdown推送至Wordpress后台
+
+## 前言
 
 主要是在[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)的基础上进行了一些改进。
 
@@ -12,7 +17,7 @@
 + 在`new`目录中的所有文件都会上传。
 + 在`legacy`目录中，批量上传有更新的旧markdown文件，自动忽略没有更新的旧markdown文件。其机制是通过检测`md5`值判断文件有没有变化。上一次更新后，legacy文件的md5值将会保存在`config/legacy.json`中。
 
-# 准备工作
+## 准备工作
 
 + 运行环境：Python 3.7或以上
 
@@ -60,7 +65,7 @@ pip3 install python-wordpress-xmlrpc
   path_m2w = 'E:/Github/m2w'
   ```
 
-# 使用
+## 使用
 
 `upload.py`用于上传新markdown，`update.py`用于更新旧markdown。
 
@@ -72,10 +77,8 @@ pip3 install python-wordpress-xmlrpc
 python3 <脚本>.py
 ```
 
-# 说明
+## 说明
 
 我是站在巨人的肩膀上。自己是个菜鸡(￣△￣；)。
 
-# 参考
-
-+ [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
+其它更详细地说明请看：[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
