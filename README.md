@@ -91,7 +91,11 @@ python3 <脚本>.py
 
 一般我都是在vscode中打开脚本整个运行。PyCharm之类的应该也是类似吧！
 
+## 效果
+
 效果特性也和原作一样，并未改动。
+
+我的博客里的文章均是采用此法上传和更新：[https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
 ## 说明
 
