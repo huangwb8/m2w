@@ -19,7 +19,7 @@ import m2w.json2
 
 ####===============================软件绝对路径===============================####
 
-path_m2w = 'E:/Github/m2w' 
+path_m2w = 'E:/Github/m2w_2' 
 
 ####=================================设置作者的参数===========================####
 
@@ -120,16 +120,20 @@ if __name__ == '__main__':
         legacy_md5_old = m2w.json2.read_json_as_dict(path_legacy_json)
         markdown_md5 = m2w.md5.md5_legacy_markdown(path_legacy, path_legacy_json)
         markdown_md5_filter = markdown_md5
-        for i in legacy_md5_old:
-            # print(i)
-            # print(legacy_md5_old[i])
+
+        # 交集
+        # print(sorted(markdown_md5.keys()))
+        # print(sorted(legacy_md5_old.keys()))
+        intersect_key = set(sorted(markdown_md5.keys())) & set(sorted(legacy_md5_old.keys()))
+        #print(intersect_key)
+
+        # 验证md5
+        for i in intersect_key:
             if legacy_md5_old[i] == markdown_md5[i]:
-                # print('文件', i,'内容没有变化！忽略。')
                 markdown_md5_filter.pop(i)
             else:
                 print('文件', i,'内容发生了变化！')
     else:
-        # 初次上传
         print('初次上传！')
         markdown_md5_filter = m2w.md5.md5_legacy_markdown(path_legacy, path_legacy_json)
 
