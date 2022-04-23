@@ -1,0 +1,14 @@
+{
+    "main": "E:/Github/m2w/blog",
+    "symbol_new": "new",
+    "symbol_legacy": "legacy",
+    "domain": "https://blog.domain.com",
+    "username": "user",
+    "password": "user_password",
+    "post_metadata": {
+        "category": ["test"],
+        "tag": ["test"],
+        "status": "publish"
+    },
+    "path_legacy_json": "/config/legacy.json"
+}
