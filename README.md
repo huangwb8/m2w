@@ -13,9 +13,9 @@ Push `Markdown` to `Wordpress` dashboard via Python
 有以下特点：
 
 + 通过`config/user.json`文件来定义用户属性。
-+ 将新的markdown和旧的markdown分开为`new`和`legacy`两个目录保存。
++ 将新旧的markdown分开为`new`和`legacy`两个目录保存。
 + 在`new`目录中的所有文件都会上传。
-+ 在`legacy`目录中，批量上传有更新的旧markdown文件，自动忽略没有更新的旧markdown文件。其机制是通过检测`md5`值判断文件有没有变化。上一次更新后，legacy文件的md5值将会保存在`config/legacy.json`中。
++ 在`legacy`目录中，批量上传有更新的旧markdown文件，自动忽略没有更新的旧markdown文件。机制是通过检测`md5`值判断文件有没有变化。上一次更新后，legacy文件的md5值将会保存在`config/legacy.json`中。
 
 ## 准备工作
 
@@ -59,26 +59,33 @@ pip3 install python-wordpress-xmlrpc
 }
 ```
 
-+ 先将所有脚本的`path_m2w`改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，我可以设置：
++ 将所有脚本的`path_m2w`参数改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，可以设置：
 
   ```python
   path_m2w = 'E:/Github/m2w'
   ```
 
++ `get_posts.py`、`new_posts.py`只用于测试`user.json`是否用效。平时并不需要。
+
 ## 使用
 
-`upload.py`用于上传新markdown，`update.py`用于更新旧markdown。
++ 在`new`文件夹写新的markdown
++ 运行`upload.py`用于上传新markdown
 
-`get_posts.py`、`new_posts.py`均是测试脚本。
++ 如果`legacy`文件夹的内容有更改，运行`update.py`更新。
 
-所有的脚本用法都是类似的：
+所有脚本（包括测试脚本）用法都是类似的：
 
 ```bash
 python3 <脚本>.py
 ```
 
+效果特性也和原作一样，并未改动。
+
 ## 说明
 
-我是站在巨人的肩膀上。自己是个菜鸡(￣△￣；)。
+我是站在巨人的肩膀上，自己是个菜鸡(￣△￣；)。
+
+感觉可以做得更细致，不过自己能力有限。以后慢慢改进吧！
 
 其它更详细地说明请看：[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
