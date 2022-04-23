@@ -132,7 +132,7 @@ if __name__ == '__main__':
             if legacy_md5_old[i] == markdown_md5[i]:
                 markdown_md5_filter.pop(i)
             else:
-                print('文件', i,'内容发生了变化！')
+                print(i,'的内容发生了变化！')
     else:
         print('初次上传！')
         markdown_md5_filter = m2w.md5.md5_legacy_markdown(path_legacy, path_legacy_json)
@@ -143,17 +143,20 @@ if __name__ == '__main__':
     # print(sorted(markdown_md5_filter.keys()))
 
     # 上传有变化的文件
-    for filepath in sorted(markdown_md5_filter.keys()):
-        client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
-        post = find_post(filepath, client)
-        if post is not None:
-            ret = update_post_content(post, filepath, client)
-            if ret:
-                print('SUCCESS to update the file: "%s"' % filepath)
+    if len(sorted(markdown_md5_filter.keys())) == 0:
+        print('Legacy文件夹的markdowns文件内容均未改变。')
+    else:
+        for filepath in sorted(markdown_md5_filter.keys()):
+            client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
+            post = find_post(filepath, client)
+            if post is not None:
+                ret = update_post_content(post, filepath, client)
+                if ret:
+                    print('SUCCESS to update the file: "%s"' % filepath)
+                else:
+                    print('FAILURE to update the file: "%s"' % filepath)
             else:
-                print('FAILURE to update the file: "%s"' % filepath)
-        else:
-            print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')
+                print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')
 
 
     # filepaths = glob.glob(os.path.join(path_legacy,"*.md"))
