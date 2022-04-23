@@ -69,7 +69,16 @@ pip3 install python-wordpress-xmlrpc
 
 ## 使用
 
++ 博客的目录结构类似于：
+
+```
+blog
+├──legacy
+└──new
+```
+
 + 在`new`文件夹写新的markdown
+
 + 运行`upload.py`用于上传新markdown
 
 + 如果`legacy`文件夹的内容有更改，运行`update.py`更新。
