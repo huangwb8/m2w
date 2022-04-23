@@ -1,4 +1,4 @@
-# m2w: Markdow to Wordpress
+# m2w: Markdown to Wordpress
 
 ## 简介
 
