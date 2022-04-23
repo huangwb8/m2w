@@ -8,9 +8,7 @@ Push `Markdown` to `Wordpress` dashboard via Python
 
 ## 前言
 
-主要是在[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)的基础上进行了一些改进。
-
-有以下特点：
+最近玩起了WordPress博客，所以想找一个一键更新markdown的工具来用。找了好久，感觉[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)这个项目可以用。本项目主要是在[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)的基础上进行了小小的改进，有以下特点：
 
 + 通过`config/user.json`文件来定义用户属性。
 + 将新旧的markdown分开为`new`和`legacy`两个目录保存。
@@ -93,14 +91,16 @@ python3 <脚本>.py
 
 ## 效果
 
-效果特性也和原作一样，并未改动。
+效果特性也和原作一样，并未改动。在后台，其实不是markdown，而是html文件。
 
-我的博客里的文章均是采用此法上传和更新：[https://blognas.hwb0307.com](https://blognas.hwb0307.com)
+我的博客里的文章均是采用此法上传和更新：[https://blognas.hwb0307.com](https://blognas.hwb0307.com)。感觉还是很好用的！
+
+不过是不是已经有了什么好用的工具我不知道。求推荐！
 
 ## 说明
 
-我是站在巨人的肩膀上，自己是个菜鸡(￣△￣；)。
+我是站在巨人的肩膀上，自己是个菜鸡 :grinning:
 
-感觉可以做得更细致，不过自己能力有限。以后慢慢改进吧！
+感觉可以做得更细致，不过自己能力有限。以后慢慢改进吧 :grinning:
 
 其它更详细地说明请看：[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
