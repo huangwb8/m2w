@@ -19,7 +19,7 @@ Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
 Recently, I started to play WordPress blog. I was looking for **an easy-to-use tool for automatical upload & update of  markdown** with minimum operation in WordPress dashboard. Finally, I found the project [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress) available for this need. However, this project does not possess enough automation in updating old Markdown documents. Also, it is necessary for users to declare the same private information among scripts.
 
-m2w is based on [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress) and have some new features：
+m2w is based on [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress) and has some new features：
 
 + Use `config/user.json` to maintain the user information
 + File management via `new`和`legacy` documents
