@@ -96,6 +96,10 @@ blog
 python3 <script>.py
 ```
 
+## TO-DO
+
++ Use WordPress API instead of username/password to upload/update new markdowns
+
 ## Related Efforts
 
 - [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
