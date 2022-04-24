@@ -1,3 +1,5 @@
+[English](https://github.com/huangwb8/m2w/blob/main/README.md)|[简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
+
 # m2w: Markdown to WordPress
 
 Upload and update local markdown to WordPress via Python
