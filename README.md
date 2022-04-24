@@ -2,7 +2,7 @@
 
 # m2w: Markdown to WordPress
 
-Upload and update local markdown to WordPress via Python
+Automatically upload and update local markdown to WordPress via Python
 
 Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
