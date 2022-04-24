@@ -95,7 +95,9 @@ blog
 python3 <脚本>.py
 ```
 
-一般我都是在vscode中打开脚本整个运行。PyCharm之类的应该也是类似吧！
+一般我都是在vscode中打开脚本整个运行。PyCharm之类的应该也是类似吧！这里展示一下`update.py`的界面
+
+![image-20220424125654213](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424125654213.png)
 
 ## 相关仓库
 
