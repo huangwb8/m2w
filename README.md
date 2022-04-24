@@ -1,25 +1,25 @@
-# m2w: Markdown to Wordpress
+# m2w: Markdown to WordPress
 
-## 简介
+Upload and update local markdown to WordPress via Python
 
-Push `Markdown` to `Wordpress` dashboard via Python
 
-基于Python将本地markdown推送至Wordpress后台
+## Table of Contents
 
-## 前言
+- [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+- [Related Efforts](#related-efforts)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
-最近玩起了WordPress博客，所以想找一个一键更新markdown的工具来用。找了好久，感觉[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)这个项目可以用。本项目主要是在[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)的基础上进行了小小的改进，有以下特点：
+## Background
 
-+ 通过`config/user.json`文件来定义用户属性。
-+ 将新旧的markdown分开为`new`和`legacy`两个目录保存。
-+ 在`new`目录中的所有文件都会上传。
-+ 在`legacy`目录中，批量上传有更新的旧markdown文件，自动忽略没有更新的旧markdown文件。机制是通过检测`md5`值判断文件有没有变化。上一次更新后，legacy文件的md5值将会保存在`config/legacy.json`中。
+Recently, I started to play WordPress blog. I was looking for **an easy-to-use tool for markdown upload & update**. Finally, I found the project [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress) available for this need. However, this project does not possess enough automation in updating old Markdown documents. Also, it is necessary for users to declare the same private information among scripts.
 
-## 准备工作
+## Install
 
-+ 运行环境：Python 3.7或以上
-
-+ 安装依赖：
++ Dependency
 
 ```
 pip3 install python-frontmatter
@@ -27,47 +27,47 @@ pip3 install markdown
 pip3 install python-wordpress-xmlrpc
 ```
 
-+ 自定义`config/user.json`文件：
++ Define your `config/user.json`
 
 ```json
 {
-    // 博客文件主目录的绝对路径
+    // Main 
     "main": "E:/Github/m2w/blog",
     
-    // 博客文件主目录的绝对路径的new文件夹，一般不用改。
+    // Main/new
     "symbol_new": "new",
     
-    // 博客文件主目录的绝对路径的legacy文件夹，一般不用改。
+    // Main/legacy
     "symbol_legacy": "legacy",
     
-    // 博客域名、用户名、密码
+    // Domain, Username, and Password
     "domain": "https://blog.domain.com",
     "username": "user",
     "password": "user_password",
     
-    // 自定义。默认上传的分类、标签和状态
+    // Default category, tag or status of articles
     "post_metadata": {
         "category": ["test"],
         "tag": ["test"],
         "status": "publish"
     },
     
-    // 不用改
+    // Do not change this setting
     "path_legacy_json": "/config/legacy.json"
 }
 ```
 
-+ 将所有脚本的`path_m2w`参数改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，可以设置：
++ Download the Repo and save in `E:/Github/m2w`, for example. Set `path_m2w` as `'E:/Github/m2w'` in every script.
 
   ```python
   path_m2w = 'E:/Github/m2w'
   ```
 
-+ `get_posts.py`、`new_posts.py`只用于测试`user.json`是否用效。平时并不需要。
++ Scripts `get_posts.py` and `new_posts.py` are only used to test whether you `user.json` really work.
 
-## 使用
+## Usage
 
-+ 博客的目录结构类似于：
++ Document tree:
 
 ```
 blog
@@ -75,32 +75,34 @@ blog
 └──new
 ```
 
-+ 在`new`文件夹写新的markdown
++ Write your new markdown in `new` document. Run `upload.py` to upload new markdonws.
++ Run `update.py` if any changes in `legacy`document.
 
-+ 运行`upload.py`用于上传新markdown
-
-+ 如果`legacy`文件夹的内容有更改，运行`update.py`更新。
-
-所有脚本（包括测试脚本）用法都是类似的：
++ All scripts can be used as:
 
 ```bash
-python3 <脚本>.py
+python3 <script>.py
 ```
 
-一般我都是在vscode中打开脚本整个运行。PyCharm之类的应该也是类似吧！
+## Related Efforts
 
-## 效果
+- [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
 
-效果特性也和原作一样，并未改动。在后台，其实不是markdown，而是html文件。
+## Maintainers
 
-我的博客里的文章均是采用此法上传和更新：[https://blognas.hwb0307.com](https://blognas.hwb0307.com)。感觉还是很好用的！
+[@huangwb8](https://github.com/huangwb8)
 
-不过是不是已经有了什么好用的工具我不知道。求推荐！
+## Contributing
 
-## 说明
+Feel free to dive in! [Open an issue](https://github.com/RichardLitt/standard-readme/issues/new) or submit PRs.
 
-我是站在巨人的肩膀上，自己是个菜鸡 :grinning:
+m2w follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
 
-感觉可以做得更细致，不过自己能力有限。以后慢慢改进吧 :grinning:
+### Contributors
 
-其它更详细地说明请看：[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
+Nobody yet.
+
+
+## License
+
+Getting suggestions from [@nefu-ljw](https://github.com/nefu-ljw)
