@@ -76,7 +76,7 @@ pip3 install python-wordpress-xmlrpc
   path_m2w = 'E:/Github/m2w'
   ```
 
-+ Scripts `get_posts.py` and `new_posts.py` are only used to test whether you `user.json` really work.
++ Scripts `get_posts.py` and `new_posts.py` are only used to test whether your `user.json` really work.
 
 ## Usage
 
