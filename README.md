@@ -1,4 +1,4 @@
-### [English](https://github.com/huangwb8/m2w)|[简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
+### [English](https://github.com/huangwb8/m2w) | [简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
 
 # m2w: Markdown to WordPress
 
