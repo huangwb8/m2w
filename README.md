@@ -97,6 +97,16 @@ blog
 python3 <script>.py
 ```
 
+Use demo with VScode: 
+
++ `upload.py`：
+
+![image-20220424134824223](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424134824223.png)
+
++  `update.py`：
+
+![image-20220424125654213](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424125654213.png)
+
 ## TO-DO
 
 + Use WordPress API instead of username/password to upload/update new markdowns
