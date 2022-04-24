@@ -83,8 +83,8 @@ blog
 └──new
 ```
 
-+ Write your new markdown in `new` document. Run `upload.py` to upload new markdonws.
-+ Run `update.py` if any changes in `legacy`document.
++ Write your new markdown in `new` document. Run `upload.py` to upload new markdowns.
++ Run `update.py` if any changes of markdowns appear in `legacy`document.
 
 + All scripts can be used as:
 
