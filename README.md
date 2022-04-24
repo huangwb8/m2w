@@ -2,6 +2,12 @@
 
 # m2w: Markdown to WordPress
 
+<p align="left">
+<a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
+<a href=""><img src="https://img.shields.io/badge/platform-Windows%7Clinux%7CMacOS-brightgreen"></a>
+<a href=""><img src="https://img.shields.io/github/downloads/huangwb8/m2w/total"></a>
+<a href=""><img src="https://img.shields.io/github/stars/huangwb8/m2w?style=social"></a>
+</p>
 Automatically upload and update local markdown to WordPress via Python
 
 Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
