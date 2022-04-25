@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time : 2021/11/20 9:42
-# @Author : nefu-ljw
-# @File : update-markdown-to-wordpress.py
+# @Author : nefu-ljw; huangwb8
+# @File : update.py
 # @Function: Update an existing post in WordPress with a local Markdown file
 # @Software: PyCharm
 # @Reference: original
@@ -132,9 +132,9 @@ if __name__ == '__main__':
             if legacy_md5_old[i] == markdown_md5[i]:
                 markdown_md5_filter.pop(i)
             else:
-                print(i,'的内容发生了变化！')
+                print('Content changed!: ', i)
     else:
-        print('初次上传！')
+        print('Initial update...')
         markdown_md5_filter = m2w.md5.md5_legacy_markdown(path_legacy, path_legacy_json)
 
     # print(path_legacy)
@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
     # 上传有变化的文件
     if len(sorted(markdown_md5_filter.keys())) == 0:
-        print('Legacy文件夹的markdowns文件内容均未改变。')
+        print('Legacy: None of markdowns had any changes.')
     else:
         for filepath in sorted(markdown_md5_filter.keys()):
             client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
@@ -157,22 +157,3 @@ if __name__ == '__main__':
                     print('FAILURE to update the file: "%s"' % filepath)
             else:
                 print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')
-
-
-    # filepaths = glob.glob(os.path.join(path_legacy,"*.md"))
-
-    # filepaths = get_file_list(path_legacy)
-
-    # for filepath in filepaths:
-
-    #     client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
-        
-    #     post = find_post(filepath, client)
-    #     if post is not None:
-    #         ret = update_post_content(post, filepath, client)
-    #         if ret:
-    #             print('SUCCESS to update the file: "%s"' % filepath)
-    #         else:
-    #             print('FAILURE to update the file: "%s"' % filepath)
-    #     else:
-    #         print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')
