@@ -12,6 +12,8 @@ Automatically upload and update local markdown to WordPress via Python
 
 Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
+Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践](https://blognas.hwb0307.com/linux/docker/689)
+
 
 ## Table of Contents
 
@@ -26,7 +28,7 @@ Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
 ## Background
 
-> Recently, [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools) had been recommanded as an alternative platform for the WordPress blog management, which is based on Github Actions similar to Hexo. Thanks for jobs from [cye](https://github.com/cye18)!
+> Recently, [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools) has been recommanded as an alternative platform for the WordPress blog management, which is based on Github Actions similar to Hexo. Thanks for jobs from [cye](https://github.com/cye18)!
 
 Recently I started to play WordPress blog. I've use [Typora](https://github.com/typora) for nearly 2 years, so I hope I can edit my blogs locally via [Typora](https://github.com/typora). Also, the content of some old blogs might change, and I don't want to update them step by step with WordPress dashboard. So, I just looked for **an easy-to-use tool for automatical upload & update of  markdown** with minimum operation in WordPress dashboard. 
 
