@@ -22,6 +22,8 @@ Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
 ## 背景
 
+> 感谢[cye](https://github.com/cye18)推荐[WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools)项目作为WordPress博客管理的替代平台之一，其基于Github Actions，类似于Hexo。感兴趣的小伙伴可以了解一波！
+
 最近玩起了WordPress博客，所以想找一个一键更新markdown的工具来用。找了好久，感觉[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)这个项目可以用。不过这个项目在更新旧的Markdown文档的自动化程度不高；而且在不同的脚本之间要重复地填写用户信息。
 
 本项目主要是在[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)的基础上进行了小小的改进，有以下特点：
