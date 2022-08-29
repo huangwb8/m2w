@@ -123,7 +123,7 @@ python3 <脚本>.py
 
 ## 维护者
 
-[@huangwb8](https://github.com/huangwb8)
+[@huangwb8](https://t.me/hwb0307)
 
 ## 如何贡献
 
