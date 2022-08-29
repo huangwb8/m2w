@@ -129,7 +129,7 @@ Use demo with VScode:
 
 ## Maintainers
 
-[@huangwb8](https://github.com/huangwb8)
+[@huangwb8](https://t.me/hwb0307)
 
 ## Contributing
 
