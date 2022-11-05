@@ -8,7 +8,7 @@
 </p>
 基于Python将本地markdown推送和更新至Wordpress
 
-Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)。
+Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
 
 Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践](https://blognas.hwb0307.com/linux/docker/689)。
 
