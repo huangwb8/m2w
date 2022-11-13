@@ -119,7 +119,7 @@ def wp_xmlrpc(domain,username, password):
         print('SUCCESS to connect to your WordPress website: ' + domain)
         return client
     except Exception as e:
-        print('Reminder from Bensz(https://blognas.hwb0307.com) : ' + str(e))
+        print('FAILED to connect to your WordPress website: ' + str(e))
         # 正常退出
         sys.exit(0)
 
