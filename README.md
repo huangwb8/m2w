@@ -23,6 +23,7 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 - [Install](#install)
 - [Usage](#usage)
 - [Related Efforts](#related-efforts)
+- [LOG](#LOG)
 - [TO-DO](#TO-DO)
 - [Maintainers](#maintainers)
 - [Contributing](#contributing)
@@ -118,6 +119,10 @@ Use demo with VScode:
 +  `update.py`：
 
 ![image-20220424125654213](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424125654213.png)
+
+## LOG
+
++ **2022-11-13**：Add error control for the `Client` function.
 
 ## TO-DO
 
