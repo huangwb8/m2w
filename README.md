@@ -122,7 +122,7 @@ Use demo with VScode:
 
 ## LOG
 
-+ **2022-11-13**：Add error control for the `Client` function.
++ **2022-11-13**：Add error control for the `Client` function, which is helpful to avoid legacy bugs if the connection to the WordPress website is not available.
 
 ## TO-DO
 
