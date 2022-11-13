@@ -116,7 +116,7 @@ def wp_xmlrpc(domain,username, password):
     """
     try:
         client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
-        print('SUCCESS to connect' + domain)
+        print('SUCCESS to connect ' + domain)
         return client
     except Exception as e:
         print('Reminder from Bensz(https://blognas.hwb0307.com) : ' + str(e))
