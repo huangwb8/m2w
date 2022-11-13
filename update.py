@@ -19,7 +19,7 @@ import m2w.json2
 
 ####===============================软件绝对路径===============================####
 
-path_m2w = 'E:/Github/m2w_2' 
+path_m2w = 'E:/我的坚果云/样式备份/网站/m2w_2'
 
 ####=================================设置作者的参数===========================####
 
@@ -55,26 +55,30 @@ def find_post(filepath, client):
     :param client: 客户端
     :return True: if success
     """
-    filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
-    filename_suffix = filename.split('.')[-1]  # 例如：md
-    filename_prefix = filename.replace('.' + filename_suffix, '')  # 例如：test(2021.11.19)；注意：这种替换方法要求文件名中只有一个".md"
-    # 目前只支持 .md 后缀的文件
-    if filename_suffix != 'md':
-        print('ERROR: not Markdown file')
-        return None
-    # get pages in batches of 20
-    offset = 0  # 每个batch的初始下标位置
-    batch = 20  # 每次得到batch个post，存入posts中
-    while True:  # 会得到所有文章，包括private(私密)、draft(草稿)状态的
-        posts = client.call(GetPosts({'number': batch, 'offset': offset}))
-        if len(posts) == 0:
-            return None  # no more posts returned
-        for post in posts:
-            title = post.title
-            if title == filename_prefix:
-                return post
-        offset = offset + batch
-
+    try:
+        filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
+        filename_suffix = filename.split('.')[-1]  # 例如：md
+        filename_prefix = filename.replace('.' + filename_suffix, '')  # 例如：test(2021.11.19)；注意：这种替换方法要求文件名中只有一个".md"
+        # 目前只支持 .md 后缀的文件
+        if filename_suffix != 'md':
+            print('ERROR: not Markdown file')
+            return None
+        # get pages in batches of 20
+        offset = 0  # 每个batch的初始下标位置
+        batch = 20  # 每次得到batch个post，存入posts中
+        while True:  # 会得到所有文章，包括private(私密)、draft(草稿)状态的
+            posts = client.call(GetPosts({'number': batch, 'offset': offset}))
+            if len(posts) == 0:
+                return None  # no more posts returned
+            for post in posts:
+                title = post.title
+                if title == filename_prefix:
+                    return post
+            offset = offset + batch
+    except Exception as e:
+        print('Reminder from Bensz(https://blognas.hwb0307.com) : ' + str(e))
+        # 正常退出
+        sys.exit(0)
 
 def update_post_content(post, filepath, client):
     """
@@ -106,6 +110,18 @@ def get_file_list(file_path):
         # print(dir_list)
         return dir_list
 
+def wp_xmlrpc(domain,username, password):
+    """
+    错误控制相关的Client函数
+    """
+    try:
+        client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
+        print('SUCCESS to connect' + domain)
+        return client
+    except Exception as e:
+        print('Reminder from Bensz(https://blognas.hwb0307.com) : ' + str(e))
+        # 正常退出
+        sys.exit(0)
 
 if __name__ == '__main__':
 
@@ -113,6 +129,9 @@ if __name__ == '__main__':
     # if not os.path.isfile(filepath):
     #     print('FAILURE: not file path')
     #     sys.exit(1)
+
+    # 访问WordPress xmlrpc.php
+    client = wp_xmlrpc(domain,username, password)
 
     # 新旧文件对比
     if os.path.isfile(path_legacy_json):
@@ -147,7 +166,7 @@ if __name__ == '__main__':
         print('Legacy: None of markdowns had any changes.')
     else:
         for filepath in sorted(markdown_md5_filter.keys()):
-            client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
+            # client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
             post = find_post(filepath, client)
             if post is not None:
                 ret = update_post_content(post, filepath, client)
