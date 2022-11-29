@@ -2,6 +2,8 @@
 
 # m2w: Markdown to WordPress
 
+> :star2: :star2: :star2: Later, m2w 2.0 will meet everyone! More humanized design and compatible with your local markdown structure!
+
 <p align="left">
 <a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
 <a href=""><img src="https://img.shields.io/badge/platform-Windows%7Clinux%7CMacOS-brightgreen"></a>
@@ -127,6 +129,7 @@ Use demo with VScode:
 
 ## TO-DO
 
++ Less dependancy on the folder struction of markdowns.
 + Use WordPress API instead of username/password to upload/update new markdowns
 
 ## Related Efforts
