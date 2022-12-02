@@ -15,6 +15,7 @@ from wordpress_xmlrpc import Client
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 import m2w.md5
 import m2w.json2
+import m2w.wp
 
 
 ####===============================软件绝对路径===============================####
@@ -110,18 +111,6 @@ def get_file_list(file_path):
         # print(dir_list)
         return dir_list
 
-def wp_xmlrpc(domain,username, password):
-    """
-    错误控制相关的Client函数
-    """
-    try:
-        client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
-        print('SUCCESS to connect to your WordPress website: ' + domain)
-        return client
-    except Exception as e:
-        print('FAILED to connect to your WordPress website: ' + str(e))
-        # 正常退出
-        sys.exit(0)
 
 if __name__ == '__main__':
 
@@ -131,7 +120,7 @@ if __name__ == '__main__':
     #     sys.exit(1)
 
     # 访问WordPress xmlrpc.php
-    client = wp_xmlrpc(domain,username, password)
+    client = m2w.wp.wp_xmlrpc(domain,username, password)
 
     # 新旧文件对比
     if os.path.isfile(path_legacy_json):

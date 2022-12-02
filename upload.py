@@ -16,6 +16,7 @@ from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 import m2w.md5
 import m2w.json2
+import m2w.wp
 
 ####===============================软件绝对路径===============================####
 
@@ -126,13 +127,14 @@ def get_filepaths(path):
 if __name__ == '__main__':
     
     # Start Work
-    print('----------------------------------------------START----------------------------------------------')
+    # print('----------------------------------------------START----------------------------------------------')
     filepaths = get_filepaths(path)
     if filepaths is None:
         print('FAILURE: wrong path')
         sys.exit(1)
 
-    client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
+    # client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
+    client = m2w.wp.wp_xmlrpc(domain, username, password)
     
     md_cnt = 0
     all_cnt = len(filepaths)
@@ -150,7 +152,7 @@ if __name__ == '__main__':
         else:
             failpaths.append(filepath)
             print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filename))
-    print('-----------------------------------------------END-----------------------------------------------')
+    # print('-----------------------------------------------END-----------------------------------------------')
     print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
 
     if len(failpaths) > 0:
