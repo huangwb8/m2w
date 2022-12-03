@@ -12,7 +12,8 @@ path_m2w = 'E:/Github/m2w'
 ####===============================Parameters
 
 # User JSON
-path_user_json = path_m2w + '/@test/config/user.json' # Only for test mode
+# path_user_json = path_m2w + '/@test/config/user.json' # Only for test mode
+path_user_json = path_m2w + '/config/user.json'
 user = read_json_as_dict(path_user_json)
 
 # Global
