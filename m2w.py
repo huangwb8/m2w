@@ -23,7 +23,7 @@ from m2w.wp import wp_xmlrpc
 test_mode = False
 
 # Main Configuration
-if test_mode == False:
+if test_mode:
     # Test mode
     path_user_json = 'E:/Github/m2w/@test/config/user.json' 
     user = read_json_as_dict(path_user_json)
