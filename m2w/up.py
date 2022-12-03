@@ -12,17 +12,17 @@ import os
 ####===============================Functions
 def find_files(path, suffix = ".md"):
     """
-    Description:
+    ### Description
     Find all files with specifed suffix in the path
 
-    Parameters: 
+    ### Parameters
     path: String. The path of files. Allow one or more paths.
     suffix: String. The suffix of target files.
 
-    Return:
+    ### Return
     List. Paths of target files.
 
-    Reference: 
+    ### Reference
     https://www.cnblogs.com/2bjiujiu/p/7255599.html
     https://www.cnblogs.com/CGRun/p/16309265.html
 
@@ -81,6 +81,7 @@ def md_detect(path_markdown, path_legacy_json, verbose = True):
         new = []
         for path in path_markdown:
             new = new + find_files(path, suffix = ".md")
+        new = sorted(set(new), key = new.index) # Keep unique elements. Ref: https://blog.csdn.net/u011361880/article/details/76237096
 
         # md5 sum of new files
         dict = {}
