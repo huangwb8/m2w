@@ -10,6 +10,8 @@
 </p>
 Automatically upload and update local markdown to WordPress via Python
 
+:star2::star2::star2: Welcome m2w 2.0!
+
 Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践](https://blognas.hwb0307.com/linux/docker/689)
 
 
