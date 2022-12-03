@@ -15,7 +15,7 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 
 ## Table of Contents
 
-- [Demo(#demo)
+- [Demo](#demo)
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
@@ -26,22 +26,16 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 - [Contributing](#contributing)
 - [License](#license)
 
-## Demo
-
-### Update
-
-![Code_gRt7iyCPOh](https://chevereto.hwb0307.com/images/2022/12/03/Code_gRt7iyCPOh.gif)
-
-### Upload
-
-![Code_FO6ElypOTt](https://chevereto.hwb0307.com/images/2022/12/03/Code_FO6ElypOTt.gif)
-
 ## Background
 
-`m2w` is an easy-to-use tool for automatical upload & update of  markdown to WordPress, which has been frozen in `v1.0.7`.  `m2w 1.0` is powerful enough for most people, but not very friendly: 
+`m2w` is an easy-to-use tool for automatical upload & update of markdown to WordPress, which has been frozen in `v1.0.7`.  `m2w 1.0` is powerful enough for most people, but not very friendly: 
 
 + You have to assign `legacy` or `new` path to store the blog markdowns, which means that you could not position your files as you like.
 + It's not convenient to manage multiple sites with exactly the same blog markdowns.
+
+You can still find tutorials about m2w 1.0 ([ZH](https://github.com/huangwb8/m2w/blob/main/v1/README.zh-CN.md)/[En](https://github.com/huangwb8/m2w/blob/main/v1/README.md)), which is not maintained anymore. It's OK if you just use m2w 1.0, and It works very well.
+
+\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=
 
 Now, more powerful `m2w 2.0` comes and meet everyone! :star2: :star2: :star2:
 
@@ -117,6 +111,16 @@ pip3 install python-wordpress-xmlrpc
 ```bash
 python3 <path>/m2w.py
 ```
+
+## Demo
+
+### Update
+
+![Code_gRt7iyCPOh](https://chevereto.hwb0307.com/images/2022/12/03/Code_gRt7iyCPOh.gif)
+
+### Upload
+
+![Code_FO6ElypOTt](https://chevereto.hwb0307.com/images/2022/12/03/Code_FO6ElypOTt.gif)
 
 ## LOG
 

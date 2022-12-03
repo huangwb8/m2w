@@ -21,7 +21,85 @@
 - [如何贡献](#如何贡献)
 - [使用许可](#使用许可)
 
-## 展示
+## 背景
+
+`m2w` 是一个简单易用的自动上传和更新 markdown 到 WordPress 的工具，`m2w 1.0` 的开发工作已经在 `v1.0.7` 中被冻结。 `m2w 1.0` 对大多数人来说已经足够强大了，但有些特性对使用者不太友好：
+
++ 必须分配旧的或新的路径来存储博文，这意味着使用者无法随意放置文件。
++ 无法同时对多个站点进行管理。
+
+你仍然可以找到m2w 1.0的使用说明（[中](https://github.com/huangwb8/m2w/blob/main/v1/README.zh-CN.md)/[英](https://github.com/huangwb8/m2w/blob/main/v1/README.md)），但我原则上不再维护`m2w 1.0`了。
+
+现在，更强大的`m2w 2.0`来和大家见面啦！`m2w 2.0` 具有以下特点：
+
++ 与 `m2w 1.0` 相比，使用 和`config/user.json` 略微不同的方式维护用户信息。
++ 可以开心地保留原有的文件结构 (～￣▽￣)～ 。
++ 通过多个`legacy_*.json` 同时管理多个网站。
++ 只需要使用1个 python 脚本 `m2w.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
++ 像m2w 1.0 稳定且好用！
+
+## 安装使用
+
+### 安装依赖：
+
+```
+pip3 install python-frontmatter
+pip3 install markdown
+pip3 install python-wordpress-xmlrpc
+```
+
+### 自定义user.json文件
+
++ **path_markdown**：添加任意多的顶级文件夹！
++ **post_metadata**：默认类别信息。
++ **websites**：添加任意数量的帐户！
++ **path_legacy_json**：不用管。
+
+```json
+{
+    "path_markdown": [
+        "E:/Github/m2w/@test/main",
+        "E:/Github/m2w/@test/main2"
+    ],
+
+    "post_metadata": {
+        "category": ["test"],
+        "tag": ["test"],
+        "status": "publish"
+    },
+
+    "websites": {
+
+        "web01": {
+            "domain": "https://domain-01.com",
+            "username": "user-01",
+            "password": "password-01"
+        },
+
+        "web02": {
+            "domain": "https://domain-02.com",
+            "username": "user-02",
+            "password": "password-02"
+        }
+    },
+
+    "path_legacy_json": "/config/legacy"
+}
+```
+
++ 下载整个项目。将脚本`m2w.py`的`path_m2w`参数改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，可以设置：
+
+  ```python
+  path_m2w = 'E:/Github/m2w'
+  ```
+
+### 运行脚本
+
+```bash
+python3 <path>/m2w.py
+```
+
+## 项目展示
 
 ### 更新文章
 
@@ -30,90 +108,6 @@
 ### 上传文章
 
 ![Code_FO6ElypOTt](https://chevereto.hwb0307.com/images/2022/12/03/Code_FO6ElypOTt.gif)
-
-## 背景
-
-
-
-## 安装
-
-+ 安装依赖：
-
-```
-pip3 install python-frontmatter
-pip3 install markdown
-pip3 install python-wordpress-xmlrpc
-```
-
-+ 自定义`config/user.json`文件：
-
-```json
-{
-    // 博客文件主目录的绝对路径
-    "main": "E:/Github/m2w/blog",
-    
-    // 博客文件主目录的绝对路径的new文件夹，一般不用改。
-    "symbol_new": "new",
-    
-    // 博客文件主目录的绝对路径的legacy文件夹，一般不用改。
-    "symbol_legacy": "legacy",
-    
-    // 博客域名、用户名、密码
-    "domain": "https://blog.domain.com",
-    "username": "user",
-    "password": "user_password",
-    
-    // 自定义。默认上传的分类、标签和状态
-    "post_metadata": {
-        "category": ["test"],
-        "tag": ["test"],
-        "status": "publish"
-    },
-    
-    // 不用改
-    "path_legacy_json": "/config/legacy.json"
-}
-```
-
-+ 将所有脚本的`path_m2w`参数改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，可以设置：
-
-  ```python
-  path_m2w = 'E:/Github/m2w'
-  ```
-
-+ `get_posts.py`、`new_posts.py`只用于测试`user.json`是否用效。平时并不需要。
-
-## 使用说明
-
-+ 博客的目录结构类似于：
-
-```
-blog
-├──legacy
-└──new
-```
-
-+ 在`new`文件夹写新的markdown
-
-+ 运行`upload.py`用于上传新markdown
-
-+ 如果`legacy`文件夹的内容有更改，运行`update.py`更新。
-
-所有脚本（包括测试脚本）用法都是类似的：
-
-```bash
-python3 <脚本>.py
-```
-
-一般我都是在vscode中打开脚本整个运行。PyCharm之类的应该也是类似吧！
-
-这里展示一下`upload.py`的界面：
-
-![image-20220424134824223](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424134824223.png)
-
-这里展示一下`update.py`的界面：
-
-![image-20220424125654213](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424125654213.png)
 
 ## 相关仓库
 
