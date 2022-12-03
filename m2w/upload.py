@@ -8,41 +8,10 @@
 
 
 import os  # 用来遍历文件路径
-import sys
-import shutil
 import frontmatter
 import markdown
-from wordpress_xmlrpc import Client, WordPressPost
+from wordpress_xmlrpc import WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
-import m2w.md5
-import m2w.json2
-import m2w.wp
-
-####===============================软件绝对路径===============================####
-
-path_m2w = 'E:/Github/m2w' 
-
-####=================================设置作者的参数===============================####
-
-# User JSON
-path_user_json = path_m2w + '/config/user.json' 
-user = m2w.json2.read_json_as_dict(path_user_json)
-
-# Global
-main = user['main'] # 总目录
-symbol_new = user['symbol_new'] # 新文件所在目录
-symbol_legacy = user['symbol_legacy'] # 历史文件所在目录
-
-# User Configuration
-path = main + '/' + symbol_new  # e.g. D:/PythonCode/post-wordpress-with-markdown/doc
-domain = user['domain']  # e.g. https://jwblog.xyz（配置了SSL证书就用https，否则用http）
-username = user['username']
-password = user['password']
-
-# Optional Configuration
-post_metadata = user['post_metadata']
-
-####=================================完成设置====================================####
 
 def make_post(filepath, metadata):
     """
@@ -122,41 +91,3 @@ def get_filepaths(path):
         return [path]
     else:  # wrong path
         return None
-
-
-if __name__ == '__main__':
-    
-    # Start Work
-    # print('----------------------------------------------START----------------------------------------------')
-    filepaths = get_filepaths(path)
-    if filepaths is None:
-        print('FAILURE: wrong path')
-        sys.exit(1)
-
-    # client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
-    client = m2w.wp.wp_xmlrpc(domain, username, password)
-    
-    md_cnt = 0
-    all_cnt = len(filepaths)
-    process_number = 0
-    failpaths = []  # 存储上传失败的文件路径
-    for filepath in filepaths:
-        process_number = process_number + 1
-        post = make_post(filepath, post_metadata)
-        filename = os.path.basename(filepath)
-        if post is not None:
-            push_post(post, client)
-            md_cnt = md_cnt + 1
-            shutil.move(filepath, filepath.replace(symbol_new, symbol_legacy)) # 上传完成后，将文件转移到legacy目录
-            print('Process number: %d/%d  SUCCESS: Push "%s" completed!' % (process_number, all_cnt, filename))
-        else:
-            failpaths.append(filepath)
-            print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filename))
-    # print('-----------------------------------------------END-----------------------------------------------')
-    print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
-
-    if len(failpaths) > 0:
-        print('WARNING: %d files haven\'t been pushed to your WordPress.' % len(failpaths))
-        print('\nFailure to push these file paths:')
-        for failpath in failpaths:
-            print(failpath)
