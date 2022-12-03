@@ -4,10 +4,16 @@ from wordpress_xmlrpc import Client
 
 def wp_xmlrpc(domain,username, password):
     """
-    错误控制相关的Client函数
-    :param domain: 网站域名
-    :param username: 帐号
-    :param password: 该帐号的密码
+    ### Description
+    The Client function with error control
+
+    ### Parameters
+    + domain: The domain of the WordPress site.
+    + username: The user name of the WordPress site.
+    + password: The password of the user name.
+
+    ### Return
+    A Client object
     """
     try:
         client = Client(domain + '/xmlrpc.php', username, password)  # 客户端
