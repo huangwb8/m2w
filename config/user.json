@@ -25,5 +25,5 @@
         }
     },
 
-    "path_legacy_json": "E:/Github/m2w/@test/config/legacy"
+    "path_legacy_json": "/config/legacy"
 }

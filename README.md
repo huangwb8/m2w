@@ -2,8 +2,6 @@
 
 # m2w: Markdown to WordPress
 
-> :star2: :star2: :star2: Later, m2w 2.0 will meet everyone! More humanized design and compatible with your local markdown structure!
-
 <p align="left">
 <a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
 <a href=""><img src="https://img.shields.io/badge/platform-Windows%7Clinux%7CMacOS-brightgreen"></a>
@@ -12,11 +10,7 @@
 </p>
 Automatically upload and update local markdown to WordPress via Python
 
-Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
-
 Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践](https://blognas.hwb0307.com/linux/docker/689)
-
-![](https://chevereto.hwb0307.com/images/2022/05/27/Code_6OcltCZ2le.gif)
 
 
 ## Table of Contents
@@ -31,23 +25,36 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 - [Contributing](#contributing)
 - [License](#license)
 
+## Demo
+
+### Update
+
+![Code_gRt7iyCPOh](https://chevereto.hwb0307.com/images/2022/12/03/Code_gRt7iyCPOh.gif)
+
+### Upload
+
+![Code_FO6ElypOTt](https://chevereto.hwb0307.com/images/2022/12/03/Code_FO6ElypOTt.gif)
+
 ## Background
 
-> Recently, [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools) has been recommanded as an alternative platform for the WordPress blog management, which is based on Github Actions similar to Hexo. Thanks for jobs from [cye](https://github.com/cye18)!
+`m2w` is an easy-to-use tool for automatical upload & update of  markdown to WordPress, which has been frozen in `v1.0.7`.  `m2w 1.0` is powerful enough for most people, but not very friendly: 
 
-Recently I started to play WordPress blog. I've use [Typora](https://github.com/typora) for nearly 2 years, so I hope I can edit my blogs locally via [Typora](https://github.com/typora). Also, the content of some old blogs might change, and I don't want to update them step by step with WordPress dashboard. So, I just looked for **an easy-to-use tool for automatical upload & update of  markdown** with minimum operation in WordPress dashboard. 
++ You have to assign `legacy` or `new` path to store the blog markdowns, which means that you could not position your files as you like.
++ It's not convenient to manage multiple sites with exactly the same blog markdowns.
 
-Finally, I found the project [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress) available for this need. However, this project does not possess enough automation in updating old markdowns. It is also necessary for users to repeatedly declare exactly the same private information among scripts. 
+Now, more powerful `m2w 2.0` comes and meet everyone! :star2: :star2: :star2:
 
-`m2w` is based on [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress) and has some new features：
+`m2w 2.0` has these features: 
 
-+ Use `config/user.json` to maintain the user information
-+ File management via `new`和`legacy` documents
-+ The md5 sum of files in the `legacy` document would be calculated before updating. Only files with changes would be update. New md5 sum of legacy markdowns would be stored in the `config/legacy.json` file.
++ Use `config/user.json` to maintain the user information in a little different way comparing with `m2w 1.0`.
++ You can just keep your file structures locally as you like.
++ You can manage lots of websites at the same time via multiple `legacy_*.json`.
++ All you need to deal with is a single python script `m2w.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
++ Stable and useful as `m2w 1.0`.
 
 ## Install
 
-+ Dependency
+### Dependency
 
 ```
 pip3 install python-frontmatter
@@ -55,43 +62,56 @@ pip3 install markdown
 pip3 install python-wordpress-xmlrpc
 ```
 
-+ Define your `config/user.json`
+### Define user.json
+
++ **path_markdown**: Add as much top folders as you want!
++ **post_metadata**: Default category information.
++ **websites**: Add as much accounts as you want!
++ **path_legacy_json**: Just leave it alone and do not change anything!
 
 ```json
 {
-    // Main 
-    "main": "E:/Github/m2w/blog",
-    
-    // Main/new
-    "symbol_new": "new",
-    
-    // Main/legacy
-    "symbol_legacy": "legacy",
-    
-    // Domain, Username, and Password
-    "domain": "https://blog.domain.com",
-    "username": "user",
-    "password": "user_password",
-    
-    // Default category, tag or status of articles
+    "path_markdown": [
+        "E:/Github/m2w/@test/main",
+        "E:/Github/m2w/@test/main2"
+    ],
+
     "post_metadata": {
         "category": ["test"],
         "tag": ["test"],
         "status": "publish"
     },
-    
-    // Do not change this setting
-    "path_legacy_json": "/config/legacy.json"
+
+    "websites": {
+
+        "web01": {
+            "domain": "https://domain-01.com",
+            "username": "user-01",
+            "password": "password-01"
+        },
+
+        "web02": {
+            "domain": "https://domain-02.com",
+            "username": "user-02",
+            "password": "password-02"
+        }
+    },
+
+    "path_legacy_json": "/config/legacy"
 }
 ```
 
-+ Download the Repo and save in `E:/Github/m2w`, for example. Set `path_m2w` as `'E:/Github/m2w'` in every script.
+### Define m2w.py
+
++ Download the Repo and save in `E:/Github/m2w`, for example. 
+
++ Set `path_m2w` as `'E:/Github/m2w'` in the script `m2w.py`, `get_posts.py`, and  `new_posts.py` .
 
   ```python
   path_m2w = 'E:/Github/m2w'
   ```
 
-+ Scripts `get_posts.py` and `new_posts.py` are only used to test whether your `user.json` really work.
++ Scripts `get_posts.py` and `new_posts.py` are only used to test whether your `user.json` really work. In most application scenarios, `m2w.py` is the only one python script you need.
 
 ## Usage
 
@@ -154,3 +174,7 @@ Nobody yet.
 ## License
 
 Getting suggestions from [@nefu-ljw](https://github.com/nefu-ljw)
+
+# More
+
++  [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools)
