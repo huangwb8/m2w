@@ -11,16 +11,22 @@ path_m2w = 'E:/Github/m2w'
 
 ####===============================Parameters
 
-# User JSON
-# path_user_json = path_m2w + '/@test/config/user.json' # Only for test mode
-path_user_json = path_m2w + '/config/user.json'
-user = read_json_as_dict(path_user_json)
+test_mode = False
 
-# Global
+# Main Configuration
+if test_mode == False:
+    # Test mode
+    path_user_json = path_m2w + '/@test/config/user.json' 
+    user = read_json_as_dict(path_user_json)
+    path_legacy_json = user['path_legacy_json'] 
+else:
+    # Real mode
+    path_user_json = path_m2w + '/config/user.json'
+    user = read_json_as_dict(path_user_json)
+    path_legacy_json = path_m2w + user['path_legacy_json'] 
+
+# Other Configuration
 path_markdown = user['path_markdown']
-path_legacy_json = path_m2w + user['path_legacy_json'] 
-
-# Optional Configuration
 post_metadata = user['post_metadata']
 
 ####===============================Programe
