@@ -18,7 +18,7 @@ user = read_json_as_dict(path_user_json)
 
 # Global
 path_markdown = user['path_markdown']
-path_legacy_json = user['path_legacy_json'] 
+path_legacy_json = path_m2w + user['path_legacy_json'] 
 
 # Optional Configuration
 post_metadata = user['post_metadata']
