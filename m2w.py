@@ -19,14 +19,15 @@ from m2w.wp import wp_xmlrpc
 
 ####===============================Parameters
 
+# Wheter use test mode (for developers only)
 test_mode = False
 
 # Main Configuration
 if test_mode == False:
     # Test mode
-    path_user_json = path_m2w + '/@test/config/user.json' 
+    path_user_json = 'E:/Github/m2w/@test/config/user.json' 
     user = read_json_as_dict(path_user_json)
-    path_legacy_json = user['path_legacy_json'] 
+    path_legacy_json = 'E:/Github/m2w/@test/config/legacy' 
 else:
     # Real mode
     path_user_json = path_m2w + '/config/user.json'
