@@ -1,6 +1,6 @@
 ### [English](https://github.com/huangwb8/m2w) | [简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
 
-# m2w: Markdown to WordPress
+# m2w 2.0: Markdown to WordPress
 
 <p align="left">
 <a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
