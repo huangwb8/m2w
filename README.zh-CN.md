@@ -8,14 +8,11 @@
 </p>
 基于Python将本地markdown推送和更新至Wordpress
 
-Demo: [https://blognas.hwb0307.com](https://blognas.hwb0307.com)
-
-Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践](https://blognas.hwb0307.com/linux/docker/689)。
-
-![](https://chevereto.hwb0307.com/images/2022/05/27/Code_6OcltCZ2le.gif)
+教程: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践](https://blognas.hwb0307.com/linux/docker/689)。
 
 ## 内容列表
 
+- [展示](#展示)
 - [背景](#背景)
 - [安装](#安装)
 - [使用说明](#使用说明)
@@ -24,18 +21,19 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 - [如何贡献](#如何贡献)
 - [使用许可](#使用许可)
 
+## 展示
+
+### 更新文章
+
+![Code_gRt7iyCPOh](https://chevereto.hwb0307.com/images/2022/12/03/Code_gRt7iyCPOh.gif)
+
+### 上传文章
+
+![Code_FO6ElypOTt](https://chevereto.hwb0307.com/images/2022/12/03/Code_FO6ElypOTt.gif)
+
 ## 背景
 
-> 感谢[cye](https://github.com/cye18)推荐[WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools)项目作为WordPress博客管理的替代平台之一，其基于Github Actions，类似于Hexo。感兴趣的小伙伴可以了解一波！
 
-最近玩起了WordPress博客，所以想找一个一键更新markdown的工具来用。找了好久，感觉[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)这个项目可以用。不过这个项目在更新旧的Markdown文档的自动化程度不高；而且在不同的脚本之间要重复地填写用户信息。
-
-本项目主要是在[nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)的基础上进行了小小的改进，有以下特点：
-
-+ 通过`config/user.json`文件来托管用户属性。
-+ 将新旧的markdown分开为`new`和`legacy`两个目录保存。
-+ 在`new`目录中的所有文件都会上传。
-+ 在`legacy`目录中，批量上传有更新的旧markdown文件，自动忽略没有更新的旧markdown文件。机制是通过检测`md5`值判断文件有没有变化。上一次更新后，legacy文件的md5值将会保存在`config/legacy.json`中。
 
 ## 安装
 

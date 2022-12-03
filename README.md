@@ -15,6 +15,7 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 
 ## Table of Contents
 
+- [Demo(#demo)
 - [Background](#background)
 - [Install](#install)
 - [Usage](#usage)
@@ -105,52 +106,27 @@ pip3 install python-wordpress-xmlrpc
 
 + Download the Repo and save in `E:/Github/m2w`, for example. 
 
-+ Set `path_m2w` as `'E:/Github/m2w'` in the script `m2w.py`, `get_posts.py`, and  `new_posts.py` .
++ Set `path_m2w` as `'E:/Github/m2w'` in the script `m2w.py`.
 
   ```python
   path_m2w = 'E:/Github/m2w'
   ```
 
-+ Scripts `get_posts.py` and `new_posts.py` are only used to test whether your `user.json` really work. In most application scenarios, `m2w.py` is the only one python script you need.
-
-## Usage
-
-+ Document tree:
-
-```
-blog
-├──legacy
-└──new
-```
-
-+ Write your new markdown in `new` document. Run `upload.py` to upload new markdowns.
-+ Run `update.py` if any changes of markdowns appear in `legacy`document.
-
-+ All scripts can be used as:
+### Usage
 
 ```bash
-python3 <script>.py
+python3 <path>/m2w.py
 ```
-
-Use demo with VScode: 
-
-+ `upload.py`：
-
-![image-20220424134824223](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424134824223.png)
-
-+  `update.py`：
-
-![image-20220424125654213](https://chevereto.hwb0307.com/images/2022/04/24/image-20220424125654213.png)
 
 ## LOG
 
++ **2022-12-03**：Brand-new m2w 2.0!
 + **2022-11-13**：Add error control for the `Client` function, which is helpful to avoid legacy bugs if the connection to the WordPress website is not available.
 + **Before**: Create `m2w` project.
 
 ## TO-DO
 
-+ Less dependancy on the folder struction of markdowns.
-+ Use WordPress API instead of username/password to upload/update new markdowns
++ Nothing
 
 ## Related Efforts
 
@@ -177,4 +153,4 @@ Getting suggestions from [@nefu-ljw](https://github.com/nefu-ljw)
 
 # More
 
-+  [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools)
++  [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools): Something like m2w.
