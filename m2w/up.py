@@ -11,7 +11,6 @@ import m2w.upload
 from m2w.md5 import get_file_md5
 from m2w.json2 import save_dict_as_json 
 from m2w.json2 import read_json_as_dict
-from m2w.wp import wp_xmlrpc
 import sys
 import os
 
