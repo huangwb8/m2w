@@ -1,13 +1,21 @@
-
-
-from m2w.json2 import read_json_as_dict
-from m2w.up import md_detect, up
-from m2w.wp import wp_xmlrpc
+# -*- coding: utf-8 -*-
+# @Time : 2022/12/03 16:42
+# @Author : huangwb8
+# @File : m2w.py
+# @Function: Update an existing post in WordPress with a local Markdown file
+# @Software: VSCode
+# @Reference: original
 
 ####===============================m2w path
 
 # Absolute path of m2w
 path_m2w = 'E:/Github/m2w'
+
+####===============================Dependency
+
+from m2w.json2 import read_json_as_dict
+from m2w.up import md_detect, up
+from m2w.wp import wp_xmlrpc
 
 ####===============================Parameters
 
