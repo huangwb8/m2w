@@ -155,7 +155,7 @@ Nobody yet.
 
 ## License
 
-Getting suggestions from [@nefu-ljw](https://github.com/nefu-ljw)
+m2w is released under the MIT license. See LICENSE for details.
 
 # More
 

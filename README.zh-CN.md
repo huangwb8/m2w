@@ -131,4 +131,4 @@ m2w遵循 [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/)
 
 ## 使用许可
 
-因为参考仓库的作者并未给出license，所以我暂时也不加。我会询问[@nefu-ljw](https://github.com/nefu-ljw)的建议。
+m2w项目采用MIT license。详见LICENSE。
