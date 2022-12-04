@@ -131,4 +131,4 @@ m2w遵循 [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/)
 
 ## 使用许可
 
-m2w项目采用MIT license。详见LICENSE。
+m2w项目采用MIT license。详见[LICENSE](https://github.com/huangwb8/m2w/blob/main/license.txt)。
