@@ -1,6 +1,6 @@
 ### [English](https://github.com/huangwb8/m2w) | [简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
 
-# m2w 2.0: Markdown to WordPress
+# m2w 2: Markdown to WordPress
 
 <p align="left">
 <a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
@@ -10,7 +10,7 @@
 </p>
 Automatically upload and update local markdown to WordPress via Python
 
-:star2::star2::star2: Welcome m2w 2.0!
+:star2::star2::star2: Welcome m2w 2!
 
 Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -39,9 +39,9 @@ You can still find tutorials about m2w 1.0 ([ZH](https://github.com/huangwb8/m2w
 
 \=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=
 
-Now, more powerful `m2w 2.0` comes and meet everyone! :star2: :star2: :star2:
+Now, more powerful `m2w 2` comes and meet everyone! :star2: :star2: :star2:
 
-`m2w 2.0` has these features: 
+`m2w 2` has these features: 
 
 + Use `config/user.json` to maintain the user information in a little different way comparing with `m2w 1.0`.
 + You can just keep your file structures locally as you like.

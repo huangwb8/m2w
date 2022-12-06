@@ -1,4 +1,4 @@
-# m2w: Markdown to WordPress
+# m2w 2: Markdown to WordPress
 
 <p align="left">
 <a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
