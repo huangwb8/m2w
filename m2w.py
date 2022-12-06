@@ -9,7 +9,7 @@
 ####===============================m2w path
 
 # Absolute path of m2w
-path_m2w = 'E:/Github/m2w'
+path_m2w = 'E:/Github/m2w' # /@test
 
 ####===============================Dependency
 
@@ -17,41 +17,29 @@ from m2w.json2 import read_json_as_dict
 from m2w.up import md_detect, up
 from m2w.wp import wp_xmlrpc
 
-####===============================Parameters
-
-# Wheter use test mode (for developers only)
-test_mode = False
-
-# Main Configuration
-if test_mode:
-    # Test mode
-    path_user_json = 'E:/Github/m2w/@test/config/user.json' 
-    user = read_json_as_dict(path_user_json)
-    path_legacy_json = 'E:/Github/m2w/@test/config/legacy' 
-else:
-    # Real mode
-    path_user_json = path_m2w + '/config/user.json'
-    user = read_json_as_dict(path_user_json)
-    path_legacy_json = path_m2w + user['path_legacy_json'] 
-
-# Other Configuration
-path_markdown = user['path_markdown']
-post_metadata = user['post_metadata']
-
 ####===============================Programe
 
 if __name__ == '__main__':
 
-    websites = user['websites']
+    path_user_json = path_m2w + '/config/user.json'
+    websites = read_json_as_dict(path_user_json) 
 
     for i in websites:
 
         # Select a WordPress website
         website = websites[i]
 
+        # Parameters of the website
+        domain = website['domain']
+        username = website['username']
+        password = website['password']
+        path_markdown = website['path_markdown']
+        post_metadata = website['post_metadata']
+        path_legacy_json = path_m2w + website['path_legacy_json']
+
         # Connect the WordPress website
         print('========')
-        client = wp_xmlrpc(website['domain'], website['username'], website['password'])
+        client = wp_xmlrpc(domain, username, password)
 
         # # Gather paths of brand-new and changed legacy markdown files
         path_legacy_json2 = path_legacy_json + '_' + i + '.json'

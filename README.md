@@ -67,36 +67,24 @@ pip3 install python-wordpress-xmlrpc
 + **path_legacy_json**: Just leave it alone and do not change anything!
 
 ```json
-{
-    "path_markdown": [
-        "E:/Github/m2w/@test/main",
-        "E:/Github/m2w/@test/main2"
-    ],
-
-    "post_metadata": {
-        "category": ["test"],
-        "tag": ["test"],
-        "status": "publish"
-    },
-
-    "websites": {
-
-        "web01": {
-            "domain": "https://domain-01.com",
-            "username": "user-01",
-            "password": "password-01"
+"web01": {
+        "domain": "https://domain-01.com",
+        "username": "username-01",
+        "password": "password-01",
+        "path_markdown": [
+            "E:/Github/m2w/@test/main",
+            "E:/Github/m2w/@test/main2"
+        ],
+        "post_metadata": {
+            "category": ["test"],
+            "tag": ["test"],
+            "status": "publish"
         },
-
-        "web02": {
-            "domain": "https://domain-02.com",
-            "username": "user-02",
-            "password": "password-02"
-        }
-    },
-
-    "path_legacy_json": "/config/legacy"
-}
+        "path_legacy_json": "/config/legacy"
+    }
 ```
+
+you can add many websites like `web01`! Please go [user.json](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details.
 
 ### Define m2w.py
 
@@ -126,6 +114,7 @@ python3 <path>/m2w.py
 
 ## LOG
 
++ **2022-12-06**：Optimized parameter space of m2w, which make it more flexible. Update ot `m2w 2.2`!
 + **2022-12-03**：Brand-new m2w 2.0!
 + **2022-11-13**：Add error control for the `Client` function, which is helpful to avoid legacy bugs if the connection to the WordPress website is not available.
 + **Before**: Create `m2w` project.

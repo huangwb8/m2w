@@ -56,35 +56,21 @@ pip3 install python-wordpress-xmlrpc
 + **path_legacy_json**：不用管。
 
 ```json
-{
-    "path_markdown": [
-        "E:/Github/m2w/@test/main",
-        "E:/Github/m2w/@test/main2"
-    ],
-
-    "post_metadata": {
-        "category": ["test"],
-        "tag": ["test"],
-        "status": "publish"
-    },
-
-    "websites": {
-
-        "web01": {
-            "domain": "https://domain-01.com",
-            "username": "user-01",
-            "password": "password-01"
+"web01": {
+        "domain": "https://domain-01.com",
+        "username": "username-01",
+        "password": "password-01",
+        "path_markdown": [
+            "E:/Github/m2w/@test/main",
+            "E:/Github/m2w/@test/main2"
+        ],
+        "post_metadata": {
+            "category": ["test"],
+            "tag": ["test"],
+            "status": "publish"
         },
-
-        "web02": {
-            "domain": "https://domain-02.com",
-            "username": "user-02",
-            "password": "password-02"
-        }
-    },
-
-    "path_legacy_json": "/config/legacy"
-}
+        "path_legacy_json": "/config/legacy"
+    }
 ```
 
 + 下载整个项目。将脚本`m2w.py`的`path_m2w`参数改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，可以设置：

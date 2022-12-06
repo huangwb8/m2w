@@ -1,29 +1,50 @@
 {
-    "path_markdown": [
-        "E:/Github/m2w/@test/main",
-        "E:/Github/m2w/@test/main2"
-    ],
-
-    "post_metadata": {
-        "category": ["test"],
-        "tag": ["test"],
-        "status": "publish"
-    },
-
-    "websites": {
-
-        "web01": {
-            "domain": "https://domain-01.com",
-            "username": "user-01",
-            "password": "password-01"
+    "web01": {
+        "domain": "https://domain-01.com",
+        "username": "username-01",
+        "password": "password-01",
+        "path_markdown": [
+            "E:/Github/m2w/@test/main",
+            "E:/Github/m2w/@test/main2"
+        ],
+        "post_metadata": {
+            "category": ["test"],
+            "tag": ["test"],
+            "status": "publish"
         },
-
-        "web02": {
-            "domain": "https://domain-02.com",
-            "username": "user-02",
-            "password": "password-02"
-        }
+        "path_legacy_json": "/config/legacy"
     },
 
-    "path_legacy_json": "/config/legacy"
+    "web02": {
+        "domain": "https://domain-02.com",
+        "username": "username-02",
+        "password": "password-02",
+        "path_markdown": [
+            "E:/Github/m2w/@test/main3",
+            "E:/Github/m2w/@test/main4"
+        ],
+        "post_metadata": {
+            "category": ["test2"],
+            "tag": ["test2"],
+            "status": "publish"
+        },
+        "path_legacy_json": "/config/legacy"
+    },
+
+    "web03": {
+        "domain": "https://domain-02.com",
+        "username": "username-03",
+        "password": "password-03",
+        "path_markdown": [
+            "E:/Github/m2w/@test/main5",
+            "E:/Github/m2w/@test/main6"
+        ],
+        "post_metadata": {
+            "category": ["test3"],
+            "tag": ["test3"],
+            "status": "publish"
+        },
+        "path_legacy_json": "/config/legacy"
+    }
+
 }
