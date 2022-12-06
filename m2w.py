@@ -35,15 +35,14 @@ if __name__ == '__main__':
         password = website['password']
         path_markdown = website['path_markdown']
         post_metadata = website['post_metadata']
-        path_legacy_json = path_m2w + website['path_legacy_json']
+        path_legacy_json = path_m2w + website['path_legacy_json'] + '_' + i + '.json'
 
         # Connect the WordPress website
         print('========')
         client = wp_xmlrpc(domain, username, password)
 
-        # # Gather paths of brand-new and changed legacy markdown files
-        path_legacy_json2 = path_legacy_json + '_' + i + '.json'
-        res = md_detect(path_markdown, path_legacy_json2, verbose = True)
+        # Gather paths of brand-new and changed legacy markdown files
+        res = md_detect(path_markdown, path_legacy_json, verbose = True)
         md_upload = res['new']
         md_update = res['legacy']
 
