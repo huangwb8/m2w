@@ -30,12 +30,13 @@
 
 你仍然可以找到m2w 1.0的使用说明（[中](https://github.com/huangwb8/m2w/blob/main/v1/README.zh-CN.md)/[英](https://github.com/huangwb8/m2w/blob/main/v1/README.md)），但我原则上不再维护`m2w 1.0`了。
 
-现在，更强大的`m2w 2.0`来和大家见面啦！`m2w 2.0` 具有以下特点：
+现在，更强大的`m2w 2`来和大家见面啦！`m2w 2` 具有以下特点：
 
 + 与 `m2w 1.0` 相比，使用 和`config/user.json` 略微不同的方式维护用户信息。
 + 可以开心地保留原有的文件结构 (～￣▽￣)～ 。
 + 通过多个`legacy_*.json` 同时管理多个网站。
 + 只需要使用1个 python 脚本 `m2w.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
++ 忽略重复的新markdown的上传操作（`v2.2.4+`）。该特性对于用户从`m2w 1.0`升级到`m2w 2`十分友好！
 + 像m2w 1.0 稳定且好用！
 
 ## 安装使用

@@ -47,6 +47,7 @@ Now, more powerful `m2w 2` comes and meet everyone! :star2: :star2: :star2:
 + You can just keep your file structures locally as you like.
 + You can manage lots of websites at the same time via multiple `legacy_*.json`.
 + All you need to deal with is a single python script `m2w.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
++ Ignore repeated new markdown files for uploading (`v2.2.4+`)
 + Stable and useful as `m2w 1.0`.
 
 ## Install
