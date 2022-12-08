@@ -9,7 +9,7 @@
 ####===============================m2w path
 
 # Absolute path of m2w
-path_m2w = 'E:/Github/m2w' # /@test
+path_m2w = 'E:/Github/m2w/@test' # /@test
 
 ####===============================Dependency
 
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         print('========Website: ' + i)
         client = wp_xmlrpc(domain, username, password)
 
-        # # Gather paths of brand-new and changed legacy markdown files
+        # Gather paths of brand-new and changed legacy markdown files
         res = md_detect(path_markdown, path_legacy_json, verbose = True)
         md_upload = res['new']
         md_update = res['legacy']

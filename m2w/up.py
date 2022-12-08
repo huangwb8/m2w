@@ -169,21 +169,27 @@ def up(client, md_upload, md_update, post_metadata, verbose = True):
         md_cnt = 0
         all_cnt = len(md_upload)
         process_number = 0
-        failpaths = []  # 存储上传失败的文件路径
+        failpaths = []  # Store failed uploaded markdown files
         for filepath in md_upload:
             process_number = process_number + 1
-            post = m2w.upload.make_post(filepath, post_metadata)
-            if post is not None:
-                m2w.upload.push_post(post, client)
-                md_cnt = md_cnt + 1
-                if verbose: print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number, all_cnt, filepath))
-            else:
-                failpaths.append(filepath)
-                if verbose: 
-                    print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filepath))
-        if verbose: print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
+            post_wp = m2w.update.find_post(filepath, client)  # Test whether this file had been existed in the WordPress site
+            if post_wp is not None:
+                if verbose: print('Warning: This post is existed in your WordPress site. Ignore uploading!')
+            else: 
+                if verbose: print('This post is exactly a new one in your WordPress site! Try uploading...')
+                post = m2w.upload.make_post(filepath, post_metadata) # Upload the new markdown
+                if post is not None:
+                    m2w.upload.push_post(post, client)
+                    md_cnt = md_cnt + 1
+                    if verbose: 
+                        print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number, all_cnt, filepath))
+                else:
+                    failpaths.append(filepath)
+                    if verbose: 
+                        print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filepath))
+                if verbose: print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
 
-        if verbose: 
+        if verbose:
             if len(failpaths) > 0:
                 print('WARNING: %d files haven\'t been pushed to your WordPress.' % len(failpaths))
                 print('\nFailure to push these file paths:')
