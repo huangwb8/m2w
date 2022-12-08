@@ -115,6 +115,7 @@ python3 <path>/m2w.py
 
 ## LOG
 
++ **2022-12-08** ：Ignore repeated uploading of new markdown based on their file names. Update ot `m2w 2.2.4` (Strongly recommended)! 
 + **2022-12-06**：Optimized parameter space of m2w, which make it more flexible. Update ot `m2w 2.2`!
 + **2022-12-03**：Brand-new m2w 2.0!
 + **2022-11-13**：Add error control for the `Client` function, which is helpful to avoid legacy bugs if the connection to the WordPress website is not available.
