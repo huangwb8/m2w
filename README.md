@@ -150,4 +150,8 @@ m2w is released under the MIT license. See [LICENSE](https://github.com/huangwb8
 
 # More
 
-+  [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools): Something like m2w.
+> Applications similar to m2w
+
++  [WordPressXMLRPCTools](https://github.com/zhaoolee/WordPressXMLRPCTools): Manage WordPress posts in Hexo way.
++  [markpress](https://github.com/skywind3000/markpress):  Write WordPress in Markdown in Your Favorite Text Editor
++  [wordpress-markdown-blog-loader](https://pypi.org/project/wordpress-markdown-blog-loader/): This utility loads markdown blogs into WordPress as a post. It allows you to work on your blog in your favorite editor and keeps all your blogs in git.
