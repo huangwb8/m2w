@@ -11,8 +11,12 @@ import sys
 import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
-import m2w.wp
 
+# import collections
+# try:
+#     collectionsAbc = collections.abc
+# except AttributeError:
+#     collectionsAbc = collections
 
 def find_post(filepath, client):
     """

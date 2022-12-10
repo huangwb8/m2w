@@ -38,10 +38,12 @@ from setuptools import setup, find_packages
 
 ### How to install
 + pip install --upgrade -i https://pypi.org/simple m2w 
++ pip install -i https://pypi.org/simple m2w==2.2.9
++ pip install m2w 
 
 '''
 
-VERSION = "2.2.8"
+VERSION = "2.2.9"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -63,6 +65,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.1", "python-wordpress-xmlrpc>=2.3"],
-    python_requires='>=3.10',
+    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.6", "python-wordpress-xmlrpc>=2.3"],
+    python_requires='>=3.7.4',
 )

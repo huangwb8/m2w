@@ -52,20 +52,42 @@ Now, more powerful `m2w 2` comes and meet everyone! :star2: :star2: :star2:
 
 ## Install
 
-### Dependency
+> [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) is recommended to manage Python version and related dependencies.
 
+Here is the dependency: 
+
+```python
+# Python 3.7.4 is the version I use m2w. I'm not sure whether it could work well in more advanced Python versions.
+python_requires='>=3.7.4'
+
+# Dependencies
+install_requires=[
+	"python-frontmatter>=1.0.0", 
+    "markdown>=3.3.1", 
+    "python-wordpress-xmlrpc>=2.3"
+]
 ```
-pip3 install python-frontmatter
-pip3 install markdown
-pip3 install python-wordpress-xmlrpc
+
+After 2022-12-10, `m2w 2` was uploaded onto [PyPi](https://pypi.org). To install `m2w 2`, just run `pip install m2w ` (>=2.2.9 is recommended) in your shell/conda environment. You can also directly download `m2w 2`  from this repotory. The usage is exactly the same.
+
+
+## Usage
+
++ Install m2w from PyPi or this Github repotory. 
++ Build a `m2w.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/m2w.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>`.
+
+```python
+# Absolute path of m2w
+path_m2w = '<path02>'
 ```
 
-### Define user.json
++ Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here is some interpretations: 
+  + **domain, username, password**:  The information of your WordPress site and account.
+  + **path_markdown**: Add as much top folders as you want! 
+  + **post_metadata**: Default category information. 
+  + **websites**: Add as much accounts as you want! 
+  + **path_legacy_json**: Just leave it alone and do not change anything!
 
-+ **path_markdown**: Add as much top folders as you want!
-+ **post_metadata**: Default category information.
-+ **websites**: Add as much accounts as you want!
-+ **path_legacy_json**: Just leave it alone and do not change anything!
 
 ```json
 "web01": {
@@ -85,22 +107,10 @@ pip3 install python-wordpress-xmlrpc
     }
 ```
 
-you can add many websites like `web01`! Please go [user.json](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details.
-
-### Define m2w.py
-
-+ Download the Repo and save in `E:/Github/m2w`, for example. 
-
-+ Set `path_m2w` as `'E:/Github/m2w'` in the script `m2w.py`.
-
-  ```python
-  path_m2w = 'E:/Github/m2w'
-  ```
-
-### Usage
++ Run `m2w.py` like: 
 
 ```bash
-python3 <path>/m2w.py
+python <path01>/m2w.py
 ```
 
 ## Demo
