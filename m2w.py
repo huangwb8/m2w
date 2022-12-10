@@ -48,6 +48,12 @@ if __name__ == '__main__':
 
         # Upload or Update
         if len(md_upload) > 0 or len(md_update) > 0:
-            up(client, md_upload, md_update, post_metadata, verbose = True)
+            up(
+                client, md_upload, md_update, post_metadata,
+                # Whether to force uploading a new post. `force_upload=False` is suggested.
+                force_upload = False, 
+                # Whether to report running messages.
+                verbose = True
+            )
         else:
             print('Without any new or changed legacy markdown files. Ignored.')

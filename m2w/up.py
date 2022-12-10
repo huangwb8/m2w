@@ -6,6 +6,7 @@
 # @Software: VSCode
 # @Reference: original
 
+
 import m2w.update
 import m2w.upload
 from m2w.md5 import get_file_md5
@@ -148,7 +149,7 @@ def md_detect(path_markdown, path_legacy_json, verbose = True):
         return result
 
 
-def up(client, md_upload, md_update, post_metadata, verbose = True):
+def up(client, md_upload, md_update, post_metadata, force_upload = False, verbose = True):
     """
     ### Description
     Upload or update markdown files to your WordPress site.
@@ -158,12 +159,32 @@ def up(client, md_upload, md_update, post_metadata, verbose = True):
     + md_upload: String. The path of new markdown files.
     + md_upload: String. The path of changed legacy markdown files.
     + post_metadata: Dict. The metadata of a post.
+    + force_upload: Boolean. Whether check the existence of a new post before uploading. Default is False, which means that every new post would receive checking.
     + verbose: Boolean. Whether output running messages of the function.
 
     ### Return
     None
     """
 
+    # Assistant function for uploading
+    def upload_one_post(client, filepath, post_metadata, verbose):
+        post = m2w.upload.make_post(filepath, post_metadata) # Upload the new markdown
+        if post is not None:
+            m2w.upload.push_post(post, client)
+            if verbose: 
+                print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number, all_cnt, filepath))
+        else:
+            failpaths.append(filepath)
+            if verbose: 
+                print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filepath))
+        if verbose: print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
+
+    # Information about force uploading
+    if force_upload == False:
+        if verbose: print("You don't want a force uploading. The existence of the post would be checked.")
+    else:
+        if verbose: print("You want a force uploading? Great!")
+    
     # Upload new markdown files
     if len(md_upload) > 0 :
         md_cnt = 0
@@ -172,22 +193,17 @@ def up(client, md_upload, md_update, post_metadata, verbose = True):
         failpaths = []  # Store failed uploaded markdown files
         for filepath in md_upload:
             process_number = process_number + 1
-            post_wp = m2w.update.find_post(filepath, client)  # Test whether this file had been existed in the WordPress site
-            if post_wp is not None:
-                if verbose: print('Warning: This post is existed in your WordPress site. Ignore uploading!')
-            else: 
-                if verbose: print('This post is exactly a new one in your WordPress site! Try uploading...')
-                post = m2w.upload.make_post(filepath, post_metadata) # Upload the new markdown
-                if post is not None:
-                    m2w.upload.push_post(post, client)
-                    md_cnt = md_cnt + 1
-                    if verbose: 
-                        print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number, all_cnt, filepath))
-                else:
-                    failpaths.append(filepath)
-                    if verbose: 
-                        print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filepath))
-                if verbose: print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
+            if force_upload == False:
+                post_wp = m2w.update.find_post(filepath, client)  # Test whether this file had been existed in the WordPress site
+                if post_wp is not None:
+                    if verbose: print('Warning: This post is existed in your WordPress site. Ignore uploading!')
+                else: 
+                    if verbose: print('This post is exactly a new one in your WordPress site! Try uploading...')
+                    upload_one_post(client, filepath, post_metadata, verbose)
+            else:
+                upload_one_post(client, filepath, post_metadata, verbose)
+            md_cnt = md_cnt + 1 # Record an uploading event
+
 
         if verbose:
             if len(failpaths) > 0:
@@ -197,7 +213,7 @@ def up(client, md_upload, md_update, post_metadata, verbose = True):
                     print(failpath)
 
 
-    # Update changed legacy files
+    # Update changed legacy markdown files
     if len(md_update) > 0:
         for filepath in md_update:
             post = m2w.update.find_post(filepath, client)
