@@ -38,6 +38,7 @@ from setuptools import setup, find_packages
 ### Package URL
 
 + https://pypi.org/project/m2w/2.2.7/
++ pip install -i https://pypi.org/simple m2w
 
 '''
 
