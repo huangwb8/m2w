@@ -11,7 +11,6 @@ import sys
 import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
-import m2w.json2
 import m2w.wp
 
 

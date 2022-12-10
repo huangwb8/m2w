@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-
 '''
 ### 参考
 
-> python--如何将自己的包上传到PyPi并可通过pip安装：https://blog.csdn.net/yifengchaoran/article/details/113447773
++ [python--如何将自己的包上传到PyPi并可通过pip安装](https://blog.csdn.net/yifengchaoran/article/details/113447773)
++ [花了两天，终于把 Python 的 setup.py 给整明白了](https://zhuanlan.zhihu.com/p/276461821)
 
 
 ### 步骤
@@ -16,9 +16,7 @@ from setuptools import setup, find_packages
 
 + 接下来，打开命令行界面，进入到你的项目根目录。
 
-+ 输入"pip install twine"来安装twine工具。
-
-+ 更新工具包： pip install --upgrade twine setuptools wheel
++ 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
 + 使用"python setup.py sdist"命令来生成项目的源代码包。
 
@@ -36,29 +34,35 @@ from setuptools import setup, find_packages
 + conda activate pypi-3.10
 
 ### Package URL
++ https://pypi.org/project/m2w
 
-+ https://pypi.org/project/m2w/2.2.7/
-+ pip install -i https://pypi.org/simple m2w
+### How to install
++ pip install --upgrade -i https://pypi.org/simple m2w 
 
 '''
 
-with open("./m2w/README.md", "r", encoding="utf-8") as fh:
+VERSION = "2.2.8"
+
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name='m2w',
-    version='2.2.7',
+    version=VERSION,
     description='Automatically upload and update local markdown to WordPress via Python',
     long_description = long_description,
     long_description_content_type = "text/markdown",
-    author='Bensz',
-    author_email='hwb2012@qq.com',
-    url="https://github.com/huangwb8/m2w", 
-    packages=find_packages(),
-     classifiers=[
+    author = 'Bensz',
+    author_email = 'hwb2012@qq.com',
+    url = "https://github.com/huangwb8/m2w", 
+    packages = find_packages(),
+    include_package_data = True,
+    keywords=["markdown", "wordpress", "xmlrpc"],
+    classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.1", "python-wordpress-xmlrpc>=2.3"],
     python_requires='>=3.10',
 )
