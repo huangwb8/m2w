@@ -4,4 +4,7 @@
 m2w/dist/*
 m2w/m2w.egg-info/*
 m2w/setup.py
+dist/*
+m2w.egg-info/*
 m2w/__pycache__/*
+build/*
