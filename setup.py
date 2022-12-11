@@ -38,12 +38,12 @@ from setuptools import setup, find_packages
 
 ### How to install
 + pip install --upgrade -i https://pypi.org/simple m2w 
-+ pip install -i https://pypi.org/simple m2w==2.2.9
++ pip install -i https://pypi.org/simple m2w==2.2.10
 + pip install m2w 
 
 '''
 
-VERSION = "2.2.9"
+VERSION = "2.2.10"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()

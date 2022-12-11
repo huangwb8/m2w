@@ -166,18 +166,23 @@ def up(client, md_upload, md_update, post_metadata, force_upload = False, verbos
     None
     """
 
+
     # Assistant function for uploading
-    def upload_one_post(client, filepath, post_metadata, verbose):
+    def upload_one_post(client, filepath, post_metadata, all_cnt, md_cnt, process_number, verbose):
         post = m2w.upload.make_post(filepath, post_metadata) # Upload the new markdown
+        process_number2 = process_number + 1
         if post is not None:
             m2w.upload.push_post(post, client)
             if verbose: 
-                print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number, all_cnt, filepath))
+                md_cnt2 = md_cnt + 1 # Record an uploading event
+                print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number2, all_cnt, filepath))
         else:
             failpaths.append(filepath)
             if verbose: 
-                print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number, all_cnt, filepath))
-        if verbose: print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
+                print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number2, all_cnt, filepath))
+        # Output a tuple
+        return md_cnt2, process_number2
+
 
     # Information about force uploading
     if force_upload == False:
@@ -185,27 +190,32 @@ def up(client, md_upload, md_update, post_metadata, force_upload = False, verbos
     else:
         if verbose: print("You want a force uploading? Great!")
     
+
     # Upload new markdown files
     if len(md_upload) > 0 :
-        md_cnt = 0
-        all_cnt = len(md_upload)
-        process_number = 0
-        failpaths = []  # Store failed uploaded markdown files
+        md_cnt = 0; process_number = 0; all_cnt = len(md_upload) # Count parameters
+        failpaths = [] # Store failed uploaded markdown files
         for filepath in md_upload:
-            process_number = process_number + 1
             if force_upload == False:
                 post_wp = m2w.update.find_post(filepath, client)  # Test whether this file had been existed in the WordPress site
                 if post_wp is not None:
                     if verbose: print('Warning: This post is existed in your WordPress site. Ignore uploading!')
                 else: 
                     if verbose: print('This post is exactly a new one in your WordPress site! Try uploading...')
-                    upload_one_post(client, filepath, post_metadata, verbose)
+                    res = upload_one_post(
+                        client, filepath, post_metadata, 
+                        all_cnt, md_cnt, process_number,
+                        verbose)
+                    md_cnt = + res[0]; process_number = + res[1]
             else:
-                upload_one_post(client, filepath, post_metadata, verbose)
-            md_cnt = md_cnt + 1 # Record an uploading event
+                res = upload_one_post(
+                        client, filepath, post_metadata, 
+                        all_cnt, md_cnt, process_number,
+                        verbose)
+                md_cnt = + res[0]; process_number = + res[1]
 
-
-        if verbose:
+        if verbose: 
+            print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
             if len(failpaths) > 0:
                 print('WARNING: %d files haven\'t been pushed to your WordPress.' % len(failpaths))
                 print('\nFailure to push these file paths:')
