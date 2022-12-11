@@ -76,6 +76,7 @@ You can specify version or resource when installing `m2w 2`:
 pip install -i https://pypi.org/simple m2w==2.2.9
 ```
 
+Generally, the latest version of `m2w` is recommended.
 
 ## Usage
 

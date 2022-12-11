@@ -65,6 +65,8 @@ install_requires=[
 pip install -i https://pypi.org/simple m2w==2.2.9
 ```
 
+建议安装最新版本的`m2w 2`。
+
 ## 使用
 
 1. 通过`pip`或这个Github repotory安装 m2w。
