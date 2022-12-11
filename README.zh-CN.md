@@ -110,7 +110,7 @@ python <path01>/m2w.py
 
 如下图所示，只需要一行`python m2w.py`，即可自动更新或上传markdown喔！
 
-![Code_DBC29feEWa](https://chevereto.hwb0307.com/images/2022/12/11/Code_DBC29feEWa.gif)
+![Code_Iscn3mHU78](https://chevereto.hwb0307.com/images/2022/12/11/Code_Iscn3mHU78.gif)
 
 ## 相关仓库
 

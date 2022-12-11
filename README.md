@@ -123,7 +123,7 @@ python <path01>/m2w.py
 
 As shown in the following GIF, all changed or brand-new markdowns can be automatically updated/upload via just a simple command `python m2w.py`!
 
-![Code_DBC29feEWa](https://chevereto.hwb0307.com/images/2022/12/11/Code_DBC29feEWa.gif)
+![Code_Iscn3mHU78](https://chevereto.hwb0307.com/images/2022/12/11/Code_Iscn3mHU78.gif)
 
 ## LOG
 
