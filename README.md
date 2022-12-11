@@ -162,6 +162,8 @@ Nobody yet.
 
 ## License
 
+This software depends on other packages that may be licensed under different open source licenses. 
+
 m2w is released under the MIT license. See [LICENSE](https://github.com/huangwb8/m2w/blob/main/license.txt) for details.
 
 # More
