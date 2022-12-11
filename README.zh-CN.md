@@ -108,13 +108,9 @@ python <path01>/m2w.py
 
 ## 项目展示
 
-### 更新文章
+如下图所示，只需要一行`python m2w.py`，即可自动更新或上传markdown喔！
 
-![Code_gRt7iyCPOh](https://chevereto.hwb0307.com/images/2022/12/03/Code_gRt7iyCPOh.gif)
-
-### 上传文章
-
-![Code_FO6ElypOTt](https://chevereto.hwb0307.com/images/2022/12/03/Code_FO6ElypOTt.gif)
+![Code_DBC29feEWa](https://chevereto.hwb0307.com/images/2022/12/11/Code_DBC29feEWa.gif)
 
 ## 相关仓库
 
