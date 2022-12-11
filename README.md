@@ -35,7 +35,7 @@ Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最�
 + You have to assign `legacy` or `new` path to store the blog markdowns, which means that you could not position your files as you like.
 + It's not convenient to manage multiple sites with exactly the same blog markdowns.
 
-You can still find tutorials about m2w 1.0 ([ZH](https://github.com/huangwb8/m2w/blob/main/v1/README.zh-CN.md)/[En](https://github.com/huangwb8/m2w/blob/main/v1/README.md)), which is not maintained anymore. It's OK if you just use m2w 1.0, and It works very well.
+You can still find tutorials about m2w 1.0 ([Zh](https://github.com/huangwb8/m2w/blob/main/v1/README.zh-CN.md)/[En](https://github.com/huangwb8/m2w/blob/main/v1/README.md)), which is not maintained anymore. It's OK if you just use m2w 1.0, and It works very well.
 
 \=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=
 
@@ -74,7 +74,7 @@ After 2022-12-10, `m2w 2` was uploaded onto [PyPi](https://pypi.org/project/m2w/
 ## Usage
 
 1. Install m2w from PyPi or this Github repotory. 
-2. Build a `m2w.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/m2w.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>`.
+2. Build a `m2w.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/m2w.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>` in `m2w.py`:
 
 ```python
 # Absolute path of m2w
