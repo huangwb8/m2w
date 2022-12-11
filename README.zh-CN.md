@@ -62,13 +62,13 @@ install_requires=[
 ## 使用
 
 + 通过`pip`或这个Github repotory安装 m2w。
-
 + 在文件夹`<path01>`中建立`m2w.py`文件。这里一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。创建一个文件`<path02>/config/user.json`。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
 
 ```python
 # Absolute path of m2w
 path_m2w = '<path02>'
 ```
+
 +  定义`<path02>/config/user.json`。可以创建很多个类似于`web01`的网站/帐户。这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。
   + **domain,username,password**：WordPress站点相关信息，比如站点URL、帐户名、密码。
   + **path_markdown**：添加任意多的顶级文件夹 (～￣▽￣)～ 
