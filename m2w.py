@@ -50,7 +50,7 @@ if __name__ == '__main__':
         if len(md_upload) > 0 or len(md_update) > 0:
             up(
                 client, md_upload, md_update, post_metadata,
-                # Whether to force uploading a new post. `force_upload=False` is suggested.
+                # Whether to force uploading a new post. `force_upload=False` is suggested for routine maintaining. `force_upload=True` is suggested for intensive uploading for a brand-new site.
                 force_upload = False, 
                 # Whether to report running messages.
                 verbose = True
