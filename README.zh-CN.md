@@ -71,10 +71,10 @@ path_m2w = '<path02>'
 ```
 +  定义`<path02>/config/user.json`。可以创建很多个类似于`web01`的网站/帐户。这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。
 
-  + **path_markdown**：添加任意多的顶级文件夹！
-  + **post_metadata**：默认类别信息。
-  + **websites**：添加任意数量的帐户！
-  + **path_legacy_json**：不用管。
+  - **path_markdown**：添加任意多的顶级文件夹！
+  - **post_metadata**：默认类别信息。
+  - **websites**：添加任意数量的帐户！
+  - **path_legacy_json**：不用管。
 
 ```json
 "web01": {
