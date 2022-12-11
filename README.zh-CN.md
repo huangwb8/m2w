@@ -15,7 +15,7 @@
 - [展示](#展示)
 - [背景](#背景)
 - [安装](#安装)
-- [使用说明](#使用说明)
+- [使用](#使用)
 - [相关仓库](#相关仓库)
 - [维护者](#维护者)
 - [如何贡献](#如何贡献)
@@ -39,22 +39,42 @@
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。该特性对于用户从`m2w 1.0`升级到`m2w 2`十分友好！
 + 像m2w 1.0 稳定且好用！
 
-## 安装使用
+## 安装
 
-### 安装依赖：
+> 建议[使用 Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) 来管理 Python 版本和相关依赖项。
 
+依赖项：
+
+```python
+# Python 3.7.4 is the version I use m2w. I'm not sure whether it could work well in more advanced Python versions.
+python_requires='>=3.7.4'
+
+# Dependencies
+install_requires=[
+    "python-frontmatter>=1.0.0",
+    "markdown>=3.3.1",
+    "python-wordpress-xmlrpc>=2.3"
+]
 ```
-pip3 install python-frontmatter
-pip3 install markdown
-pip3 install python-wordpress-xmlrpc
+
+2022-12-10 之后，我将`m2w 2` (>=2.2.9)上传到 [PyPi](https://pypi.org/project/m2w/)，这样你只需要在Shell中运行`pip install m2w `即可安装。
+
+## 使用
+
++ 通过`pip`或这个Github repotory安装 m2w。
+
++ 在文件夹`<path01>`中建立`m2w.py`文件。这里一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。创建一个文件`<path02>/config/user.json`。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
+
+```python
+# Absolute path of m2w
+path_m2w = '<path02>'
 ```
++  定义`<path02>/config/user.json`。可以创建很多个类似于`web01`的网站/帐户。这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。
 
-### 自定义user.json文件
-
-+ **path_markdown**：添加任意多的顶级文件夹！
-+ **post_metadata**：默认类别信息。
-+ **websites**：添加任意数量的帐户！
-+ **path_legacy_json**：不用管。
+  + **path_markdown**：添加任意多的顶级文件夹！
+  + **post_metadata**：默认类别信息。
+  + **websites**：添加任意数量的帐户！
+  + **path_legacy_json**：不用管。
 
 ```json
 "web01": {
@@ -74,16 +94,10 @@ pip3 install python-wordpress-xmlrpc
     }
 ```
 
-+ 下载整个项目。将脚本`m2w.py`的`path_m2w`参数改成你存放本仓库目录的绝对路径。比如我这个目录是放在`'E:/Github/m2w'`，可以设置：
-
-  ```python
-  path_m2w = 'E:/Github/m2w'
-  ```
-
-### 运行脚本
++ 最后，运行脚本：
 
 ```bash
-python3 <path>/m2w.py
+python <path01>/m2w.py
 ```
 
 ## 项目展示
