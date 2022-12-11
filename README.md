@@ -1,4 +1,5 @@
-### [English](https://github.com/huangwb8/m2w) | [简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
+
+## <div align="center"><b><a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a></b></div>
 
 # m2w 2: Markdown to WordPress
 
