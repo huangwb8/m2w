@@ -1,7 +1,6 @@
+# m2w 2: Markdown to WordPress
 
 ## <div align="center"><b><a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a></b></div>
-
-# m2w 2: Markdown to WordPress
 
 <p align="left">
 <a href=""><img src="https://img.shields.io/badge/python-3.7%2B-orange"></a>
