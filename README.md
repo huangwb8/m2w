@@ -73,15 +73,15 @@ After 2022-12-10, `m2w 2` was uploaded onto [PyPi](https://pypi.org/project/m2w/
 
 ## Usage
 
-+ Install m2w from PyPi or this Github repotory. 
-+ Build a `m2w.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/m2w.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>`.
+1. Install m2w from PyPi or this Github repotory. 
+2. Build a `m2w.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/m2w.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>`.
 
 ```python
 # Absolute path of m2w
 path_m2w = '<path02>'
 ```
 
-+ Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here is some interpretations: 
+3. Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here is some interpretations: 
   + **domain, username, password**:  The information of your WordPress site and account.
   + **path_markdown**: Add as much top folders as you want! 
   + **post_metadata**: Default category information. 
@@ -107,7 +107,7 @@ path_m2w = '<path02>'
     }
 ```
 
-+ Run `m2w.py` like: 
+4. Run `m2w.py` like: 
 
 ```bash
 python <path01>/m2w.py
