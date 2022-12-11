@@ -70,14 +70,14 @@ pip install -i https://pypi.org/simple m2w==2.2.10
 ## 使用
 
 1. 通过`pip`或这个Github repotory安装 m2w。
-2. 在文件夹`<path01>`中建立`m2w.py`文件。这里一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。创建一个文件`<path02>/config/user.json`。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
+2. 新建文件`<path01>/m2w.py`文件，这是一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
 
 ```python
 # Absolute path of m2w
 path_m2w = '<path02>'
 ```
 
-3. 定义`<path02>/config/user.json`。可以创建很多个类似于`web01`的网站/帐户。这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。
+3. 新建文件`<path02>/config/user.json`，这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。根据实际情况修改参数即可。你可以创建很多个类似于`web01`的网站/帐户喔！参数解释如下：
 + **domain,username,password**：WordPress站点相关信息，比如站点URL、帐户名、密码。
 + **path_markdown**：添加任意多的顶级文件夹 (～￣▽￣)～ 
 + **post_metadata**：默认类别信息。有分类（category）、标签（tag）和状态（status）3个属性。
@@ -105,7 +105,7 @@ path_m2w = '<path02>'
 4. 最后，运行脚本：
 
 ```bash
-python <path01>/m2w.py
+python '<path01>/m2w.py'
 ```
 
 ## 项目展示
