@@ -61,21 +61,20 @@ install_requires=[
 
 ## 使用
 
-+ 通过`pip`或这个Github repotory安装 m2w。
-+ 在文件夹`<path01>`中建立`m2w.py`文件。这里一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。创建一个文件`<path02>/config/user.json`。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
+1. 通过`pip`或这个Github repotory安装 m2w。
+2. 在文件夹`<path01>`中建立`m2w.py`文件。这里一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。创建一个文件`<path02>/config/user.json`。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
 
 ```python
 # Absolute path of m2w
 path_m2w = '<path02>'
 ```
 
-+  定义`<path02>/config/user.json`。可以创建很多个类似于`web01`的网站/帐户。这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。
-
-  + **domain,username,password**：WordPress站点相关信息，比如站点URL、帐户名、密码。
-  + **path_markdown**：添加任意多的顶级文件夹 (～￣▽￣)～ 
-  + **post_metadata**：默认类别信息。有分类（category）、标签（tag）和状态（status）3个属性。
-  + **websites**：可以添加任意数量的帐户 (～￣▽￣)～ 
-  + **path_legacy_json**：不用改，保持原样。它是记录md5值用的，本质上是一个Python Dict的json版本。
+3. 定义`<path02>/config/user.json`。可以创建很多个类似于`web01`的网站/帐户。这是一个[示例](https://github.com/huangwb8/m2w/blob/main/config/user.json)。
++ **domain,username,password**：WordPress站点相关信息，比如站点URL、帐户名、密码。
++ **path_markdown**：添加任意多的顶级文件夹 (～￣▽￣)～ 
++ **post_metadata**：默认类别信息。有分类（category）、标签（tag）和状态（status）3个属性。
++ **websites**：可以添加任意数量的帐户 (～￣▽￣)～ 
++ **path_legacy_json**：不用改，保持原样。它是记录md5值用的，本质上是一个Python Dict的json版本。
 
 ```json
 "web01": {
@@ -95,7 +94,7 @@ path_m2w = '<path02>'
     }
 ```
 
-+ 最后，运行脚本：
+4. 最后，运行脚本：
 
 ```bash
 python <path01>/m2w.py
