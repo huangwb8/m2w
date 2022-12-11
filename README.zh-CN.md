@@ -52,7 +52,7 @@ python_requires='>=3.7.4'
 # Dependencies
 install_requires=[
     "python-frontmatter>=1.0.0",
-    "markdown>=3.3.1",
+    "markdown>=3.3.6",
     "python-wordpress-xmlrpc>=2.3"
 ]
 ```
