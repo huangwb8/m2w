@@ -52,7 +52,7 @@ Now, more powerful `m2w 2` comes and meet everyone! :star2: :star2: :star2:
 
 ## Install
 
-> [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) is recommended to manage Python version and related dependencies.
+> [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended to manage Python version and related dependencies.
 
 Here is the dependency: 
 
