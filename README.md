@@ -52,6 +52,8 @@ Now, more powerful `m2w 2` comes and meet everyone! :star2: :star2: :star2:
 
 ## Install
 
+<font face="黑体" color="red" size=5>注意！Python包m2w由于目录结构，正在修复中，目前暂不可用。大家先直接clone该仓库使用。</font>
+
 > [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended to manage Python version and related dependencies.
 
 Here is the dependency: 

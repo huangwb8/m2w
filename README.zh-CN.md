@@ -41,6 +41,8 @@
 
 ## 安装
 
+<font face="黑体" color="red" size=5>注意！Python包m2w由于目录结构，正在修复中，目前暂不可用。大家先直接clone该仓库使用。</font>
+
 > 建议使用 [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) 来管理 Python 版本和相关依赖项。这是一个第3方示例教程：《[win10安装 Anaconda3](https://www.cnblogs.com/syushin/p/15113986.html)》。自己找找，教程很多的 (～￣▽￣)～ 
 
 依赖项：
