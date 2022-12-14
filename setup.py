@@ -32,18 +32,19 @@ from setuptools import setup, find_packages
 
 + Without Proxy like v2ray
 + conda activate pypi-3.10
++ cat ~./.pypirc
 
 ### Package URL
 + https://pypi.org/project/m2w
 
 ### How to install
 + pip install --upgrade -i https://pypi.org/simple m2w 
-+ pip install -i https://pypi.org/simple m2w==2.2.10
++ pip install -i https://pypi.org/simple m2w==2.2.11
 + pip install m2w 
 
 '''
 
-VERSION = "2.2.10"
+VERSION = "2.2.11"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -51,7 +52,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='m2w',
     version=VERSION,
-    description='Automatically upload and update local markdown to WordPress via Python',
+    description='v2.2.11: Repair an error about package dir structure',
     long_description = long_description,
     long_description_content_type = "text/markdown",
     author = 'Bensz',

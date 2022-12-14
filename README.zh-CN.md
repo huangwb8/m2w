@@ -35,13 +35,11 @@
 + 与 `m2w 1.0` 相比，使用 和`config/user.json` 略微不同的方式维护用户信息。
 + 可以开心地保留原有的文件结构 (～￣▽￣)～ 。
 + 通过多个`legacy_*.json` 同时管理多个网站。
-+ 只需要使用1个 python 脚本 `m2w.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
++ 只需要使用1个 python 脚本 `myblog.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。该特性对于用户从`m2w 1.0`升级到`m2w 2`十分友好！
 + 像m2w 1.0 稳定且好用！
 
 ## 安装
-
-<font face="黑体" color="red" size=5>注意！Python包m2w由于目录结构，正在修复中，目前暂不可用。大家先直接clone该仓库使用。</font>
 
 > 建议使用 [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) 来管理 Python 版本和相关依赖项。这是一个第3方示例教程：《[win10安装 Anaconda3](https://www.cnblogs.com/syushin/p/15113986.html)》。自己找找，教程很多的 (～￣▽￣)～ 
 
@@ -72,7 +70,7 @@ pip install -i https://pypi.org/simple m2w==2.2.10
 ## 使用
 
 1. 通过`pip`或这个Github repotory安装 m2w。
-2. 新建文件`<path01>/m2w.py`文件，这是一个[示例](https://github.com/huangwb8/m2w/blob/main/m2w.py)。将`m2w.py`文件中的`path_m2w`赋值为`<path02>`
+2. 新建文件`<path01>/myblog.py`文件（名字随便取），这是一个[示例](https://github.com/huangwb8/m2w/blob/main/myblog.py)。将`myblog.py`文件中的`path_m2w`赋值为`<path02>`
 
 ```python
 # Absolute path of m2w
@@ -107,14 +105,14 @@ path_m2w = '<path02>'
 4. 最后，运行脚本：
 
 ```bash
-python '<path01>/m2w.py'
+python '<path01>/myblog.py'
 ```
 
 ## 项目展示
 
-如下图所示，只需要一行`python m2w.py`，即可自动更新或上传markdown喔！
+如下图所示，只需要一行`python myblog.py`，即可自动更新或上传markdown喔！
 
-![Code_Iscn3mHU78](https://chevereto.hwb0307.com/images/2022/12/11/Code_Iscn3mHU78.gif)
+![Typora_zKwwaE10Qe](https://chevereto.hwb0307.com/images/2022/12/14/Typora_zKwwaE10Qe.gif)
 
 ## 相关仓库
 

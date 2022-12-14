@@ -12,7 +12,6 @@
 path_m2w = 'E:/Github/m2w/@test' # /@test
 
 ####===============================Dependency
-
 from m2w.json2 import read_json_as_dict
 from m2w.up import md_detect, up
 from m2w.wp import wp_xmlrpc

@@ -46,13 +46,11 @@ Now, more powerful `m2w 2` comes and meet everyone! :star2: :star2: :star2:
 + Use `config/user.json` to maintain the user information in a little different way comparing with `m2w 1.0`.
 + You can just keep your file structures locally as you like.
 + You can manage lots of websites at the same time via multiple `legacy_*.json`.
-+ All you need to deal with is a single python script `m2w.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
++ All you need to deal with is a single python script `myblog.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
 + Ignore repeated new markdown files for uploading (`v2.2.4+`)
 + Stable and useful as `m2w 1.0`.
 
 ## Install
-
-<font face="黑体" color="red" size=5>注意！Python包m2w由于目录结构，正在修复中，目前暂不可用。大家先直接clone该仓库使用。</font>
 
 > [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended to manage Python version and related dependencies.
 
@@ -83,7 +81,7 @@ Generally, the latest version of `m2w` is recommended.
 ## Usage
 
 1. Install m2w from PyPi or this Github repotory. 
-2. Build a `m2w.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/m2w.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>` in `m2w.py`:
+2. Build a `myblog.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/myblog.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>` in `myblog.py`:
 
 ```python
 # Absolute path of m2w
@@ -116,22 +114,23 @@ path_m2w = '<path02>'
     }
 ```
 
-4. Run `m2w.py` like: 
+4. Run `myblog.py` like: 
 
 ```bash
-python <path01>/m2w.py
+python <path01>/myblog.py
 ```
 
 ## Demo
 
 > This demo is conducted in Win10 with [VScode](https://code.visualstudio.com/).
 
-As shown in the following GIF, all changed or brand-new markdowns can be automatically updated/upload via just a simple command `python m2w.py`!
+As shown in the following GIF, all changed or brand-new markdowns can be automatically updated/upload via just a simple command `python myblog.py`!
 
-![Code_Iscn3mHU78](https://chevereto.hwb0307.com/images/2022/12/11/Code_Iscn3mHU78.gif)
+![Typora_zKwwaE10Qe](https://chevereto.hwb0307.com/images/2022/12/14/Typora_zKwwaE10Qe.gif)
 
 ## LOG
 
++ **2022-12-14** ：`m2w.py` is the same name as `m2w` package, which would bring some bugs. I change the name of the demo script as `myblog.py`.
 + **2022-12-10** ：Upload `m2w 2` to PyPi. You can install `m2w 2` with code (in Shell)  like `pip install -i https://pypi.org/simple m2w`. The project url is [https://pypi.org/project/m2w](https://pypi.org/project/m2w).
 + **2022-12-08** ：Ignore repeated uploading of new markdown based on their file names. Update ot `m2w 2.2.4` (Strongly recommended)! 
 + **2022-12-06**：Optimized parameter space of m2w, which make it more flexible. Update ot `m2w 2.2`!

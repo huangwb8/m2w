@@ -8,3 +8,4 @@ dist/*
 m2w.egg-info/*
 m2w/__pycache__/*
 build/*
+.vscode/*
