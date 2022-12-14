@@ -62,7 +62,7 @@ install_requires=[
 考虑到不同源同步延迟的可能性，你可以指定`m2w 2`的版本号和源：
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.2.10
+pip install -i https://pypi.org/simple m2w==2.2.11
 ```
 
 建议安装最新版本的`m2w 2`。

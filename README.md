@@ -73,7 +73,7 @@ After 2022-12-10, `m2w 2` was uploaded onto [PyPi](https://pypi.org/project/m2w/
 You can specify version or resource when installing `m2w 2`:
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.2.10
+pip install -i https://pypi.org/simple m2w==2.2.11
 ```
 
 Generally, the latest version of `m2w` is recommended.
