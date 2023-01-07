@@ -88,7 +88,7 @@ Generally, the latest version of `m2w` is recommended.
 path_m2w = '<path02>'
 ```
 
-3. Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here is some interpretations: 
+3. Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here are some interpretations: 
   + **domain, username, password**:  The information of your WordPress site and account.
   + **path_markdown**: Add as much top folders as you want! 
   + **post_metadata**: Default category information. 
@@ -167,7 +167,7 @@ This software depends on other packages that may be licensed under different ope
 
 m2w is released under the MIT license. See [LICENSE](https://github.com/huangwb8/m2w/blob/main/license.txt) for details.
 
-# More
+## More
 
 > Applications similar to m2w
 
