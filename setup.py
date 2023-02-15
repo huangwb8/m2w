@@ -44,7 +44,7 @@ from setuptools import setup, find_packages
 
 '''
 
-VERSION = "2.2.11"
+VERSION = "2.3.2"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -52,10 +52,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='m2w',
     version=VERSION,
-    description='v2.2.11: Repair an error about package dir structure',
+    description='v2.3.2: Optimize organization of m2w configuration',
     long_description = long_description,
     long_description_content_type = "text/markdown",
-    author = 'Bensz',
+    author = ['Bensz', 'FoxSuzuran'],
     author_email = 'hwb2012@qq.com',
     url = "https://github.com/huangwb8/m2w", 
     packages = find_packages(),
