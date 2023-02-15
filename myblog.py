@@ -26,7 +26,7 @@ if __name__ == '__main__':
             con.write(cfg)
         print("配置文件config.ini已在目录下生成,请填写配置后重新启动程序")
         sys.exit(0)
-    con.read("config.ini")
+    con.read("config.ini", encoding="utf-8")
     if not os.path.exists(con["path"]["m2w_path"] + "/config/user.json"):
         if not os.path.exists(con["path"]["m2w_path"] + "/config"):
             os.mkdir(con["path"]["m2w_path"] + "/config")
