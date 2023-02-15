@@ -9,7 +9,7 @@ packages = [{include = "wordpress_blog"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-m2w = "^2.2.11"
+m2w = "^2.3.2"
 
 [[tool.poetry.source]]
 name = "aliyun"
