@@ -76,6 +76,12 @@
    pip install -i https://pypi.org/simple m2w==2.2.11
    ```
 
+4. 直接下载该仓库中的代码（不推荐）
+
+   如果你采用这种方式，你还需要在环境中安装以下三个包
+
+   `python-frontmatter`,`markdown`,`python-wordpress-xmlrpc`
+
 建议安装最新版本的`m2w 2`。
 
 ## 使用
