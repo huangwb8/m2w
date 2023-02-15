@@ -10,13 +10,14 @@
 import m2w.update
 import m2w.upload
 from m2w.md5 import get_file_md5
-from m2w.json2 import save_dict_as_json 
+from m2w.json2 import save_dict_as_json
 from m2w.json2 import read_json_as_dict
 import sys
 import os
 
+
 ####===============================Functions
-def find_files(path, suffix = ".md"):
+def find_files(path, suffix=".md"):
     """
     ### Description
     Find all files with specifed suffix in the path
@@ -37,7 +38,7 @@ def find_files(path, suffix = ".md"):
     result = []
 
     # Use a sub function
-    def ff(path, suffix = ".md"):
+    def ff(path, suffix=".md"):
         file_list = os.listdir(path)
         for file in file_list:
             cur_path = os.path.join(path, file)
@@ -47,14 +48,13 @@ def find_files(path, suffix = ".md"):
             else:
                 if cur_path.endswith(suffix):
                     result.append(cur_path)
-    
+
     # Output data
-    ff(path, suffix = ".md")
+    ff(path, suffix=".md")
     return result
 
 
-def md_detect(path_markdown, path_legacy_json, verbose = True):
-
+def md_detect(path_markdown, path_legacy_json, verbose=True):
     """
     ### Description
     Gather paths of brand-new and changed legacy markdown files.
@@ -65,29 +65,32 @@ def md_detect(path_markdown, path_legacy_json, verbose = True):
     + verbose: Boolean. Whether output running messages of the function.
 
     ### Return
-    Dict. With two keys———"legacy" and "new". 
-    + The "new" means the brand-new markdown files in the "path_markdown" dir. 
-    + The "legacy" means the changed legacy markdown files in the "path_markdown" dir. 
+    Dict. With two keys———"legacy" and "new".
+    + The "new" means the brand-new markdown files in the "path_markdown" dir.
+    + The "legacy" means the changed legacy markdown files in the "path_markdown" dir.
     """
 
     # Test whether the path_markdown has existed
     if len(path_markdown) == 0:
-        if verbose: 
+        if verbose:
             print('No path about markdown files. Please assign at least one.')
         sys.exit(0)
 
     # Test whether the legacy_json has existed
-    if os.path.isfile(path_legacy_json) == False:
-
+    if not os.path.isfile(path_legacy_json):
         # Warning
         if verbose:
-            print('No legacy json. All markdown files would be treated as brand-new ones.')
+            print(
+                'No legacy json. All markdown files would be treated as brand-new ones.'
+            )
 
         # Gather new markdown files
         new = []
         for path in path_markdown:
-            new = new + find_files(path, suffix = ".md")
-        new = sorted(set(new), key = new.index) # Keep unique elements. Ref: https://blog.csdn.net/u011361880/article/details/76237096
+            new = new + find_files(path, suffix=".md")
+        new = sorted(
+            set(new), key=new.index
+        )  # Keep unique elements. Ref: https://blog.csdn.net/u011361880/article/details/76237096
 
         # md5 sum of new files
         dict = {}
@@ -98,7 +101,7 @@ def md_detect(path_markdown, path_legacy_json, verbose = True):
             print('Create legacy json for new markdowns!')
 
         # Output
-        result = {"new": new, "legacy": []} # 
+        result = {"new": new, "legacy": []}  #
         return result
     else:
         if verbose:
@@ -107,15 +110,15 @@ def md_detect(path_markdown, path_legacy_json, verbose = True):
         # all files
         all = []
         for path in path_markdown:
-            all = all + find_files(path, suffix = ".md")
+            all = all + find_files(path, suffix=".md")
 
         # Compare changes in markdown files
         md5_legacy = read_json_as_dict(path_legacy_json)
         md5_all = {}
         for i in all:
             md5_all[i] = get_file_md5(i)
-        save_dict_as_json(md5_all, path_legacy_json) # Update legacy json
-        
+        save_dict_as_json(md5_all, path_legacy_json)  # Update legacy json
+
         # Confirm new files
         new = set(md5_all.keys()).difference(set(md5_legacy.keys()))
         if len(new) >= 1:
@@ -141,15 +144,14 @@ def md_detect(path_markdown, path_legacy_json, verbose = True):
                     print('Content changed!: ', i)
         if len(md5_filter) == 0:
             if verbose:
-                    print('No changed legacy markdown files. Ignored.')
-
+                print('No changed legacy markdown files. Ignored.')
 
         # Output
-        result = {"new": list(new), "legacy": list(md5_filter.keys())} # 
+        result = {"new": list(new), "legacy": list(md5_filter.keys())}  #
         return result
 
 
-def up(client, md_upload, md_update, post_metadata, force_upload = False, verbose = True):
+def up(client, md_upload, md_update, post_metadata, force_upload=False, verbose=True):
     """
     ### Description
     Upload or update markdown files to your WordPress site.
@@ -166,62 +168,95 @@ def up(client, md_upload, md_update, post_metadata, force_upload = False, verbos
     None
     """
 
-
     # Assistant function for uploading
-    def upload_one_post(client, filepath, post_metadata, all_cnt, md_cnt, process_number, verbose):
-        post = m2w.upload.make_post(filepath, post_metadata) # Upload the new markdown
+    def upload_one_post(
+        client, filepath, post_metadata, all_cnt, md_cnt, process_number, verbose
+    ):
+        post = m2w.upload.make_post(filepath, post_metadata)  # Upload the new markdown
         process_number2 = process_number + 1
         if post is not None:
             m2w.upload.push_post(post, client)
-            if verbose: 
-                md_cnt2 = md_cnt + 1 # Record an uploading event
-                print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number2, all_cnt, filepath))
+            if verbose:
+                md_cnt2 = md_cnt + 1  # Record an uploading event
+                print(
+                    'Process number: %d/%d  SUCCESS: Push "%s"'
+                    % (process_number2, all_cnt, filepath)
+                )
         else:
             failpaths.append(filepath)
-            if verbose: 
-                print('Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.' % (process_number2, all_cnt, filepath))
+            if verbose:
+                print(
+                    'Process number: %d/%d  WARNING: Can\'t push "%s" because it\'s not Markdown file.'
+                    % (process_number2, all_cnt, filepath)
+                )
         # Output a tuple
         return md_cnt2, process_number2
 
-
     # Information about force uploading
     if force_upload == False:
-        if verbose: print("You don't want a force uploading. The existence of the post would be checked.")
+        if verbose:
+            print(
+                "You don't want a force uploading. The existence of the post would be checked."
+            )
     else:
-        if verbose: print("You want a force uploading? Great!")
-    
+        if verbose:
+            print("You want a force uploading? Great!")
 
     # Upload new markdown files
-    if len(md_upload) > 0 :
-        md_cnt = 0; process_number = 0; all_cnt = len(md_upload) # Count parameters
-        failpaths = [] # Store failed uploaded markdown files
+    if len(md_upload) > 0:
+        md_cnt = 0
+        process_number = 0
+        all_cnt = len(md_upload)  # Count parameters
+        failpaths = []  # Store failed uploaded markdown files
         for filepath in md_upload:
             if force_upload == False:
-                post_wp = m2w.update.find_post(filepath, client)  # Test whether this file had been existed in the WordPress site
+                post_wp = m2w.update.find_post(
+                    filepath, client
+                )  # Test whether this file had been existed in the WordPress site
                 if post_wp is not None:
-                    if verbose: print('Warning: This post is existed in your WordPress site. Ignore uploading!')
-                else: 
-                    if verbose: print('This post is exactly a new one in your WordPress site! Try uploading...')
+                    if verbose:
+                        print(
+                            'Warning: This post is existed in your WordPress site. Ignore uploading!'
+                        )
+                else:
+                    if verbose:
+                        print(
+                            'This post is exactly a new one in your WordPress site! Try uploading...'
+                        )
                     res = upload_one_post(
-                        client, filepath, post_metadata, 
-                        all_cnt, md_cnt, process_number,
-                        verbose)
-                    md_cnt = + res[0]; process_number = + res[1]
+                        client,
+                        filepath,
+                        post_metadata,
+                        all_cnt,
+                        md_cnt,
+                        process_number,
+                        verbose,
+                    )
+                    md_cnt = +res[0]
+                    process_number = +res[1]
             else:
                 res = upload_one_post(
-                        client, filepath, post_metadata, 
-                        all_cnt, md_cnt, process_number,
-                        verbose)
-                md_cnt = + res[0]; process_number = + res[1]
+                    client,
+                    filepath,
+                    post_metadata,
+                    all_cnt,
+                    md_cnt,
+                    process_number,
+                    verbose,
+                )
+                md_cnt = +res[0]
+                process_number = +res[1]
 
-        if verbose: 
+        if verbose:
             print('SUCCESS: %d files have been pushed to your WordPress.' % md_cnt)
             if len(failpaths) > 0:
-                print('WARNING: %d files haven\'t been pushed to your WordPress.' % len(failpaths))
+                print(
+                    'WARNING: %d files haven\'t been pushed to your WordPress.'
+                    % len(failpaths)
+                )
                 print('\nFailure to push these file paths:')
                 for failpath in failpaths:
                     print(failpath)
-
 
     # Update changed legacy markdown files
     if len(md_update) > 0:
@@ -230,8 +265,13 @@ def up(client, md_upload, md_update, post_metadata, force_upload = False, verbos
             if post is not None:
                 ret = m2w.update.update_post_content(post, filepath, client)
                 if ret:
-                    if verbose: print('SUCCESS: Update the file "%s"' % filepath)
+                    if verbose:
+                        print('SUCCESS: Update the file "%s"' % filepath)
                 else:
-                    if verbose: print('FAILURE: Update the file "%s"' % filepath)
+                    if verbose:
+                        print('FAILURE: Update the file "%s"' % filepath)
             else:
-                if verbose: print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')        
+                if verbose:
+                    print(
+                        'FAILURE to find the post. Please check your User Configuration and the title in your WordPress.'
+                    )

@@ -3,6 +3,7 @@
 
 import json
 
+
 def read_json_as_dict(path_file):
     """
     读取json文件并生成dict
@@ -11,6 +12,7 @@ def read_json_as_dict(path_file):
     with open(path_file, "rb") as json_file:
         json_dict = json.load(json_file)
         return json_dict
+
 
 def save_dict_as_json(dict, path_file):
     """

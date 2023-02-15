@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Time : 2021/11/19 0:50 
+# @Time : 2021/11/19 0:50
 # @Author : nefu-ljw
 # @File : upload-markdown-to-wordpress.py
 # @Function: Upload new posts in WordPress with local Markdown files
@@ -12,6 +12,7 @@ import frontmatter
 import markdown
 from wordpress_xmlrpc import WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
+
 
 def make_post(filepath, metadata):
     """
@@ -26,7 +27,9 @@ def make_post(filepath, metadata):
     """
     filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
     filename_suffix = filename.split('.')[-1]  # 例如：md
-    filename_prefix = filename.replace('.' + filename_suffix, '')  # 例如：test(2021.11.19)；注意：这种替换方法要求文件名中只有一个".md"
+    filename_prefix = filename.strip(
+        ".md"
+    )  # 例如：test(2021.11.19)
 
     # 目前只支持 .md 后缀的文件
     if filename_suffix != 'md':
@@ -36,7 +39,9 @@ def make_post(filepath, metadata):
     post_from_file = frontmatter.load(filepath)
 
     # 2 markdown库导入内容
-    post_content_html = markdown.markdown(post_from_file.content, extensions=['markdown.extensions.fenced_code'])
+    post_content_html = markdown.markdown(
+        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+    )
     post_content_html = post_content_html.encode("utf-8")
 
     # 3 将本地post的元数据暂存到metadata中
@@ -45,7 +50,9 @@ def make_post(filepath, metadata):
     metadata_keys = metadata.keys()
     # 如果post_from_file.metadata中的属性key存在，那么就将metadata[key]替换为它
     for key in metadata_keys:
-        if key in post_from_file.metadata:  # 若md文件中没有元数据'category'，则无法调用post.metadata['category']
+        if (
+            key in post_from_file.metadata
+        ):  # 若md文件中没有元数据'category'，则无法调用post.metadata['category']
             metadata[key] = post_from_file.metadata[key]
 
     # 4 将metadata中的属性赋值给post的对应属性
@@ -54,10 +61,7 @@ def make_post(filepath, metadata):
     post.title = metadata['title']
     # post.slug = metadata['slug']
     post.post_status = metadata['status']
-    post.terms_names = {
-        'category': metadata['category'],
-        'post_tag': metadata['tag']
-    }
+    post.terms_names = {'category': metadata['category'], 'post_tag': metadata['tag']}
     post.comment_status = 'open'  # 开启评论
     return post
 

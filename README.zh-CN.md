@@ -40,34 +40,47 @@
 + 像m2w 1.0 稳定且好用！
 
 ## 安装
+1. poetry 安装方式
 
-> 建议使用 [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) 来管理 Python 版本和相关依赖项。这是一个第3方示例教程：《[win10安装 Anaconda3](https://www.cnblogs.com/syushin/p/15113986.html)》。自己找找，教程很多的 (～￣▽￣)～ 
+   >有关poetry的安装请查看官方文档[Introduction | Documentation | Poetry - Python dependency management and packaging made easy (python-poetry.org)](https://python-poetry.org/docs/)
 
-依赖项：
+   1. 下载随2.3.0更新上传的位于`poetry` 目录下的`pyproject.toml`和`poetry.lock`，放在一个你喜欢并且容易找到的文件夹
+   2. 在目录下运行`poetry install`
+   3. 查看接下来的使用教程部分
 
-```python
-# Python 3.7.4 is the version I use m2w. I'm not sure whether it could work well in more advanced Python versions.
-python_requires='>=3.7.4'
+2. Anaconda安装
 
-# Dependencies
-install_requires=[
-    "python-frontmatter>=1.0.0",
-    "markdown>=3.3.6",
-    "python-wordpress-xmlrpc>=2.3"
-]
-```
+   > 建议使用 [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) 来管理 Python 版本和相关依赖项。这是一个第3方示例教程：《[win10安装 Anaconda3](https://www.cnblogs.com/syushin/p/15113986.html)》。自己找找，教程很多的 (～￣▽￣)～ 
 
-2022-12-10 之后，我将`m2w 2` 上传到 [PyPi](https://pypi.org/project/m2w/)，这样你只需要在Shell中运行`pip install m2w `即可安装。
+   依赖项：
 
-考虑到不同源同步延迟的可能性，你可以指定`m2w 2`的版本号和源：
+   ```python
+   # Python 3.7.4 is the version I use m2w. I'm not sure whether it could work well in more advanced Python versions.
+   python_requires='>=3.7.4'
+   
+   # Dependencies
+   install_requires=[
+       "python-frontmatter>=1.0.0",
+       "markdown>=3.3.6",
+       "python-wordpress-xmlrpc>=2.3"
+   ]
+   ```
 
-```bash
-pip install -i https://pypi.org/simple m2w==2.2.11
-```
+3. 官方pip安装
+
+  2022-12-10 之后，我将`m2w 2` 上传到 [PyPi](https://pypi.org/project/m2w/)，这样你只需要在Shell中运行`pip install m2w `即可安装。
+
+  考虑到不同源同步延迟的可能性，你可以指定`m2w 2`的版本号和源：
+
+  ```bash
+  pip install -i https://pypi.org/simple m2w==2.2.11
+  ```
 
 建议安装最新版本的`m2w 2`。
 
 ## 使用
+
+### v2.2.11
 
 1. 通过`pip`或这个Github repotory安装 m2w。
 2. 新建文件`<path01>/myblog.py`文件（名字随便取），这是一个[示例](https://github.com/huangwb8/m2w/blob/main/myblog.py)。将`myblog.py`文件中的`path_m2w`赋值为`<path02>`
@@ -107,6 +120,78 @@ path_m2w = '<path02>'
 ```bash
 python '<path01>/myblog.py'
 ```
+
+### v2.3.0
+
+1. 在`安装`步骤中部署的环境中（pip安装方式则是系统环境），下载[m2w](https://github.com/huangwb8/m2w)仓库中的`myblog.py`文件到环境所在文件夹下
+
+2. 运行`myblog.py`文件
+
+   1. 首次运行可能会出现提示`配置文件config.ini已在目录下生成,请填写配置后重新启动程序`，以下是相关配置项设置
+
+       ```ini
+       [path]
+       m2w_path = D:\Programing\GitHub\MyGithub\m2w_test
+       
+       [upload]
+       force_upload = False
+       verbose = True
+       
+       ```
+
+      + **m2w_path**：`安装`步骤中环境文件夹所在的位置，默认生成在`myblog.py`运行的当前文件夹
+
+      + **force_upload**：是否开启强制上传，默认是`False`
+
+      + **verbose**：是否开启控制台打印输出，默认是`True`
+
+   2. 配置好`config.ini`后，再次运行`myblog.py`,有可能出现提示
+
+      `配置文件user.json已在目录{config.ini中配置的地址}\config下生成,请填写配置后重新启动程序`，以下为相关配置项设置
+
+       ```json
+       {
+           "web_test": {
+               "domain": "https://domain-01.com",
+               "username": "username-01",
+               "password": "password-01",
+               "path_markdown": [
+                   "E:/Github/m2w/@test/main",
+                   "E:/Github/m2w/@test/main2"
+               ],
+               "post_metadata": {
+                   "category": [
+                       "test"
+                   ],
+                   "tag": [
+                       "test"
+                   ],
+                   "status": "publish"
+               },
+               "path_legacy_json": "/config/legacy"
+           }
+       }
+       ```
+
+      + **domain,username,password**：WordPress站点相关信息，比如站点URL、帐户名、密码。
+      + **path_markdown**：添加任意多的顶级文件夹(也就是该路径下存有待上传的.md文件)
+      + **post_metadata**：默认类别信息。有分类（category）、标签（tag）和状态（status）3个属性。
+      + **path_legacy_json**：不用改，保持原样。它是记录md5值用的，本质上是一个Python Dict的json版本。
+
+      _如果想针对多个网站做同步设置，只需要做如下设置_
+
+      ```json
+      {
+          "web-1":{xxxxxx},
+          "web-2":{xxxxxx},
+          "web-3":{xxxxxx},
+          ………………
+      }
+      ```
+
+      然后根据配置项所需内容给每个网站填写上对应的参数即可
+
+3. 当完成前两步配置后，再次运行`myblog.py`，不出意外的话就会出现上传成功的提示了
 
 ## 项目展示
 

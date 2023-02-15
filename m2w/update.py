@@ -12,11 +12,12 @@ import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 
-# import collections
-# try:
-#     collectionsAbc = collections.abc
-# except AttributeError:
-#     collectionsAbc = collections
+# Fix the bug "module 'collections' has no attribute 'Iterable’"
+if sys.version_info.minor >= 9:
+    import collections.abc
+
+    collections.Iterable = collections.abc.Iterable
+
 
 def find_post(filepath, client):
     """
@@ -28,7 +29,7 @@ def find_post(filepath, client):
     try:
         filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
         filename_suffix = filename.split('.')[-1]  # 例如：md
-        filename_prefix = filename.replace('.' + filename_suffix, '')  # 例如：test(2021.11.19)；注意：这种替换方法要求文件名中只有一个".md"
+        filename_prefix = filename.strip(".md")  # 例如：test(2021.11.19)
         # 目前只支持 .md 后缀的文件
         if filename_suffix != 'md':
             print('ERROR: not Markdown file')
@@ -47,8 +48,10 @@ def find_post(filepath, client):
             offset = offset + batch
     except Exception as e:
         print('Reminder from Bensz(https://blognas.hwb0307.com) : ' + str(e))
+        raise e
         # 正常退出
-        sys.exit(0)
+        # sys.exit(0)
+
 
 def update_post_content(post, filepath, client):
     """
@@ -59,8 +62,11 @@ def update_post_content(post, filepath, client):
     :return True: if success
     """
     post_from_file = frontmatter.load(filepath)  # 读取文档里的信息
-    post_content_html = markdown.markdown(post_from_file.content,
-                                          extensions=['markdown.extensions.fenced_code']).encode("utf-8")  # 转换为html
+    post_content_html = markdown.markdown(
+        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+    ).encode(
+        "utf-8"
+    )  # 转换为html
     post.content = post_content_html  # 修改内容
     return client.call(EditPost(post.id, post))
 
@@ -76,6 +82,8 @@ def get_file_list(file_path):
         # 注意，这里使用lambda表达式，将文件按照最后修改时间顺序升序排列
         # os.path.getmtime() 函数是获取文件最后修改时间
         # os.path.getctime() 函数是获取文件最后创建时间
-        dir_list = sorted(dir_list,  key=lambda x: os.path.getmtime(os.path.join(file_path, x)))
+        dir_list = sorted(
+            dir_list, key=lambda x: os.path.getmtime(os.path.join(file_path, x))
+        )
         # print(dir_list)
         return dir_list

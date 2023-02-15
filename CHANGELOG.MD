@@ -1,0 +1,11 @@
+# Change
+___
+
+## [2.3.0]
+___
+
+1. 修复了python>=3.9时的`module 'collections' has no attribute 'Iterable’`报错
+2. 修复了当出现报错导致上传不成功时仍更新文章`md5`的`json`存储文件的bug(此bug会导致当报错文章未上传成功时且未更新时，不能二次上传的问题)
+3. 将配置项和代码分离,只需运行`myblog.py`后填写对应配置即可
+4. 增加poetry支持,构建更加简便快捷
+5. 优化代码结构，更新`README.zh-CN.md`说明文件

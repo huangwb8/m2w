@@ -9,3 +9,14 @@ m2w.egg-info/*
 m2w/__pycache__/*
 build/*
 .vscode/*
+
+# pycharm config
+.idea
+venv
+
+# configuration
+/config
+config.ini
+
+# poetry enviroments
+/poetry/.venv

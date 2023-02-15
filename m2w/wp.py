@@ -9,7 +9,8 @@
 import sys
 from wordpress_xmlrpc import Client
 
-def wp_xmlrpc(domain,username, password):
+
+def wp_xmlrpc(domain, username, password):
     """
     ### Description
     The Client function with error control

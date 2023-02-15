@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "m2w"
+version = "2.3.0"
+description = "Automatically upload and update local markdown to WordPress via Python"
+authors = ["huangwb8","FoxSuzuran <2903582631@qq.com>"]
+readme = "README.md"
+packages = [{include = "wordpress_blog"}]
+# readme_cn="README.zh-CN.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+m2w = "^2.2.11"
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
