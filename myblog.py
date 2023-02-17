@@ -6,59 +6,25 @@
 # @Software: VSCode
 # @Reference: original
 
-import configparser
-import json
+import time
+
+import asyncio
 import os.path
 import shutil
 import sys
 
 from m2w import read_json_as_dict, md_detect, up, wp_xmlrpc
+from m2w.config import ini_config, user_json_config
+from m2w.rest_api import RestApi
 
 # ===============================Program
 
-if __name__ == '__main__':
-    con = configparser.ConfigParser()
-    if not os.path.exists("config.ini"):
-        con["path"] = {"m2w_path": os.path.abspath("")}
-        con["upload"] = {"force_upload": "False", "verbose": "True"}
 
-        with open("config.ini", "w", encoding="utf-8") as cfg:
-            con.write(cfg)
-        print("配置文件config.ini已在目录下生成,请填写配置后重新启动程序")
-        sys.exit(0)
-    con.read("config.ini", encoding="utf-8")
-    if not os.path.exists(con["path"]["m2w_path"] + "/config/user.json"):
-        if not os.path.exists(con["path"]["m2w_path"] + "/config"):
-            os.mkdir(con["path"]["m2w_path"] + "/config")
-        with open(
-            con["path"]["m2w_path"] + "/config/user.json", "w", encoding="utf-8"
-        ) as user_cfg:
-            json.dump(
-                {
-                    "web_test": {
-                        "domain": "https://domain-01.com",
-                        "username": "username-01",
-                        "password": "password-01",
-                        "path_markdown": [
-                            "E:/Github/m2w/@test/main",
-                            "E:/Github/m2w/@test/main2",
-                        ],
-                        "post_metadata": {
-                            "category": ["test"],
-                            "tag": ["test"],
-                            "status": "publish",
-                        },
-                        "path_legacy_json": "/config/legacy",
-                    },
-                },
-                user_cfg,
-                indent=4,
-            )
-            print(f"配置文件user.json已在目录{con['path']['m2w_path']}\\config下生成,请填写配置后重新启动程序")
-            sys.exit(0)
+async def main():
+    con = ini_config()
+    user_json_config(con)
 
     path_m2w = con["path"]["m2w_path"]
-
     path_user_json = path_m2w + '/config/user.json'
     websites = read_json_as_dict(path_user_json)
 
@@ -69,7 +35,12 @@ if __name__ == '__main__':
         # Parameters of the website
         domain = website['domain']
         username = website['username']
-        password = website['password']
+        password = (
+            website["application_password"]
+            if con["api"]["rest_api"].lower() == "true"
+            else website["password"]
+        )
+
         path_markdown = website['path_markdown']
         post_metadata = website['post_metadata']
         path_legacy_json = path_m2w + website['path_legacy_json'] + '_' + i + '.json'
@@ -87,38 +58,67 @@ if __name__ == '__main__':
 
         # Connect the WordPress website
         print('========Website: ' + i)
-        client = wp_xmlrpc(domain, username, password)
 
-        # Gather paths of brand-new and changed legacy markdown files
         if os.path.exists(path_legacy_json):
             shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
 
+        # Gather paths of brand-new and changed legacy markdown files
         res = md_detect(path_markdown, path_legacy_json, verbose=post_verbose)
-        md_upload = res['new']
-        md_update = res['legacy']
 
-        # Upload or Update
-        if len(md_upload) > 0 or len(md_update) > 0:
+        if con["api"]["rest_api"].lower() == "true":
+            rest = RestApi(url=domain, wp_username=username, wp_password=password)
             try:
-                up(
-                    client,
-                    md_upload,
-                    md_update,
-                    post_metadata,
-                    # Whether to force uploading a new post.
-                    # `force_upload=False` is suggested for routine maintaining.
-                    # `force_upload=True` is suggested for intensive uploading for a brand-new site.
-                    force_upload=post_force_upload,
-                    # Whether to report running messages.
+                await rest.upload_article(
+                    md_message=res,
+                    post_metadata=post_metadata,
                     verbose=post_verbose,
+                    force_upload=post_force_upload,
                 )
-            except:
+            except Exception as e:
+                print("OOPS,The upload failed,Please Try again")
                 try:
                     os.remove(path_legacy_json)
                     os.rename(path_legacy_json + "_temporary-copy", path_legacy_json)
                 finally:
                     sys.exit(0)
+
         else:
-            print('Without any new or changed legacy markdown files. Ignored.')
+            client = wp_xmlrpc(domain, username, password)
+            md_upload = res['new']
+            md_update = res['legacy']
+
+            # Upload or Update
+            if len(md_upload) > 0 or len(md_update) > 0:
+                try:
+                    up(
+                        client,
+                        md_upload,
+                        md_update,
+                        post_metadata,
+                        # Whether to force uploading a new post.
+                        # `force_upload=False` is suggested for routine maintaining.
+                        # `force_upload=True` is suggested for intensive uploading for a brand-new site.
+                        force_upload=post_force_upload,
+                        # Whether to report running messages.
+                        verbose=post_verbose,
+                    )
+                except Exception as e:
+                    print("OOPS,The upload failed,Please Try again")
+                    try:
+                        os.remove(path_legacy_json)
+                        os.rename(
+                            path_legacy_json + "_temporary-copy", path_legacy_json
+                        )
+                    finally:
+                        sys.exit(0)
+            else:
+                print('Without any new or changed legacy markdown files. Ignored.')
         if os.path.exists(path_legacy_json + "_temporary-copy"):
             os.remove(path_legacy_json + "_temporary-copy")
+
+
+if __name__ == '__main__':
+    start = time.time()
+    asyncio.run(main())
+    end = time.time()
+    print(f"程序已结束,总用时: {end - start}")

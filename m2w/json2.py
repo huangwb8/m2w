@@ -14,9 +14,9 @@ def read_json_as_dict(path_file):
         return json_dict
 
 
-def save_dict_as_json(dict, path_file):
+def save_dict_as_json(json_dict, path_file):
     """
     将dict保存为json文件
     """
     with open(path_file, "w") as json_file:
-        json.dump(dict, json_file)
+        json.dump(json_dict, json_file, indent=4)
