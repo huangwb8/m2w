@@ -15,9 +15,9 @@ async def __article_title_request(self, client: httpx.AsyncClient(), page_num: i
         self.url + f"wp-json/wp/v2/posts?page={page_num}&per_page=30"
     )
     try:
-        assert resp.status_code == 200, "请求文章列表时发生错误,请重试"
+        assert resp.status_code == 200, "Error when requiring article lists. Pleas try later!"
     except AssertionError as e:
-        print("Reminder from Bensz(https://blognas.hwb0307.com) : " + str(e))
+        print("Reminder from m2w: " + str(e))
         raise AssertionError
 
     for article in resp.json():
@@ -39,4 +39,4 @@ async def get_all_articles(self) -> None:
             task = asyncio.create_task(req)
             task_list.append(task)
         await asyncio.gather(*task_list)
-    print("文章列表获取完成")
+    print("Get article lists complete!")

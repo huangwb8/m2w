@@ -15,9 +15,9 @@ async def __categories_request(self, client: httpx.AsyncClient(), page_num: int)
         self.url + f"wp-json/wp/v2/categories?page={page_num}&per_page=30"
     )
     try:
-        assert resp.status_code == 200, "请求类别列表时发生错误,请重试"
+        assert resp.status_code == 200, "Error when requiring category lists. Pleas try later!"
     except AssertionError as e:
-        print("Reminder from Bensz(https://blognas.hwb0307.com) : " + str(e))
+        print("Reminder from m2w: " + str(e))
         raise AssertionError
 
     for categories in resp.json():
@@ -39,7 +39,7 @@ async def get_all_categories(self) -> None:
             task = asyncio.create_task(req)
             task_list.append(task)
         await asyncio.gather(*task_list)
-    print("类别列表获取完成")
+    print("Get category lists complete!")
 
 def create_category(self, category_name: str) -> int:
     """
@@ -54,8 +54,8 @@ def create_category(self, category_name: str) -> int:
             headers=self.wp_header,
             json={"name": category_name},
         )
-        assert resp.status_code == 201, f"category创建失败,请重试,原因为{resp.json()['message']}"
+        assert resp.status_code == 201, f"Category created failed. Please try again! Messages: {resp.json()['message']}"
         self.categories_dict[category_name] = resp.json()['id']
         return resp.json()['id']
     except AssertionError as e:
-        print("Reminder from Bensz(https://blognas.hwb0307.com) : " + str(e))
+        print("Reminder from m2w: " + str(e))

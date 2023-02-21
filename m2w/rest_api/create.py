@@ -27,9 +27,9 @@ def _create_article(
     filename = os.path.basename(md_path)
 
     try:
-        assert filename.split('.')[-1] == "md", "目前只支持 .md 后缀的文件"
+        assert filename.split('.')[-1] == "md", "Only files with suffix .md supported!"
     except AssertionError as e:
-        print("Reminder from Bensz(https://blognas.hwb0307.com) : " + str(e))
+        print("Reminder from m2w: " + str(e))
         raise AssertionError
 
     # 1 通过frontmatter.load函数加载读取文档里的信息，包括元数据
@@ -79,7 +79,7 @@ def _create_article(
         json=post_data,
     )
     try:
-        assert resp.status_code == 201, f"上传文件{md_path}失败,请重试"
+        assert resp.status_code == 201, f"File {md_path} uploaded failed. Please try again!"
     except AssertionError as e:
-        print("Reminder from Bensz(https://blognas.hwb0307.com) : " + str(e))
+        print("Reminder from m2w: " + str(e))
         raise AssertionError
