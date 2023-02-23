@@ -14,6 +14,8 @@ Automatically upload and update local markdown to WordPress via Python
 
 Tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
+Note (2023-02-23-): m2w v2.5 will support WordPress REST API but is still in beta version, which is not recommended. If m2w 2.5 was ready, we would release a stable version. Before that, [m2w v2.2.11](https://github.com/huangwb8/m2w/releases/tag/v2.2.11) is the best choice.
+
 
 ## Table of Contents
 

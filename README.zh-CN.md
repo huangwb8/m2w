@@ -10,6 +10,8 @@
 
 教程: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)。
 
+注意：**m2w v2.5将支持WordPress REST API**，但目前还是开发版本。如果m2w v2.5已经开发测试完成，我们会提交一个稳定版本供大家使用。目前仅推荐大家使用[m2w v2.2.11](https://github.com/huangwb8/m2w/releases/tag/v2.2.11)。不便之处，敬请谅解！
+
 ## 内容列表
 
 - [展示](#展示)
