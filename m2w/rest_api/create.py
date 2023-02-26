@@ -74,7 +74,7 @@ def _create_article(
     }
 
     resp = httpx.post(
-        api_url := self.url + "wp-json/wp/v2/posts",
+        url=self.url + "wp-json/wp/v2/posts",
         headers=self.wp_header,
         json=post_data,
     )

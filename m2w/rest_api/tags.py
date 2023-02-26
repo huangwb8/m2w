@@ -16,7 +16,9 @@ async def __tags_request(self, client: httpx.AsyncClient(), page_num: int):
         self.url + f"wp-json/wp/v2/tags?page={page_num}&per_page=30"
     )
     try:
-        assert resp.status_code == 200, "Error when requiring tag lists. Pleas try later!"
+        assert (
+            resp.status_code == 200
+        ), "Error when requiring tag lists. Pleas try later!"
     except AssertionError as e:
         print("Reminder from Bensz(https://blognas.hwb0307.com) : " + str(e))
         raise AssertionError
@@ -52,11 +54,13 @@ def create_tag(self, tag_name: str) -> int:
     """
     try:
         resp = httpx.post(
-            create_tag_url := self.url + "wp-json/wp/v2/tags",
+            url=self.url + "wp-json/wp/v2/tags",
             headers=self.wp_header,
             json={"name": tag_name},
         )
-        assert resp.status_code == 201, f"Tag created failed. Please try again! Messages:{resp.json()['message']}"
+        assert (
+            resp.status_code == 201
+        ), f"Tag created failed. Please try again! Messages:{resp.json()['message']}"
         self.tags_dict[tag_name] = resp.json()["id"]
         return resp.json()['id']
     except AssertionError as e:

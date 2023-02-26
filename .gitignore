@@ -20,3 +20,11 @@ config.ini
 
 # poetry enviroments
 /poetry/.venv
+pyproject.toml
+poetry.lock
+.venv
+
+m2w/rest_api/__pycache__
+
+#vscode configuration
+.vscode
