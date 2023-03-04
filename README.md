@@ -7,6 +7,7 @@
 <a href=""><img src="https://img.shields.io/badge/platform-Windows%7Clinux%7CMacOS-brightgreen"></a>
 <a href=""><img src="https://img.shields.io/github/downloads/huangwb8/m2w/total"></a>
 <a href=""><img src="https://img.shields.io/github/stars/huangwb8/m2w?style=social"></a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fhuangwb8%2Fm2w?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhuangwb8%2Fm2w.svg?type=shield"/></a>
 </p>
 Automatically upload and update local markdown to WordPress via Python
 
@@ -168,6 +169,9 @@ Nobody yet.
 This software depends on other packages that may be licensed under different open source licenses. 
 
 m2w is released under the MIT license. See [LICENSE](https://github.com/huangwb8/m2w/blob/main/license.txt) for details.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhuangwb8%2Fm2w.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhuangwb8%2Fm2w?ref=badge_large)
 
 ## More
 
