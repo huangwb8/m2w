@@ -44,7 +44,7 @@ from setuptools import setup, find_packages
 
 '''
 
-VERSION = "2.5.1"
+VERSION = "2.5.2"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -52,7 +52,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='m2w',
     version=VERSION,
-    description='v2.5.1: Optimize organization of m2w configuration. Both password and REST API supported!',
+    description='v2.5.2: Optimize organization of m2w configuration. Both password and REST API supported!',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author=['Bensz', 'FoxSuzuran'],
