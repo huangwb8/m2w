@@ -24,7 +24,6 @@ def ini_config() -> dict:
     con = MyCfgIni()
     if not os.path.exists("config.ini"):
         con["path"] = {"m2w_path": os.path.abspath("")}
-        con["api"] = {"Rest_API": "True"}
         con["upload"] = {"force_upload": "False", "verbose": "True"}
 
         with open("config.ini", "w", encoding="utf-8") as cfg:

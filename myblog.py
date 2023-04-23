@@ -5,7 +5,7 @@
 # @Function: Update an existing post in WordPress with a local Markdown file
 # @Software: VSCode
 # @Reference: original
-
+import logging
 import time
 
 import asyncio
@@ -35,11 +35,19 @@ async def main():
         # Parameters of the website
         domain = website['domain']
         username = website['username']
-        password = (
-            website["application_password"]
-            if con["api"]["rest_api"].lower() == "true"
-            else website["password"]
-        )
+
+        application_password = None
+        rest_api = False
+
+        try:
+            if len(website["application_password"]) > 10:
+                application_password = website["application_password"]
+                rest_api = True
+        except Exception as e:
+            logging.info(
+                "application_password is not found or not right,try use client method"
+            )
+        password = website["password"]
 
         path_markdown = website['path_markdown']
         post_metadata = website['post_metadata']
@@ -65,8 +73,10 @@ async def main():
         # Gather paths of brand-new and changed legacy markdown files
         res = md_detect(path_markdown, path_legacy_json, verbose=post_verbose)
 
-        if con["api"]["rest_api"].lower() == "true":
-            rest = RestApi(url=domain, wp_username=username, wp_password=password)
+        if rest_api:
+            rest = RestApi(
+                url=domain, wp_username=username, wp_password=application_password
+            )
             try:
                 await rest.upload_article(
                     md_message=res,
@@ -75,14 +85,11 @@ async def main():
                     force_upload=post_force_upload,
                 )
             except Exception as e:
-                print("OOPS,The upload failed,Please Try again")
-                try:
-                    os.remove(path_legacy_json)
-                    os.rename(path_legacy_json + "_temporary-copy", path_legacy_json)
-                finally:
-                    sys.exit(0)
-
-        else:
+                print(
+                    "OOPS,The Rest-api failed,Application will attempt to use client method"
+                )
+                rest_api = False
+        if not rest_api:
             client = wp_xmlrpc(domain, username, password)
             md_upload = res['new']
             md_update = res['legacy']

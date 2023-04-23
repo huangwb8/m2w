@@ -80,13 +80,25 @@ class RestApi:
                         print(f"The post {new_md} uploads successful\n")
             else:
                 print(f"The post {new_md} is updating")
-                _create_article(
-                    self,
-                    md_path=new_md,
-                    post_metadata=post_metadata,
-                    verbose=verbose,
-                    force_upload=force_upload,
-                )
+                if (
+                    os.path.basename(new_md).strip(".md")
+                    in self.article_title_dict.keys()
+                ):
+                    _update_article(
+                        self,
+                        md_path=new_md,
+                        post_metadata=post_metadata,
+                        verbose=verbose,
+                        force_upload=force_upload,
+                    )
+                else:
+                    _create_article(
+                        self,
+                        md_path=new_md,
+                        post_metadata=post_metadata,
+                        verbose=verbose,
+                        force_upload=force_upload,
+                    )
                 print(f"The post {new_md} uploads successful\n")
         for legacy_md in md_update:
             if (
