@@ -18,7 +18,7 @@ from setuptools import setup, find_packages
 
 + 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
-+ 使用"python setup.py sdist"命令来生成项目的源代码包。
++ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： pip install .\dist\m2w-2.5.1.tar.gz
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
@@ -66,6 +66,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.6", "python-wordpress-xmlrpc>=2.3"],
+    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.6", "python-wordpress-xmlrpc>=2.3", "httpx>=0.24.0"],
     python_requires='>=3.7.4',
 )
