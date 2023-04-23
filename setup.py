@@ -66,6 +66,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.6", "python-wordpress-xmlrpc>=2.3"],
-    python_requires='>=3.7.4',
+    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.6", "python-wordpress-xmlrpc>=2.3", "httpx>=0.24.0"],
+    python_requires='>=3.8.1',
 )
