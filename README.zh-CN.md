@@ -75,7 +75,7 @@
    考虑到不同源同步延迟的可能性，你可以指定`m2w 2`的版本号和源：
 
    ```bash
-   pip install -i https://pypi.org/simple m2w==2.2.11
+   pip install -i https://pypi.org/simple m2w
    ```
 
 4. 直接下载该仓库中的代码（不推荐）
@@ -129,7 +129,7 @@ path_m2w = '<path02>'
 python '<path01>/myblog.py'
 ```
 
-### v2.3.0
+### v2.3.0+
 
 1. 在`安装`步骤中部署的环境中（pip安装方式则是系统环境），下载[m2w](https://github.com/huangwb8/m2w)仓库中的`myblog.py`文件到环境所在文件夹下
 
@@ -163,6 +163,7 @@ python '<path01>/myblog.py'
                "domain": "https://domain-01.com",
                "username": "username-01",
                "password": "password-01",
+               "application_password":"xxxxxx",
                "path_markdown": [
                    "E:/Github/m2w/@test/main",
                    "E:/Github/m2w/@test/main2"
@@ -180,14 +181,21 @@ python '<path01>/myblog.py'
            }
        }
        ```
-
+      
       + **domain,username,password**：WordPress站点相关信息，比如站点URL、帐户名、密码。
+      
+      + **application_password**:站点的应用程序密码，入口在`个人资料->应用程序密码`，请和站点密码区别开来。
+
+        _注：如果你配置了应用程序密码，程序将默认使用rest_api方式更新文章，反之则使用client方式_
+
       + **path_markdown**：添加任意多的顶级文件夹(也就是该路径下存有待上传的.md文件)
+      
       + **post_metadata**：默认类别信息。有分类（category）、标签（tag）和状态（status）3个属性。
+      
       + **path_legacy_json**：不用改，保持原样。它是记录md5值用的，本质上是一个Python Dict的json版本。
-
+      
       _如果想针对多个网站做同步设置，只需要做如下设置_
-
+      
       ```json
       {
           "web-1":{xxxxxx},
@@ -196,7 +204,7 @@ python '<path01>/myblog.py'
           ………………
       }
       ```
-
+      
       然后根据配置项所需内容给每个网站填写上对应的参数即可
 
 3. 当完成前两步配置后，再次运行`myblog.py`，不出意外的话就会出现上传成功的提示了
@@ -206,6 +214,20 @@ python '<path01>/myblog.py'
 如下图所示，只需要一行`python myblog.py`，即可自动更新或上传markdown喔！
 
 ![Typora_zKwwaE10Qe](https://chevereto.hwb0307.com/images/2022/12/14/Typora_zKwwaE10Qe.gif)
+
+## Q&A
+
+1. Q：上传文章的时候报错`httpx.ConnectError: [Errno 11001] getaddrinfo failed`
+
+   A：大概是网站地址没有写对，首先检查地址是否配置正确，请不要在`url`后面加资源地址如`https://xxx.com/xx/xx`,只填写到`xx.com`即可
+
+2. Q：使用`REST_API`方式上传的时候可以正常获取**文章、tag**列表，但是上传却一直失败
+
+   A：`REST_API`使用的是应用程序密码，而不是网站的登录密码，请检查**application_password**配置项是否类似`xxxx xxxx xxxx xxxx xxxx`的格式,在最新版本使用`Rest_API`失败后会自动尝试使用`Client`重新上传，所以不用担心。
+
+3. Q：我的服务器在国内但是上传速度慢并且经常失败
+
+   A：如果开了代理，请将自己的网站加入到过滤地址内，尤其是`CFW(clash for windows)`用户。
 
 ## 相关仓库
 
@@ -224,8 +246,7 @@ m2w遵循 [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/)
 
 ### 贡献者
 
-暂无。欢迎加入！
-
+[@FoxSuzuran](https://github.com/FoxSuzuran)
 
 ## 使用许可
 

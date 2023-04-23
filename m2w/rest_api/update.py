@@ -74,13 +74,15 @@ def _update_article(
     }
 
     resp = httpx.post(
-        api_url := self.url
+        url=self.url
         + f"wp-json/wp/v2/posts/{self.article_title_dict[os.path.basename(md_path).strip('.md')]}",
         headers=self.wp_header,
         json=post_data,
     )
     try:
-        assert resp.status_code == 200, f"File {md_path} updated failed. Please try again!"
+        assert (
+            resp.status_code == 200
+        ), f"File {md_path} updated failed. Please try again!"
     except AssertionError as e:
         print("Reminder from m2w: " + str(e))
         raise AssertionError
