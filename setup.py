@@ -1,10 +1,11 @@
 from setuptools import setup, find_packages
 
-'''
+"""
 ### 参考
 
 + [python--如何将自己的包上传到PyPi并可通过pip安装](https://blog.csdn.net/yifengchaoran/article/details/113447773)
 + [花了两天，终于把 Python 的 setup.py 给整明白了](https://zhuanlan.zhihu.com/p/276461821)
++ [Black: 一键美化Python代码 - 知乎](https://zhuanlan.zhihu.com/p/336238526): 美化代码
 
 
 ### 步骤
@@ -42,7 +43,7 @@ from setuptools import setup, find_packages
 + pip install -i https://pypi.org/simple m2w==2.2.11
 + pip install m2w 
 
-'''
+"""
 
 VERSION = "2.5.3"
 
@@ -50,13 +51,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name='m2w',
+    name="m2w",
     version=VERSION,
-    description='v2.5.2: Optimize organization of m2w configuration. Both password and REST API supported!',
+    description="v2.5.2: Optimize organization of m2w configuration. Both password and REST API supported!",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author=['Bensz', 'FoxSuzuran'],
-    author_email='hwb2012@qq.com',
+    author=["Bensz", "FoxSuzuran"],
+    author_email="hwb2012@qq.com",
     url="https://github.com/huangwb8/m2w",
     packages=find_packages(),
     include_package_data=True,
@@ -66,6 +67,11 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["python-frontmatter>=1.0.0", "markdown>=3.3.6", "python-wordpress-xmlrpc>=2.3", "httpx>=0.24.0"],
-    python_requires='>=3.7.6',
+    install_requires=[
+        "python-frontmatter>=1.0.0",
+        "markdown>=3.3.6",
+        "python-wordpress-xmlrpc>=2.3",
+        "httpx>=0.24.0",
+    ],
+    python_requires=">=3.7.6",
 )
