@@ -70,7 +70,7 @@
    2022-12-10 之后，我将`m2w` 上传到 [PyPi](https://pypi.org/project/m2w/)，这样你只需要在Shell中运行`pip install m2w `即可安装。考虑到不同源同步延迟的可能性，你可以指定`m2w`的版本号和源：
 
    ```bash
-   pip install -i https://pypi.org/simple m2w==2.5.2
+   pip install -i https://pypi.org/simple m2w==2.5.3
    ```
    
 4. 直接下载该仓库中的代码（不推荐）
