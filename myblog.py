@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time : 2022/12/03 16:42
-# @Author : huangwb8;Suzuran
-# @File : m2w.py
+# @Author : huangwb8; Suzuran
+# @File : myblog.py
 # @Function: Update an existing post in WordPress with a local Markdown file
 # @Software: VSCode
 # @Reference: original
@@ -65,28 +65,29 @@ async def main():
         if os.path.exists(path_legacy_json):
             shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
 
-        # Gather paths of brand-new and changed legacy markdown files
-        res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
-        md_upload = res['new']
-        md_update = res['legacy']
-
         # Upload & Update
-        if len(md_upload) > 0 or len(md_update) > 0:
-            if rest_api:
-                # REST API Mode
-                if verbose: 
-                    print("(ฅ´ω`ฅ) REST API Mode. Very safe!")
-                rest = RestApi(
-                    url=domain, wp_username=username, wp_password=application_password
-                )
+        if rest_api:
+            # REST API Mode
 
+            if verbose: 
+                print("(ฅ´ω`ฅ) REST API Mode. Very safe!")
+            rest = RestApi(
+                url=domain, wp_username=username, wp_password=application_password
+            )
+
+            # Gather paths of brand-new and changed legacy markdown files
+            res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
+            md_upload = res['new']
+            md_update = res['legacy']
+
+            if len(md_upload) > 0 or len(md_update) > 0:
                 # Use REST API mode to upload/update articles
                 try:
                     await rest.upload_article(
-                        md_message=res,
-                        post_metadata=post_metadata,
-                        verbose=verbose,
-                        force_upload=force_upload ,
+                        md_message = res,
+                        post_metadata = post_metadata,
+                        verbose = verbose,
+                        force_upload = force_upload ,
                     )
                     if os.path.exists(path_legacy_json + "_temporary-copy"):
                         os.remove(path_legacy_json + "_temporary-copy")
@@ -96,14 +97,25 @@ async def main():
                     )
                     rest_api = False
             else:
-                # Legacy Password Mode
                 if verbose: 
-                    print("Σ( ° △ °|||)︴Legacy Password Mode. Not safe!")
-                password = website["password"]
-                # "password": "N*$Nh5Gyk9rnEt9GaQ7zq7A5f7hde$",
-                client = wp_xmlrpc(domain, username, password)
+                    print('Without any new or changed legacy markdown files. Ignored.')
+        else:
+            # Legacy Password Mode
 
-                # Use Password mode to upload/update articles
+            if verbose: 
+                print("Σ( ° △ °|||)︴Legacy Password Mode. Not safe!")
+            
+            # Parameters
+            password = website["password"]
+            client = wp_xmlrpc(domain, username, password)
+
+            # Gather paths of brand-new and changed legacy markdown files
+            res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
+            md_upload = res['new']
+            md_update = res['legacy']
+
+            # Use Password mode to upload/update articles
+            if len(md_upload) > 0 or len(md_update) > 0:
                 try:
                     up(
                         client,
@@ -126,9 +138,9 @@ async def main():
                         )
                     finally:
                         sys.exit(0)
-        else:
-            if verbose: 
-                print('Without any new or changed legacy markdown files. Ignored.')
+            else:
+                if verbose: 
+                    print('Without any new or changed legacy markdown files. Ignored.')
 
 
 if __name__ == '__main__':
