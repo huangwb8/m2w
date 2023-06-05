@@ -103,7 +103,7 @@ verbose = True # Whether report the process when using m2w
 ```
 
 3. Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here are some interpretations: 
-  + **user.json** for REST API mode: Just leave it alone and do not change anything! 
+  + **user.json** for REST API mode:
 
 
 ```json
@@ -124,7 +124,7 @@ verbose = True # Whether report the process when using m2w
     }
 ```
 
-+ **user.json** for Password mode: Just leave it alone and do not change anything! 
++ **user.json** for Password mode: 
 
 
 ```json
