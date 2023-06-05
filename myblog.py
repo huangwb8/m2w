@@ -18,9 +18,16 @@ import time
 
 # ===============================Parameters
 # Please adjust the parameters according to the actual situation.
-# Warning: config.ini and user.json should be in the same folder!
+
+# The path of the config folder, where contains user.json and legacy*.json
 path_m2w = "E:/Github/m2w/@test"
+
+# Whether to force uploading a new post.
+# `force_upload=False` is suggested for routine maintaining.
+# `force_upload=True` is suggested for intensive uploading for a brand-new site.
 force_upload = False
+
+# Whether to report running messages.
 verbose = True
 
 
@@ -122,11 +129,7 @@ async def main():
                         md_upload,
                         md_update,
                         post_metadata,
-                        # Whether to force uploading a new post.
-                        # `force_upload=False` is suggested for routine maintaining.
-                        # `force_upload=True` is suggested for intensive uploading for a brand-new site.
                         force_upload=force_upload,
-                        # Whether to report running messages.
                         verbose=verbose,
                     )
                 except Exception as e:
