@@ -6,6 +6,15 @@
 # @Software: VSCode
 # @Reference: original
 
+# ===============================Dependency
+from m2w.rest_api import RestApi
+from m2w import read_json_as_dict, md_detect, up, wp_xmlrpc
+import sys
+import shutil
+import os.path
+import asyncio
+import time
+
 # ===============================Parameters
 # Please adjust the parameters according to the actual situation.
 # Waring: config.ini and user.json should be in the same folder!
@@ -13,18 +22,8 @@ path_m2w = 'E:/Github/m2w/@test'
 force_upload = False
 verbose = True
 
-# ===============================Dependency
-
-import time
-import asyncio
-import os.path
-import shutil
-import sys
-
-from m2w import read_json_as_dict, md_detect, up, wp_xmlrpc
-from m2w.rest_api import RestApi
-
 # ===============================Program
+
 
 async def main():
 
@@ -40,14 +39,16 @@ async def main():
         username = website['username']
         path_markdown = website['path_markdown']
         post_metadata = website['post_metadata']
-        path_legacy_json = path_m2w + website['path_legacy_json'] + '_' + i + '.json'
+        path_legacy_json = path_m2w + \
+            website['path_legacy_json'] + '_' + i + '.json'
 
         # Whether use REST API mode
-        use_rest_api = 'application_password' in website and len(website["application_password"]) > 10
+        use_rest_api = 'application_password' in website and len(
+            website["application_password"]) > 10
         if not use_rest_api and 'password' not in website:
             print('API or password are missing. Please add one of them. Stop m2w!')
             sys.exit(0)
-        elif not use_rest_api and 'password' in website : 
+        elif not use_rest_api and 'password' in website:
             rest_api = False
             application_password = None
         elif use_rest_api and 'password' in website:
@@ -63,13 +64,14 @@ async def main():
 
         # Backup legacy*.json
         if os.path.exists(path_legacy_json):
-            shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
+            shutil.copyfile(path_legacy_json,
+                            path_legacy_json + "_temporary-copy")
 
         # Upload & Update
         if rest_api:
             # REST API Mode
 
-            if verbose: 
+            if verbose:
                 print("(ฅ´ω`ฅ) REST API Mode. Very safe!")
             rest = RestApi(
                 url=domain, wp_username=username, wp_password=application_password
@@ -84,10 +86,10 @@ async def main():
                 # Use REST API mode to upload/update articles
                 try:
                     await rest.upload_article(
-                        md_message = res,
-                        post_metadata = post_metadata,
-                        verbose = verbose,
-                        force_upload = force_upload ,
+                        md_message=res,
+                        post_metadata=post_metadata,
+                        verbose=verbose,
+                        force_upload=force_upload,
                     )
                     if os.path.exists(path_legacy_json + "_temporary-copy"):
                         os.remove(path_legacy_json + "_temporary-copy")
@@ -96,14 +98,14 @@ async def main():
                         "OOPS,The Rest-api mode failed. Please try again later!"
                     )
             else:
-                if verbose: 
+                if verbose:
                     print('Without any new or changed legacy markdown files. Ignored.')
         else:
             # Legacy Password Mode
 
-            if verbose: 
+            if verbose:
                 print("Σ( ° △ °|||)︴Legacy Password Mode. Not safe!")
-            
+
             # Parameters
             password = website["password"]
             client = wp_xmlrpc(domain, username, password)
@@ -124,7 +126,7 @@ async def main():
                         # Whether to force uploading a new post.
                         # `force_upload=False` is suggested for routine maintaining.
                         # `force_upload=True` is suggested for intensive uploading for a brand-new site.
-                        force_upload=force_upload ,
+                        force_upload=force_upload,
                         # Whether to report running messages.
                         verbose=verbose,
                     )
@@ -138,7 +140,7 @@ async def main():
                     finally:
                         sys.exit(0)
             else:
-                if verbose: 
+                if verbose:
                     print('Without any new or changed legacy markdown files. Ignored.')
 
 
