@@ -122,8 +122,8 @@ async def main():
                     finally:
                         sys.exit(0)
         else:
-                if verbose: 
-                    print('Without any new or changed legacy markdown files. Ignored.')
+            if verbose: 
+                print('Without any new or changed legacy markdown files. Ignored.')
 
 
 if __name__ == '__main__':
