@@ -95,7 +95,6 @@ async def main():
                     print(
                         "OOPS,The Rest-api mode failed. Please try again later!"
                     )
-                    rest_api = False
             else:
                 if verbose: 
                     print('Without any new or changed legacy markdown files. Ignored.')
