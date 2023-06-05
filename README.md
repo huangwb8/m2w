@@ -81,15 +81,15 @@ Generally, the latest version of `m2w` is recommended.
 
 + If any, please allow Application password of WordPress in Wordfence:
 
-![msedge_AdQwquBW8F](https://chevereto.hwb0307.com/images/2023/06/05/msedge_AdQwquBW8F.webp)
+![WBrffVs5Ty](https://chevereto.hwb0307.com/images/2023/06/05/WBrffVs5Ty.png)
 
 + Go to personal settings and add a new REST API: 
 
-![msedge_WAhABKoZ5m](https://chevereto.hwb0307.com/images/2023/06/05/msedge_WAhABKoZ5m.webp)
+![sq7kG7Vsqp](https://chevereto.hwb0307.com/images/2023/06/05/sq7kG7Vsqp.png)
 
 + Please record the new REST API in a safe place. If you forget it or suspect its safety, please remove the old API and create a new one:
 
-![msedge_7ptkNP8AdM](https://chevereto.hwb0307.com/images/2023/06/05/msedge_7ptkNP8AdM.webp)
+![GddR0nP8mn](https://chevereto.hwb0307.com/images/2023/06/05/GddR0nP8mn.png)
 
 ### Use m2w
 

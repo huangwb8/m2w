@@ -89,15 +89,15 @@
 
 + 如果您使用wordfence之类的安全插件，请**启用WordPress应用程序密码**:
 
-![msedge_AdQwquBW8F](https://chevereto.hwb0307.com/images/2023/06/05/msedge_AdQwquBW8F.webp)
+![WBrffVs5Ty](https://chevereto.hwb0307.com/images/2023/06/05/WBrffVs5Ty.png)
 
 + 创建一个新的REST API: 
 
-![msedge_WAhABKoZ5m](https://chevereto.hwb0307.com/images/2023/06/05/msedge_WAhABKoZ5m.webp)
+![sq7kG7Vsqp](https://chevereto.hwb0307.com/images/2023/06/05/sq7kG7Vsqp.png)
 
 + 安全地保管该API。如果有必要，可以重新生成或删除:
 
-![msedge_7ptkNP8AdM](https://chevereto.hwb0307.com/images/2023/06/05/msedge_7ptkNP8AdM.webp)
+![GddR0nP8mn](https://chevereto.hwb0307.com/images/2023/06/05/GddR0nP8mn.png)
 
 ### Use m2w
 
