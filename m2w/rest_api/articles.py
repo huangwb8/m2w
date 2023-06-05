@@ -26,7 +26,7 @@ async def __article_title_request(self, client: httpx.AsyncClient(), page_num: i
         self.article_title_dict[article["title"]["rendered"]] = article['id']
 
 
-async def get_all_articles(self) -> None:
+async def get_all_articles(self, verbose) -> None:
     """
     获取所有的文章信息
     """
@@ -41,4 +41,5 @@ async def get_all_articles(self) -> None:
             task = asyncio.create_task(req)
             task_list.append(task)
         await asyncio.gather(*task_list)
-    print("Get article lists complete!")
+    if verbose:
+        print("Get article lists complete!")

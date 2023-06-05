@@ -16,22 +16,23 @@ class MyCfgIni(configparser.ConfigParser):
         return dict(self._sections)
 
 
-def ini_config() -> dict:
+def ini_config(ini_path_default) -> dict:
     """
-    初始化ini配置文件
+    初始化ini配置文件（转移至config文件夹里）
     @return: 配置文件内容的字典
     """
     con = MyCfgIni()
-    if not os.path.exists("config.ini"):
+    # ini_path_default = "config/config.ini"
+    if not os.path.exists(ini_path_default):
         con["path"] = {"m2w_path": os.path.abspath("")}
         con["upload"] = {"force_upload": "False", "verbose": "True"}
 
-        with open("config.ini", "w", encoding="utf-8") as cfg:
+        with open(ini_path_default, "w", encoding="utf-8") as cfg:
             con.write(cfg)
-        print("配置文件config.ini已在目录下生成,请填写配置后重新启动程序")
+        print("m2w add a new config.ini to the 'config' folder. Please check and modify it, then rerun you m2w code.")
         sys.exit(0)
     else:
-        con.read("config.ini", encoding="utf-8")
+        con.read(ini_path_default, encoding="utf-8")
         return con.to_dict()
 
 

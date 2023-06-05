@@ -26,7 +26,7 @@ async def __categories_request(self, client: httpx.AsyncClient(), page_num: int)
         self.categories_dict[categories["name"]] = int(categories["id"])
 
 
-async def get_all_categories(self) -> None:
+async def get_all_categories(self, verbose) -> None:
     """
     获取所有的类别信息
     """
@@ -41,7 +41,8 @@ async def get_all_categories(self) -> None:
             task = asyncio.create_task(req)
             task_list.append(task)
         await asyncio.gather(*task_list)
-    print("Get category lists complete!")
+    if verbose:
+        print("Get category lists complete!")
 
 
 def create_category(self, category_name: str) -> int:

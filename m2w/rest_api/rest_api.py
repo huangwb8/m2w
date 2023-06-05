@@ -39,9 +39,9 @@ class RestApi:
         """
 
         # 更新现有文章信息
-        articles_async = asyncio.create_task(get_all_articles(self))
-        tags_async = asyncio.create_task(get_all_tags(self))
-        categories_async = asyncio.create_task(get_all_categories(self))
+        articles_async = asyncio.create_task(get_all_articles(self, verbose))
+        tags_async = asyncio.create_task(get_all_tags(self, verbose))
+        categories_async = asyncio.create_task(get_all_categories(self, verbose))
 
         await categories_async
         await tags_async
@@ -77,7 +77,7 @@ class RestApi:
                         force_upload=force_upload,
                     )
                     if verbose:
-                        print(f"The post {new_md} uploads successful\n")
+                        print(f"The post {new_md} uploads successful!")
             else:
                 print(f"The post {new_md} is updating")
                 if (
@@ -99,7 +99,7 @@ class RestApi:
                         verbose=verbose,
                         force_upload=force_upload,
                     )
-                print(f"The post {new_md} uploads successful\n")
+                print(f"The post {new_md} uploads successful!")
         for legacy_md in md_update:
             if (
                 os.path.basename(legacy_md).strip(".md")
@@ -113,7 +113,7 @@ class RestApi:
                     force_upload=force_upload,
                 )
                 if verbose:
-                    print(f"The post {legacy_md} updates successful\n")
+                    print(f"The post {legacy_md} updates successful!")
             else:
                 if verbose:
                     print(

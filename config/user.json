@@ -1,8 +1,8 @@
 {
-    "web01": {
-        "domain": "https://domain-01.com",
-        "username": "username-01",
-        "password": "password-01",
+	"web01": {
+        "domain": "https://blognas.hwb0307.com",
+        "username": "your_username",
+        "application_password": "your_rest_api",
         "path_markdown": [
             "E:/Github/m2w/@test/main",
             "E:/Github/m2w/@test/main2"
@@ -16,35 +16,37 @@
     },
 
     "web02": {
-        "domain": "https://domain-02.com",
-        "username": "username-02",
-        "password": "password-02",
+        "domain": "https://blognas.hwb0307.com",
+        "username": "your_username",
+        "password": "your_password",
         "path_markdown": [
-            "E:/Github/m2w/@test/main3",
-            "E:/Github/m2w/@test/main4"
+            "E:/Github/m2w/@test/main",
+            "E:/Github/m2w/@test/main2"
         ],
         "post_metadata": {
-            "category": ["test2"],
-            "tag": ["test2"],
+            "category": ["test"],
+            "tag": ["test"],
             "status": "publish"
         },
         "path_legacy_json": "/config/legacy"
     },
 
     "web03": {
-        "domain": "https://domain-02.com",
-        "username": "username-03",
-        "password": "password-03",
+        "domain": "https://blognas.hwb0307.com",
+        "username": "your_username",
+        "application_password": "your_rest_api",
+        "password": "your_password",
         "path_markdown": [
-            "E:/Github/m2w/@test/main5",
-            "E:/Github/m2w/@test/main6"
+            "E:/Github/m2w/@test/main",
+            "E:/Github/m2w/@test/main2"
         ],
         "post_metadata": {
-            "category": ["test3"],
-            "tag": ["test3"],
+            "category": ["test"],
+            "tag": ["test"],
             "status": "publish"
         },
         "path_legacy_json": "/config/legacy"
     }
+
 
 }

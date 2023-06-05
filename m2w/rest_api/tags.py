@@ -27,7 +27,7 @@ async def __tags_request(self, client: httpx.AsyncClient(), page_num: int):
         self.tags_dict[tags['name']] = tags['id']
 
 
-async def get_all_tags(self) -> None:
+async def get_all_tags(self, verbose) -> None:
     """
     获取所有的标签信息
     """
@@ -42,7 +42,8 @@ async def get_all_tags(self) -> None:
             task = asyncio.create_task(req)
             task_list.append(task)
         await asyncio.gather(*task_list)
-    print("Get tag lists complete!")
+    if verbose:
+        print("Get tag lists complete!")
 
 
 def create_tag(self, tag_name: str) -> int:
