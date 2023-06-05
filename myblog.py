@@ -61,8 +61,14 @@ async def main():
         # Connect the WordPress website
         print('========Website: ' + i)
 
+        # Backup legacy*.json
         if os.path.exists(path_legacy_json):
             shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
+
+        # Gather paths of brand-new and changed legacy markdown files
+        res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
+        md_upload = res['new']
+        md_update = res['legacy']
 
         # Upload & Update
         if len(md_upload) > 0 or len(md_update) > 0:
@@ -74,9 +80,6 @@ async def main():
                     url=domain, wp_username=username, wp_password=application_password
                 )
 
-                # Gather paths of brand-new and changed legacy markdown files
-                res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
-
                 # Use REST API mode to upload/update articles
                 try:
                     await rest.upload_article(
@@ -85,13 +88,13 @@ async def main():
                         verbose=verbose,
                         force_upload=force_upload ,
                     )
+                    if os.path.exists(path_legacy_json + "_temporary-copy"):
+                        os.remove(path_legacy_json + "_temporary-copy")
                 except Exception as e:
                     print(
                         "OOPS,The Rest-api mode failed. Please try again later!"
                     )
                     rest_api = False
-                if os.path.exists(path_legacy_json + "_temporary-copy"):
-                    os.remove(path_legacy_json + "_temporary-copy")
             else:
                 # Legacy Password Mode
                 if verbose: 
@@ -99,11 +102,6 @@ async def main():
                 password = website["password"]
                 # "password": "N*$Nh5Gyk9rnEt9GaQ7zq7A5f7hde$",
                 client = wp_xmlrpc(domain, username, password)
-
-                # Gather paths of brand-new and changed legacy markdown files
-                res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
-                md_upload = res['new']
-                md_update = res['legacy']
 
                 # Use Password mode to upload/update articles
                 try:
