@@ -6,6 +6,15 @@
 # @Software: VSCode
 # @Reference: original
 
+# ===============================Parameters
+# Please adjust the parameters according to the actual situation.
+# Waring: config.ini and user.json should be in the same folder!
+path_m2w = 'E:/Github/m2w/@test'
+force_upload = False
+verbose = True
+
+# ===============================Dependency
+
 import time
 import asyncio
 import os.path
@@ -15,15 +24,8 @@ import sys
 from m2w import read_json_as_dict, md_detect, up, wp_xmlrpc
 from m2w.rest_api import RestApi
 
-
-# ===============================Parameters
-# Please adjust the parameters according to the actual situation.
-# Waring: config.ini and user.json should be in the same folder!
-path_m2w = 'E:/Github/m2w/@test'
-force_upload = False
-verbose = True
-
 # ===============================Program
+
 async def main():
 
     path_user_json = path_m2w + '/config/user.json'
