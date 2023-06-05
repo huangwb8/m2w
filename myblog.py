@@ -64,11 +64,6 @@ async def main():
         if os.path.exists(path_legacy_json):
             shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
 
-        # Gather paths of brand-new and changed legacy markdown files
-        res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
-        md_upload = res['new']
-        md_update = res['legacy']
-
         # Upload & Update
         if len(md_upload) > 0 or len(md_update) > 0:
             if rest_api:
@@ -78,6 +73,11 @@ async def main():
                 rest = RestApi(
                     url=domain, wp_username=username, wp_password=application_password
                 )
+
+                # Gather paths of brand-new and changed legacy markdown files
+                res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
+
+                # Use REST API mode to upload/update articles
                 try:
                     await rest.upload_article(
                         md_message=res,
@@ -100,7 +100,12 @@ async def main():
                 # "password": "N*$Nh5Gyk9rnEt9GaQ7zq7A5f7hde$",
                 client = wp_xmlrpc(domain, username, password)
 
-                # Upload or Update
+                # Gather paths of brand-new and changed legacy markdown files
+                res = md_detect(path_markdown, path_legacy_json,  verbose=verbose)
+                md_upload = res['new']
+                md_update = res['legacy']
+
+                # Use Password mode to upload/update articles
                 try:
                     up(
                         client,
