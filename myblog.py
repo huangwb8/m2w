@@ -87,7 +87,7 @@ async def main():
                     )
                 except Exception as e:
                     print(
-                        "OOPS,The Rest-api failed. Please try again later!"
+                        "OOPS,The Rest-api mode failed. Please try again later!"
                     )
                     rest_api = False
                 if os.path.exists(path_legacy_json + "_temporary-copy"):
@@ -115,7 +115,7 @@ async def main():
                         verbose=verbose,
                     )
                 except Exception as e:
-                    print("OOPS,The upload failed,Please Try again")
+                    print("OOPS,The Password mode failed. Please try again later!")
                     try:
                         os.remove(path_legacy_json)
                         os.rename(
