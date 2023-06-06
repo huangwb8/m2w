@@ -30,6 +30,9 @@ force_upload = False
 # Whether to report running messages.
 verbose = True
 
+# Whether to update the last update time of the post.
+last_update_time_change = False
+
 # Retry time when meeting failure
 max_retries = 10
 
@@ -102,6 +105,7 @@ async def main():
                             post_metadata=post_metadata,
                             verbose=verbose,
                             force_upload=force_upload,
+                            last_update=last_update_time_change,
                         )
                         if os.path.exists(path_legacy_json + "_temporary-copy"):
                             os.remove(path_legacy_json + "_temporary-copy")

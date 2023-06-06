@@ -27,10 +27,16 @@ class RestApi:
         self.tags_dict = {}
 
     async def upload_article(
-        self, md_message=None, post_metadata=None, verbose=True, force_upload=False
+        self,
+        md_message=None,
+        post_metadata=None,
+        verbose=True,
+        force_upload=False,
+        last_update=False,
     ):
         """
         自动判断更新还是创建
+        @param last_update: 是否更新文章最后更新时间
         @param verbose: 是否输出控制台信息
         @param force_upload: 是否启用强制上传
         @param post_metadata: 上传文件的元信息
@@ -73,8 +79,6 @@ class RestApi:
                         self,
                         md_path=new_md,
                         post_metadata=post_metadata,
-                        verbose=verbose,
-                        force_upload=force_upload,
                     )
                     if verbose:
                         print(f"The post {new_md} uploads successful!")
@@ -88,16 +92,13 @@ class RestApi:
                         self,
                         md_path=new_md,
                         post_metadata=post_metadata,
-                        verbose=verbose,
-                        force_upload=force_upload,
+                        last_update=last_update,
                     )
                 else:
                     _create_article(
                         self,
                         md_path=new_md,
                         post_metadata=post_metadata,
-                        verbose=verbose,
-                        force_upload=force_upload,
                     )
                 print(f"The post {new_md} uploads successful!")
         for legacy_md in md_update:
@@ -109,8 +110,6 @@ class RestApi:
                     self,
                     md_path=legacy_md,
                     post_metadata=post_metadata,
-                    verbose=verbose,
-                    force_upload=force_upload,
                 )
                 if verbose:
                     print(f"The post {legacy_md} updates successful!")

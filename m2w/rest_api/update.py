@@ -14,15 +14,11 @@ import httpx
 import time
 
 
-def _update_article(
-    self, md_path, post_metadata, verbose=True, force_upload=False
-) -> None:
+def _update_article(self, md_path, post_metadata, last_update=False) -> None:
     """
     更新文章
     @param md_path: md文件路径
     @param post_metadata: 上传文件的元信息
-    @param verbose: 是否启用控制台输出
-    @param force_upload: 是否启用强制上传
     @return:
     """
 
@@ -67,11 +63,15 @@ def _update_article(
 
     # 5 构造上传的请求内容
     post_data = {
-        "" "content": str(post_content_html, encoding="utf-8"),
+        "content": str(post_content_html, encoding="utf-8"),
         "categories": categories,
         "tags": tags,
-        "date": time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(time.time())),
     }
+
+    if last_update:
+        post_data['date'] = (
+            time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(time.time())),
+        )
 
     resp = httpx.post(
         url=self.url
