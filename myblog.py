@@ -20,7 +20,7 @@ import time
 # Please adjust the parameters according to the actual situation.
 
 # The path of the config folder, where contains user.json and legacy*.json
-path_m2w = "E:/Github/m2w/@test"
+path_m2w = 'E:/我的坚果云/样式备份/网站/m2w 2.5'
 
 # Whether to force uploading a new post.
 # `force_upload=False` is suggested for routine maintaining.
@@ -92,17 +92,24 @@ async def main():
 
             if len(md_upload) > 0 or len(md_update) > 0:
                 # Use REST API mode to upload/update articles
-                try:
-                    await rest.upload_article(
-                        md_message=res,
-                        post_metadata=post_metadata,
-                        verbose=verbose,
-                        force_upload=force_upload,
-                    )
-                    if os.path.exists(path_legacy_json + "_temporary-copy"):
-                        os.remove(path_legacy_json + "_temporary-copy")
-                except Exception as e:
-                    print("OOPS,The Rest-api mode failed. Please try again later!")
+                rest_api_max_retries = 10 # Retry time
+                for retry in range(rest_api_max_retries):
+                    try:
+                        await rest.upload_article(
+                            md_message=res,
+                            post_metadata=post_metadata,
+                            verbose=verbose,
+                            force_upload=force_upload,
+                        )
+                        if os.path.exists(path_legacy_json + "_temporary-copy"):
+                            os.remove(path_legacy_json + "_temporary-copy")
+                        break
+                    except Exception as e:
+                        print("OOPS,The Rest-api mode failed.")
+                        if retry < rest_api_max_retries - 1:
+                            print("Retrying...")
+                        else:
+                            print("Maximum retries exceeded. Exiting.")
             else:
                 if verbose:
                     print("Without any new or changed legacy markdown files. Ignored.")
