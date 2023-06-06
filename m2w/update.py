@@ -28,12 +28,14 @@ def find_post(filepath, client):
     """
     try:
         filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
-        filename_suffix = filename.split('.')[-1]  # 例如：md
-        filename_prefix = filename.strip(".md")  # 例如：test(2021.11.19)
-        # 目前只支持 .md 后缀的文件
-        if filename_suffix != 'md':
+        filename_prefix, filename_suffix = os.path.splitext(filename)
+        # print(filename_prefix) # 例如： test(2021.11.19), .md
+
+        # Only .md files are supported
+        if filename_suffix != '.md':
             print('ERROR: not Markdown file')
             return None
+        
         # get pages in batches of 20
         offset = 0  # 每个batch的初始下标位置
         batch = 20  # 每次得到batch个post，存入posts中

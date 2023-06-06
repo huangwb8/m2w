@@ -19,7 +19,7 @@ from setuptools import setup, find_packages
 
 + 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
-+ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.3.tar.gz
++ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.4.tar.gz
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
@@ -45,7 +45,7 @@ from setuptools import setup, find_packages
 
 """
 
-VERSION = "2.5.3"
+VERSION = "2.5.4"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -53,7 +53,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="m2w",
     version=VERSION,
-    description="v2.5.2: Optimize organization of m2w configuration. Both password and REST API supported!",
+    description=VERSION + ": Optimize organization of m2w configuration. Both password and REST API supported!",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author=["Bensz", "FoxSuzuran"],
