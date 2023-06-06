@@ -29,12 +29,12 @@ def find_post(filepath, client):
     """
     try:
         filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
-        filename_suffix, filename_prefix = os.path.splitext(
+        filename_prefix, filename_suffix = os.path.splitext(
             filename
         )  # 例如：test(2021.11.19) | .md
 
         # 目前只支持 .md 后缀的文件
-        if filename_suffix != 'md':
+        if filename_suffix != '.md':
             print('ERROR: not Markdown file')
             return None
         

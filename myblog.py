@@ -30,7 +30,7 @@ force_upload = False
 # Whether to report running messages.
 verbose = True
 
-# Whether to update the last update time of the post.
+# Whether to update the last update time of the post. Only work in REST API mode.
 last_update_time_change = False
 
 # Retry time when meeting failure
@@ -119,6 +119,7 @@ async def main():
                             )
                             if retry < max_retries - 1:
                                 print("Retrying...")
+                                continue
                             else:
                                 print("Maximum retries exceeded. Exiting.")
                         finally:
@@ -165,6 +166,7 @@ async def main():
                             )
                             if retry < max_retries - 1:
                                 print("Retrying...")
+                                continue
                             else:
                                 print("Maximum retries exceeded. Exiting.")
                         finally:

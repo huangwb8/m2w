@@ -102,9 +102,9 @@ class RestApi:
                     )
                 print(f"The post {new_md} uploads successful!")
         for legacy_md in md_update:
+            filename_prefix = os.path.splitext(os.path.basename(legacy_md))[0]
             if (
-                os.path.basename(legacy_md).strip(".md")
-                in self.article_title_dict.keys()
+                filename_prefix in self.article_title_dict.keys()
             ):
                 _update_article(
                     self,
@@ -116,6 +116,5 @@ class RestApi:
             else:
                 if verbose:
                     print(
-                        'FAILURE to find the post. Please check your User Configuration and the title in your '
-                        'WordPress.'
+                        'FAILURE to find the post. Please check your User Configuration and the title in your WordPress.'
                     )

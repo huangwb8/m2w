@@ -19,7 +19,7 @@ from setuptools import setup, find_packages
 
 + 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
-+ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.5.tar.gz
++ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.6.tar.gz
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
@@ -45,7 +45,7 @@ from setuptools import setup, find_packages
 
 """
 
-VERSION = "2.5.5"
+VERSION = "2.5.6"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()

@@ -23,9 +23,12 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
     """
 
     filename = os.path.basename(md_path)
+    filename_prefix, filename_suffix = os.path.splitext(
+        filename
+    )
 
     try:
-        assert filename.split('.')[-1] == "md", "Only files with suffix .md supported!"
+        assert filename_suffix == ".md", "Only files with suffix .md supported!"
     except AssertionError as e:
         print("Reminder from m2w: " + str(e))
         raise AssertionError
@@ -74,8 +77,10 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
         )
 
     resp = httpx.post(
+        # url=self.url
+        # + f"wp-json/wp/v2/posts/{self.article_title_dict[os.path.basename(md_path).strip('.md')]}",
         url=self.url
-        + f"wp-json/wp/v2/posts/{self.article_title_dict[os.path.basename(md_path).strip('.md')]}",
+        + f"wp-json/wp/v2/posts/{self.article_title_dict[filename_prefix]}",
         headers=self.wp_header,
         json=post_data,
     )
