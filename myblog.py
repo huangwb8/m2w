@@ -112,10 +112,11 @@ async def main():
                         break
                     except Exception as e:
                         print("OOPS, the REST API mode failed!")
-                        os.remove(path_legacy_json)
-                        os.rename(
-                            path_legacy_json + "_temporary-copy", path_legacy_json
-                        )
+                        if os.path.exists(path_legacy_json + "_temporary-copy"):
+                            os.remove(path_legacy_json)
+                            os.rename(
+                                path_legacy_json + "_temporary-copy", path_legacy_json
+                            )
                         if retry < max_retries - 1:
                             print("Retrying...")
                             continue
@@ -157,10 +158,11 @@ async def main():
                         break
                     except Exception as e:
                         print("OOPS, the Password mode failed!")
-                        os.remove(path_legacy_json)
-                        os.rename(
-                            path_legacy_json + "_temporary-copy", path_legacy_json
-                        )
+                        if os.path.exists(path_legacy_json + "_temporary-copy"):
+                            os.remove(path_legacy_json)
+                            os.rename(
+                                path_legacy_json + "_temporary-copy", path_legacy_json
+                            )
                         if retry < max_retries - 1:
                             print("Retrying...")
                             continue
