@@ -20,7 +20,7 @@ import time
 # Please adjust the parameters according to the actual situation.
 
 # The path of the config folder, where contains user.json and legacy*.json
-path_m2w = 'E:/我的坚果云/样式备份/网站/m2w 2.5'
+path_m2w = "E:/我的坚果云/样式备份/网站/m2w 2.5"
 
 # Whether to force uploading a new post.
 # `force_upload=False` is suggested for routine maintaining.
@@ -29,6 +29,9 @@ force_upload = False
 
 # Whether to report running messages.
 verbose = True
+
+# Retry time when meeting failure
+max_retries = 10
 
 
 # ===============================Program
@@ -92,8 +95,7 @@ async def main():
 
             if len(md_upload) > 0 or len(md_update) > 0:
                 # Use REST API mode to upload/update articles
-                rest_api_max_retries = 10 # Retry time
-                for retry in range(rest_api_max_retries):
+                for retry in range(max_retries):
                     try:
                         await rest.upload_article(
                             md_message=res,
@@ -105,11 +107,18 @@ async def main():
                             os.remove(path_legacy_json + "_temporary-copy")
                         break
                     except Exception as e:
-                        print("OOPS,The Rest-api mode failed.")
-                        if retry < rest_api_max_retries - 1:
-                            print("Retrying...")
-                        else:
-                            print("Maximum retries exceeded. Exiting.")
+                        print("OOPS, the REST API mode failed!")
+                        try:
+                            os.remove(path_legacy_json)
+                            os.rename(
+                                path_legacy_json + "_temporary-copy", path_legacy_json
+                            )
+                            if retry < max_retries - 1:
+                                print("Retrying...")
+                            else:
+                                print("Maximum retries exceeded. Exiting.")
+                        finally:
+                            sys.exit(0)
             else:
                 if verbose:
                     print("Without any new or changed legacy markdown files. Ignored.")
@@ -130,24 +139,32 @@ async def main():
 
             # Use Password mode to upload/update articles
             if len(md_upload) > 0 or len(md_update) > 0:
-                try:
-                    up(
-                        client,
-                        md_upload,
-                        md_update,
-                        post_metadata,
-                        force_upload=force_upload,
-                        verbose=verbose,
-                    )
-                except Exception as e:
-                    print("OOPS,The Password mode failed. Please try again later!")
+                for retry in range(max_retries):
                     try:
-                        os.remove(path_legacy_json)
-                        os.rename(
-                            path_legacy_json + "_temporary-copy", path_legacy_json
+                        up(
+                            client,
+                            md_upload,
+                            md_update,
+                            post_metadata,
+                            force_upload=force_upload,
+                            verbose=verbose,
                         )
-                    finally:
-                        sys.exit(0)
+                        if os.path.exists(path_legacy_json + "_temporary-copy"):
+                            os.remove(path_legacy_json + "_temporary-copy")
+                        break
+                    except Exception as e:
+                        print("OOPS, the Password mode failed!")
+                        try:
+                            os.remove(path_legacy_json)
+                            os.rename(
+                                path_legacy_json + "_temporary-copy", path_legacy_json
+                            )
+                            if retry < max_retries - 1:
+                                print("Retrying...")
+                            else:
+                                print("Maximum retries exceeded. Exiting.")
+                        finally:
+                            sys.exit(0)
             else:
                 if verbose:
                     print("Without any new or changed legacy markdown files. Ignored.")
