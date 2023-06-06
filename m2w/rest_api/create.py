@@ -13,15 +13,11 @@ import os
 import httpx
 
 
-def _create_article(
-    self, md_path, post_metadata, verbose=True, force_upload=False
-) -> None:
+def _create_article(self, md_path, post_metadata) -> None:
     """
     创建文章
     @param md_path: md文件路径
     @param post_metadata: 上传文件的元信息
-    @param verbose: 是否启用控制台输出
-    @param force_upload: 是否启用强制上传
     @return:
     """
     filename = os.path.basename(md_path)
@@ -79,7 +75,9 @@ def _create_article(
         json=post_data,
     )
     try:
-        assert resp.status_code == 201, f"File {md_path} uploaded failed. Please try again!"
+        assert (
+            resp.status_code == 201
+        ), f"File {md_path} uploaded failed. Please try again!"
     except AssertionError as e:
         print("Reminder from m2w: " + str(e))
         raise AssertionError
