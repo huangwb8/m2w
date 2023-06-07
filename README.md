@@ -75,7 +75,7 @@ Generally, the latest version of `m2w` is recommended.
 
 ## Usage
 
-### Allow REST API in WordPress
+### Enable REST API
 
 > This step is needed only **when you want to use the REST API mode**.
 
@@ -97,9 +97,7 @@ Generally, the latest version of `m2w` is recommended.
 2. Build a `myblog.py` file (or other names you like) in `<path01>`. Here is the [demo](https://github.com/huangwb8/m2w/blob/main/myblog.py). Create `<path02>/config/user.json` and set `path_m2w` as `<path02>` in `myblog.py`:
 
 ```python
-path_m2w = '<path02>' # Absolute path of m2w
-force_upload = False # Whether use force uploading
-verbose = True # Whether report the process when using m2w
+path_m2w = '<path02>' # Absolute path of m2w config folder
 ```
 
 3. Define `<path02>/config/user.json`.  You can add many websites like `web01`!  Please go to the [demo](https://github.com/huangwb8/m2w/blob/main/config/user.json) for more details. Here are some interpretations: 

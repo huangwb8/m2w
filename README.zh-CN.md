@@ -83,7 +83,7 @@
 
 ## 使用
 
-### 允许REST API
+### 开启REST API
 
 > This step is needed only **when you want to use the REST API mode**.
 
@@ -105,9 +105,7 @@
 2. 在`path01`路径里修改 `myblog.py`。这里有一个[demo](https://github.com/huangwb8/m2w/blob/main/myblog.py)。创建 `<path02>/config/user.json` ，并且将`myblog.py`中的`path_m2w` 设置为 `<path02>` :
 
 ```python
-path_m2w = '<path02>' # Absolute path of m2w
-force_upload = False # Whether use force uploading
-verbose = True # Whether report the process when using m2w
+path_m2w = '<path02>' # config文件夹的路径
 ```
 
 3. 定义 `<path02>/config/user.json`.  你可以添加多个网站，格式类似于 `web01`即可!  可以在[demo](https://github.com/huangwb8/m2w/blob/main/config/user.json)中了解更多细节。参数解释如下： 
