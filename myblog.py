@@ -7,11 +7,8 @@
 # @Reference: original
 
 # ===============================Dependency
-from m2w.rest_api import RestApi
-from m2w import read_json_as_dict, md_detect, up, wp_xmlrpc
+from m2w import read_json_as_dict, up
 import sys
-import shutil
-import os.path
 import asyncio
 import time
 
@@ -64,115 +61,40 @@ async def main():
         elif not use_rest_api and "password" in website:
             rest_api = False
             application_password = None
+            password = website["password"]
         elif use_rest_api and "password" in website:
             print(
                 "Warning: You have REST API. Password would be ignored. You can remove password in the 'user.json' to make the use of m2w safer!"
             )
             rest_api = True
             application_password = website["application_password"]
+            password = None
         else:
             rest_api = True
             application_password = website["application_password"]
+            password = None
 
         # Connect the WordPress website
         print("========Website: " + i)
+        await up(
+            # The path of files
+            path_markdown = path_markdown, 
+            path_legacy_json = path_legacy_json,
 
-        # Backup legacy*.json
-        if os.path.exists(path_legacy_json):
-            shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
-
-        # Upload & Update
-        if rest_api:
-            # REST API Mode
-
-            if verbose:
-                print("(ฅ´ω`ฅ) REST API Mode. Very safe!")
-            rest = RestApi(
-                url=domain, wp_username=username, wp_password=application_password
-            )
-
-            # Gather paths of brand-new and changed legacy markdown files
-            res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
-            md_upload = res["new"]
-            md_update = res["legacy"]
-
-            if len(md_upload) > 0 or len(md_update) > 0:
-                # Use REST API mode to upload/update articles
-                for retry in range(max_retries):
-                    try:
-                        await rest.upload_article(
-                            md_message=res,
-                            post_metadata=post_metadata,
-                            verbose=verbose,
-                            force_upload=force_upload,
-                            last_update=last_update_time_change,
-                        )
-                        if os.path.exists(path_legacy_json + "_temporary-copy"):
-                            os.remove(path_legacy_json + "_temporary-copy")
-                        break
-                    except Exception as e:
-                        print("OOPS, the REST API mode failed!")
-                        if os.path.exists(path_legacy_json + "_temporary-copy"):
-                            os.remove(path_legacy_json)
-                            os.rename(
-                                path_legacy_json + "_temporary-copy", path_legacy_json
-                            )
-                        if retry < max_retries - 1:
-                            print("Retrying...")
-                            continue
-                        else:
-                            print("Maximum retries exceeded. Exiting.")
-                            sys.exit(0)
-            else:
-                if verbose:
-                    print("Without any new or changed legacy markdown files. Ignored.")
-        else:
-            # Legacy Password Mode
-
-            if verbose:
-                print("Σ( ° △ °|||)︴Legacy Password Mode. Not safe!")
+            # Website data
+            domain = domain, 
+            username = username, 
+            password = password, 
+            application_password = application_password, 
+            post_metadata = post_metadata,
 
             # Parameters
-            password = website["password"]
-            client = wp_xmlrpc(domain, username, password)
-
-            # Gather paths of brand-new and changed legacy markdown files
-            res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
-            md_upload = res["new"]
-            md_update = res["legacy"]
-
-            # Use Password mode to upload/update articles
-            if len(md_upload) > 0 or len(md_update) > 0:
-                for retry in range(max_retries):
-                    try:
-                        up(
-                            client,
-                            md_upload,
-                            md_update,
-                            post_metadata,
-                            force_upload=force_upload,
-                            verbose=verbose,
-                        )
-                        if os.path.exists(path_legacy_json + "_temporary-copy"):
-                            os.remove(path_legacy_json + "_temporary-copy")
-                        break
-                    except Exception as e:
-                        print("OOPS, the Password mode failed!")
-                        if os.path.exists(path_legacy_json + "_temporary-copy"):
-                            os.remove(path_legacy_json)
-                            os.rename(
-                                path_legacy_json + "_temporary-copy", path_legacy_json
-                            )
-                        if retry < max_retries - 1:
-                            print("Retrying...")
-                            continue
-                        else:
-                            print("Maximum retries exceeded. Exiting.")
-                            sys.exit(0)
-                            
-            else:
-                if verbose:
-                    print("Without any new or changed legacy markdown files. Ignored.")
+            last_update_time_change = last_update_time_change, 
+            force_upload = force_upload, 
+            verbose = verbose, 
+            rest_api = rest_api, 
+            max_retries = max_retries
+        )
 
 
 if __name__ == "__main__":
