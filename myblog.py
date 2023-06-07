@@ -16,6 +16,8 @@ import time
 # ===============================Parameters
 # Please adjust the parameters according to the actual situation.
 
+# m2w version: 2.5.7+
+
 # The path of the config folder, where contains user.json and legacy*.json
 path_m2w = "E:/我的坚果云/样式备份/网站/m2w 2.5"
 
