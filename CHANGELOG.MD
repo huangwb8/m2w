@@ -1,4 +1,9 @@
 # Change
+
+## [2.5.7]
+
+1. 支持REST API/Password模式的一个stable版本。
+
 ___
 
 ## [2.5.2]
