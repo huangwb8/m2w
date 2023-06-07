@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
-+ 输入"twine upload dist/*2.5.7* --verbose"来上传项目的源代码包。
++ 先完成Github仓库的更新和加tag。最后再上传至PyPi。输入"twine upload dist/*2.5.7* --verbose"来上传项目的源代码包。
 
 + 在上传过程中，你需要输入你在PyPi上注册的用户名和密码。
 
