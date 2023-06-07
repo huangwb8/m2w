@@ -6,7 +6,7 @@
 <a href=""><img src="https://img.shields.io/github/downloads/huangwb8/m2w/total"></a>
 <a href=""><img src="https://img.shields.io/github/stars/huangwb8/m2w?style=social"></a>
 </p>
-基于Python将本地markdown推送和更新至Wordpress
+基于Python将本地markdown推送和更新至Wordpress，支持REST API和Password模式
 
 :star2::star2::star2: 欢迎m2w 2.5正式投入使用!
 
