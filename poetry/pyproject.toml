@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "m2w"
-version = "2.5.3"
+version = "2.5.7"
 description = "Automatically upload and update local markdown to WordPress via Python"
 authors = ["huangwb8","FoxSuzuran <2903582631@qq.com>"]
 readme = "README.md"
@@ -9,7 +9,7 @@ packages = [{include = "wordpress_blog"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-m2w = "^2.5.3"
+m2w = "^2.5.7"
 
 [[tool.poetry.source]]
 name = "aliyun"

@@ -63,12 +63,18 @@ install_requires=[
 ]
 ```
 
-After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/). To install `m2w`, just run `pip install m2w ` in your shell/conda environment. You can also directly download `m2w`  from this repotory. The usage is exactly the same.
+After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/). To install `m2w`, just run this code in your shell/conda environment:
+
+```
+pip install m2w
+```
+
+You can also directly download `m2w`  from this repotory. The usage is exactly the same.
 
 You can specify version or resource when installing `m2w`:
 
 ```bash
-pip install -i https://pypi.org/simple m2w
+pip install -i https://pypi.org/simple m2w==2.5.7
 ```
 
 Generally, the latest version of `m2w` is recommended.
