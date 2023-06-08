@@ -180,7 +180,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## TO-DO
 
-+ Nothing
++ Develop GUI across OS
 
 ## Related Efforts
 
