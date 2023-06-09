@@ -172,7 +172,7 @@ python <path01>/myblog.py
 
 如下图所示，只需要一行`python myblog.py`，即可自动更新或上传markdown喔！
 
-![Code_RVLd0mHbqc](https://chevereto.hwb0307.com/images/2023/06/05/Code_RVLd0mHbqc.gif)
+![image-20230609173358533](https://chevereto.hwb0307.com/images/2023/06/09/image-20230609173358533.png)
 
 ## Q&A
 

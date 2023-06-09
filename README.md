@@ -165,7 +165,7 @@ python <path01>/myblog.py
 
 As shown in the following GIF, all changed or brand-new markdowns can be automatically updated/upload via just a simple command `python myblog.py`!
 
-![Code_RVLd0mHbqc](https://chevereto.hwb0307.com/images/2023/06/05/Code_RVLd0mHbqc.gif)
+![image-20230609173358533](https://chevereto.hwb0307.com/images/2023/06/09/image-20230609173358533.png)
 
 ## LOG
 
