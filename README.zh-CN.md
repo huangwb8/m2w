@@ -35,8 +35,6 @@
 + 只需要使用1个 python 脚本 `myblog.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。
 
-现阶段，REST API模式上传/更新文章的速度比Password模式慢，这可能是由于Wordfence等插件影响了REST API的工作效率。我们后续会修复该情况。
-
 ## 安装
 1. poetry 安装方式
 

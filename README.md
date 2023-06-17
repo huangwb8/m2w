@@ -42,8 +42,6 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 + All you need to deal with is a single python script `myblog.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
 + Ignore repeated new markdown files for uploading (`v2.2.4+`)
 
-REST API is safer but less efficient. We would repair it sooner or later. 
-
 ## Install
 
 > [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended to manage Python version and related dependencies.
