@@ -14,14 +14,17 @@
 
 ## 内容列表
 
-- [背景](#背景)
-- [安装](#安装)
-- [使用](#使用)
-- [项目展示](#项目展示)
-- [Q&A](#Q&A)
-- [维护者](#维护者)
-- [使用许可](#使用许可)
-- [相关仓库](#相关仓库)
+- [m2w: Markdown to WordPress](#m2w-markdown-to-wordpress)
+  - [内容列表](#内容列表)
+  - [背景](#背景)
+  - [安装](#安装)
+  - [使用](#使用)
+    - [开启 REST API](#开启-rest-api)
+  - [项目展示](#项目展示)
+  - [Q\&A](#qa)
+  - [维护者](#维护者)
+  - [使用许可](#使用许可)
+  - [相关仓库](#相关仓库)
 
 ## 背景
 
@@ -36,92 +39,51 @@
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。
 
 ## 安装
-1. poetry 安装方式
 
-   >有关poetry的安装请查看官方文档[Introduction | Documentation | Poetry - Python dependency management and packaging made easy (python-poetry.org)](https://python-poetry.org/docs/)
+> 推荐使用[Miniconda](https://docs.conda.io/en/latest/miniconda.html)来管理Python版本和相关依赖。
 
-   1. 下载随2.3.0更新上传的位于`poetry` 目录下的`pyproject.toml`和`poetry.lock`，放在一个你喜欢并且容易找到的文件夹
-   2. 在目录下运行`poetry install`
-   3. 查看接下来的使用教程部分
+这是所需的依赖项：
 
-2. Anaconda安装
+```python
+# Python 版本要求
+python_requires='>=3.7.6'
 
-   > 建议使用 [Conda](https://conda.io/projects/conda/en/stable/user-guide/install/download.html) 来管理 Python 版本和相关依赖项。这是一个第3方示例教程：《[win10安装 Anaconda3](https://www.cnblogs.com/syushin/p/15113986.html)》。自己找找，教程很多的 (～￣▽￣)～ 
+# 依赖项
+install_requires=[
+    "python-frontmatter>=1.0.0",
+    "markdown>=3.3.6",
+    "python-wordpress-xmlrpc>=2.3",
+    "httpx>=0.24.0"
+]
+```
 
-   依赖项：
+在2022年12月10日之后，`m2w`已经上传到了[PyPi](https://pypi.org/project/m2w/)。要安装 `m2w`，只需要在您的 shell/conda 环境中运行以下代码：
 
-   ```python
-   # Python version
-   python_requires='>=3.7.6'
-   
-   # Dependencies
-   install_requires=[
-       "python-frontmatter>=1.0.0",
-       "markdown>=3.3.6",
-       "python-wordpress-xmlrpc>=2.3",
-       "httpx>=0.24.0"
-   ]
-   ```
+```
+pip install m2w
+```
 
-3. 官方pip安装
+您也可以直接从这个仓库下载 `m2w`。使用方法完全相同。
 
-   2022-12-10 之后，我将`m2w` 上传到 [PyPi](https://pypi.org/project/m2w/)，这样你只需要在Shell中运行以下命令即可安装：
+在安装 `m2w` 时，您可以指定版本或资源：
 
-   ```shell
-   pip install m2w
-   ```
-   
-   考虑到不同源同步延迟的可能性，你可以指定`m2w`的版本号和源：
-   
-   ```bash
-   pip install -i https://pypi.org/simple m2w
-   ```
-   
-4. 直接下载该仓库中的代码（不推荐）
+```bash
+pip install -i https://pypi.org/simple m2w==2.5.7
+```
 
-   如果你采用这种方式，你还需要在环境中安装以下4个python包
+通常建议使用最新版本的 `m2w`。
 
-   `python-frontmatter`,`markdown`,`python-wordpress-xmlrpc`, `httpx`
-
-建议安装最新版本的`m2w 2`。
 
 ## 使用
 
-### 开启REST API
-
-> This step is needed only **when you want to use the REST API mode**.
-
-+ 如果您使用wordfence之类的安全插件，请**启用WordPress应用程序密码**:
-
-![WBrffVs5Ty](https://chevereto.hwb0307.com/images/2023/06/05/WBrffVs5Ty.png)
-
-+ 创建一个新的REST API: 
-
-![sq7kG7Vsqp](https://chevereto.hwb0307.com/images/2023/06/05/sq7kG7Vsqp.png)
-
-+ 安全地保管该API。如果有必要，可以重新生成或删除:
-
-![GddR0nP8mn](https://chevereto.hwb0307.com/images/2023/06/05/GddR0nP8mn.png)
-
-### Use m2w
-
-1. 安装m2w。
-2. 在`path01`路径里修改 `myblog.py`。这里有一个[demo](https://github.com/huangwb8/m2w/blob/main/myblog.py)。创建 `<path02>/config/user.json` ，并且将`myblog.py`中的`path_m2w` 设置为 `<path02>` :
-
-```python
-path_m2w = '<path02>' # config文件夹的路径
-```
-
-3. 定义 `<path02>/config/user.json`.  你可以添加多个网站，格式类似于 `web01`即可!  可以在[demo](https://github.com/huangwb8/m2w/blob/main/config/user.json)中了解更多细节。参数解释如下： 
-
-  + **user.json** ——REST API模式： 
-
+在 `path01` 目录下创建文件夹 `config`，并在文件夹创建 `user.json`，示例如下
 
 ```json
 "web01": {
         "domain": "https://domain-01.com",
         "username": "username-01",
         "application_password": "password-01",
+        // "password": "password-01",
         "path_markdown": [
             "E:/Github/m2w/@test/main",
             "E:/Github/m2w/@test/main2"
@@ -135,36 +97,42 @@ path_m2w = '<path02>' # config文件夹的路径
     }
 ```
 
-+ **user.json** ——Password模式：
+参数说明：
+  - `domain`: WordPress 站点的域名
+  - `username`: WordPress 账户
+  - `application_password`: 应用程序密码（推荐），与 `password` 二选一即可。获取方式见下文[开启 REST API](#开启REST%20API)
+  - `password`: 账户密码，与 `application_password` 二选一即可，如果二者共存，优先使用 REST API。
+  - `path_markdown`: 包含 markdown 文本的文件夹，可以有多个。
+  - `post_metadata/path_legacy_json`: 不了解怎么设置的默认即可。
 
+创建脚本 `myblog.py`，这里有一个[示例](https://github.com/huangwb8/m2w/blob/main/myblog.py)，需要将 `path_m2w` 修改为 `config` 文件夹所在的路径。
 
-```json
-"web01": {
-        "domain": "https://domain-01.com",
-        "username": "username-01",
-        "password": "password-01",
-        "path_markdown": [
-            "E:/Github/m2w/@test/main",
-            "E:/Github/m2w/@test/main2"
-        ],
-        "post_metadata": {
-            "category": ["test"],
-            "tag": ["test"],
-            "status": "publish"
-        },
-        "path_legacy_json": "/config/legacy"
-    }
+```python
+path_m2w = '<path02>' # config文件夹的路径
 ```
 
-  + **domain, username, application_password/password**:  WordPress帐户和密码（REST API）。 `application_password` 是REST API, `password`是帐户密码。如果两者共存，优先使用REST API。
-  + **path_markdown**: 包含markdown文本的文件夹，可以有多个。
-  + **post_metadata/path_legacy_json**: 不了解怎么设置的默认即可。
-
-4. 准备工作完成后，直接运行这个命令即可：
+准备工作完成后，直接运行这个命令即可：
 
 ```bash
 python <path01>/myblog.py
 ```
+
+### 开启 REST API
+
+> 如果你想使用 REST API 模式，则需要这一步。
+
++ 如果您使用 wordfence 之类的安全插件，请**启用 WordPress 应用程序密码**:
+
+   ![WBrffVs5Ty](https://chevereto.hwb0307.com/images/2023/06/05/WBrffVs5Ty.png)
+
++ 创建一个新的 REST API: 
+
+   ![sq7kG7Vsqp](https://chevereto.hwb0307.com/images/2023/06/05/sq7kG7Vsqp.png)
+
++ 安全地保管该API。如果有必要，可以重新生成或删除:
+
+   ![GddR0nP8mn](https://chevereto.hwb0307.com/images/2023/06/05/GddR0nP8mn.png)
+
 
 ## 项目展示
 
