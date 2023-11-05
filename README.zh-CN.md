@@ -100,7 +100,7 @@ pip install -i https://pypi.org/simple m2w==2.5.7
 参数说明：
   - `domain`: WordPress 站点的域名
   - `username`: WordPress 账户
-  - `application_password`: 应用程序密码（推荐），与 `password` 二选一即可。获取方式见下文[开启 REST API](#开启REST%20API)
+  - `application_password`: 应用程序密码（推荐），与 `password` 二选一即可。获取方式见下文[开启 REST API](#开启-rest-api)
   - `password`: 账户密码，与 `application_password` 二选一即可，如果二者共存，优先使用 REST API。
   - `path_markdown`: 包含 markdown 文本的文件夹，可以有多个。
   - `post_metadata/path_legacy_json`: 不了解怎么设置的默认即可。

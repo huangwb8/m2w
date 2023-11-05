@@ -1,4 +1,4 @@
-### [English](https://github.com/huangwb8/m2w) | [简体中文](https://github.com/huangwb8/m2w/blob/main/README.zh-CN.md)
+### [English](README.md) | [简体中文](README.zh-CN.md)
 
 # m2w: Markdown to WordPress
 
@@ -18,16 +18,21 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 
 ## Table of Contents
 
-- [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
-- [Demo](#demo)
-- [Related Efforts](#related-efforts)
-- [LOG](#LOG)
-- [TO-DO](#TO-DO)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
+- [m2w: Markdown to WordPress](#m2w-markdown-to-wordpress)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [Enable REST API](#enable-rest-api)
+    - [Use m2w](#use-m2w)
+  - [Demo](#demo)
+  - [LOG](#log)
+  - [TO-DO](#to-do)
+  - [Related Efforts](#related-efforts)
+  - [Maintainers](#maintainers)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [More](#more)
 
 ## Background
 
