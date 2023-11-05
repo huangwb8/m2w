@@ -84,7 +84,7 @@ async def up(
                     shutil.copyfile(path_legacy_json + "_temporary_latest", path_legacy_json)     
                 break
             except Exception as e:
-                print("OOPS, the REST API mode failed!")
+                print("OOPS, the upload/update process failed!")
                 if os.path.exists(path_legacy_json + "_temporary_old"):
                     shutil.copyfile(path_legacy_json + "_temporary_old", path_legacy_json)
                 if retry < max_retries - 1:
