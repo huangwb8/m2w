@@ -32,29 +32,37 @@ async def up(
     None
     """
 
-    # Upload & Update
+    # Backup old legacy*.json
+    shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_old")
+
+    # Mode
     if rest_api:
         # REST API Mode
-
         if verbose:
             print("(ฅ´ω`ฅ) REST API Mode. Very safe!")
         rest = RestApi(
             url=domain, wp_username=username, wp_password=application_password
         )
+    else:
+        # Legacy Password Mode
+        if verbose:
+            print("Σ( ° △ °|||)︴Legacy Password Mode. Not safe!")
+        client = wp_xmlrpc(domain, username, password)
+    
+    # Gather paths of brand-new and changed legacy markdown files
+    res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
+    md_upload = res["new"]
+    md_update = res["legacy"]
 
-        # Gather paths of brand-new and changed legacy markdown files
-        res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
-        md_upload = res["new"]
-        md_update = res["legacy"]
+    # Backup the latest legacy*.json
+    shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_latest")
 
-        # Backup legacy*.json
-        if os.path.exists(path_legacy_json):
-            shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
-
-        if len(md_upload) > 0 or len(md_update) > 0:
-            # Use REST API mode to upload/update articles
-            for retry in range(max_retries):
-                try:
+    # Upload & Update
+    if len(md_upload) > 0 or len(md_update) > 0:
+        for retry in range(max_retries):
+            try:
+                if rest_api:
+                    # Use REST API mode to upload/update articles
                     await rest.upload_article(
                         md_message=res,
                         post_metadata=post_metadata,
@@ -62,47 +70,8 @@ async def up(
                         force_upload=force_upload,
                         last_update=last_update_time_change,
                     )
-                    if os.path.exists(path_legacy_json + "_temporary-copy"):
-                        os.remove(path_legacy_json + "_temporary-copy")
-                    break
-                except Exception as e:
-                    print("OOPS, the REST API mode failed!")
-                    if os.path.exists(path_legacy_json + "_temporary-copy"):
-                        os.remove(path_legacy_json)
-                        os.rename(
-                            path_legacy_json + "_temporary-copy", path_legacy_json
-                        )
-                    if retry < max_retries - 1:
-                        print("Retrying...")
-                        continue
-                    else:
-                        print("Maximum retries exceeded. Exiting.")
-                        sys.exit(0)
-        else:
-            if verbose:
-                print("Without any new or changed legacy markdown files. Ignored.")
-    else:
-        # Legacy Password Mode
-
-        if verbose:
-            print("Σ( ° △ °|||)︴Legacy Password Mode. Not safe!")
-
-        # Parameters
-        client = wp_xmlrpc(domain, username, password)
-
-        # Gather paths of brand-new and changed legacy markdown files
-        res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
-        md_upload = res["new"]
-        md_update = res["legacy"]
-
-        # Backup legacy*.json
-        if os.path.exists(path_legacy_json):
-            shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
-
-        # Use Password mode to upload/update articles
-        if len(md_upload) > 0 or len(md_update) > 0:
-            for retry in range(max_retries):
-                try:
+                else:
+                    # Use Password mode to upload/update articles
                     up_password(
                         client,
                         md_upload,
@@ -111,24 +80,23 @@ async def up(
                         force_upload=force_upload,
                         verbose=verbose,
                     )
-                    if os.path.exists(path_legacy_json + "_temporary-copy"):
-                        os.remove(path_legacy_json + "_temporary-copy")
-                    break
-                except Exception as e:
-                    print("OOPS, the Password mode failed!")
-                    if os.path.exists(path_legacy_json + "_temporary-copy"):
-                        os.remove(path_legacy_json)
-                        os.rename(
-                            path_legacy_json + "_temporary-copy", path_legacy_json
-                        )
-                    if retry < max_retries - 1:
-                        print("Retrying...")
-                        continue
-                    else:
-                        print("Maximum retries exceeded. Exiting.")
-                        sys.exit(0)
-                        
-        else:
-            if verbose:
-                print("Without any new or changed legacy markdown files. Ignored.") 
-
+                if os.path.exists(path_legacy_json + "_temporary_latest"):
+                    os.remove(path_legacy_json)
+                    os.rename(path_legacy_json + "_temporary_latest", path_legacy_json)     
+                break
+            except Exception as e:
+                print("OOPS, the REST API mode failed!")
+                if os.path.exists(path_legacy_json + "_temporary_old"):
+                    os.remove(path_legacy_json)
+                    os.rename(
+                        path_legacy_json + "_temporary_old", path_legacy_json
+                    )
+                if retry < max_retries - 1:
+                    print("Retrying...")
+                    continue
+                else:
+                    print("Maximum retries exceeded. Exiting.")
+                    sys.exit(0)
+    else:
+        if verbose:
+            print("Without any new or changed legacy markdown files. Ignored.")
