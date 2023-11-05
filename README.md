@@ -77,7 +77,7 @@ You can also directly download `m2w`  from this repotory. The usage is exactly t
 You can specify version or resource when installing `m2w`:
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.5.7
+pip install -i https://pypi.org/simple m2w==2.5.11
 ```
 
 Generally, the latest version of `m2w` is recommended.

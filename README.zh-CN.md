@@ -68,7 +68,7 @@ pip install m2w
 在安装 `m2w` 时，您可以指定版本或资源：
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.5.7
+pip install -i https://pypi.org/simple m2w==2.5.11
 ```
 
 通常建议使用最新版本的 `m2w`。
