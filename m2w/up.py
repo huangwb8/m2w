@@ -81,16 +81,12 @@ async def up(
                         verbose=verbose,
                     )
                 if os.path.exists(path_legacy_json + "_temporary_latest"):
-                    os.remove(path_legacy_json)
-                    os.rename(path_legacy_json + "_temporary_latest", path_legacy_json)     
+                    shutil.copyfile(path_legacy_json + "_temporary_latest", path_legacy_json)     
                 break
             except Exception as e:
                 print("OOPS, the REST API mode failed!")
                 if os.path.exists(path_legacy_json + "_temporary_old"):
-                    os.remove(path_legacy_json)
-                    os.rename(
-                        path_legacy_json + "_temporary_old", path_legacy_json
-                    )
+                    shutil.copyfile(path_legacy_json + "_temporary_old", path_legacy_json)
                 if retry < max_retries - 1:
                     print("Retrying...")
                     continue

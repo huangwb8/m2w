@@ -19,11 +19,11 @@ from setuptools import setup, find_packages
 
 + 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
-+ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.9.tar.gz
++ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.10.tar.gz
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
-+ 先完成Github仓库的更新和加tag。最后再上传至PyPi。输入"twine upload dist/*2.5.9* --verbose"来上传项目的源代码包。
++ 先完成Github仓库的更新和加tag。最后再上传至PyPi。输入"twine upload dist/*2.5.10* --verbose"来上传项目的源代码包。
 
 + 在上传过程中，你需要输入你在PyPi上注册的用户名和密码。
 
@@ -45,7 +45,7 @@ from setuptools import setup, find_packages
 
 """
 
-VERSION = "2.5.9"
+VERSION = "2.5.10"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
