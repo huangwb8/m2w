@@ -32,10 +32,6 @@ async def up(
     None
     """
 
-    # Backup legacy*.json
-    if os.path.exists(path_legacy_json):
-        shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
-
     # Upload & Update
     if rest_api:
         # REST API Mode
@@ -50,6 +46,10 @@ async def up(
         res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
         md_upload = res["new"]
         md_update = res["legacy"]
+
+        # Backup legacy*.json
+        if os.path.exists(path_legacy_json):
+            shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
 
         if len(md_upload) > 0 or len(md_update) > 0:
             # Use REST API mode to upload/update articles
@@ -94,6 +94,10 @@ async def up(
         res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
         md_upload = res["new"]
         md_update = res["legacy"]
+
+        # Backup legacy*.json
+        if os.path.exists(path_legacy_json):
+            shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary-copy")
 
         # Use Password mode to upload/update articles
         if len(md_upload) > 0 or len(md_update) > 0:
