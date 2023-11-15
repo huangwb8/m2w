@@ -33,7 +33,9 @@ async def up(
     """
 
     # Backup old legacy*.json
-    shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_old")
+    is_first_legacy_exist = os.path.exists(path_legacy_json)
+    if is_first_legacy_exist:
+        shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_old")
 
     # Mode
     if rest_api:
@@ -56,6 +58,8 @@ async def up(
 
     # Backup the latest legacy*.json
     shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_latest")
+    if not is_first_legacy_exist:
+        shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_old")
 
     # Upload & Update
     if len(md_upload) > 0 or len(md_update) > 0:
