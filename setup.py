@@ -40,7 +40,7 @@ from setuptools import setup, find_packages
 
 ### How to install
 + pip install --upgrade -i https://pypi.org/simple m2w 
-+ pip install -i https://pypi.org/simple m2w==2.2.11
++ pip install -i https://pypi.org/simple m2w==2.5.12
 + pip install m2w 
 
 """
