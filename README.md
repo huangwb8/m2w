@@ -183,7 +183,22 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## TO-DO
 
-+ Develop GUI across OS
+- [ ] Support Hexo-like YAML head：
+
+```yaml
+title: I Love You
+tags:
+  - You
+  - I
+  - Love
+categories:
+  - Note
+date: 2023-11-08 16:38:31
+update: 2023-11-08 16:40:31
+--
+```
+
+- [ ] Develop GUI across OS
 
 ## Related Efforts
 
