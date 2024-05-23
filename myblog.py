@@ -6,7 +6,7 @@
 # @Software: VSCode
 # @Reference: original
 
-# ===============================Dependency
+#  تعريف  غير متزامن الرئيسي ():===============================Dependency
 from m2w import read_json_as_dict, up
 import sys
 import asyncio
