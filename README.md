@@ -183,6 +183,8 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## TO-DO
 
+- [ ] shuoshuo and page update & upload
+
 - [ ] Enhanced markdown support: `python-markdown` to `markdown-it-py`
 
 - [ ] Support Hexo-like YAML head：

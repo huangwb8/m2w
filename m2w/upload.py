@@ -43,6 +43,9 @@ def make_post(filepath, metadata):
         post_from_file.content, extensions=['markdown.extensions.fenced_code']
     )
     post_content_html = post_content_html.encode("utf-8")
+    # from markdown_it import MarkdownIt
+    # md = MarkdownIt("gfm-like") 
+    # post_content_html = md.render(post_from_file.content)
 
     # 3 将本地post的元数据暂存到metadata中
     metadata['title'] = filename_prefix  # 将文件名去掉.md后缀，作为标题
