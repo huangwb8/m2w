@@ -27,9 +27,7 @@ def make_post(filepath, metadata):
     """
     filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
     filename_suffix = filename.split('.')[-1]  # 例如：md
-    filename_prefix = filename.strip(
-        ".md"
-    )  # 例如：test(2021.11.19)
+    filename_prefix = filename.split('.md')[0]  # 例如：test(2021.11.19)
 
     # 目前只支持 .md 后缀的文件
     if filename_suffix != 'md':
