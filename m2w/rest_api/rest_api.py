@@ -63,7 +63,7 @@ class RestApi:
         for new_md in md_create:
             if not force_upload:
                 if (
-                    os.path.basename(new_md).strip(".md")
+                    os.path.basename(new_md).split('.md')[0]
                     in self.article_title_dict.keys()
                 ):
                     if verbose:
