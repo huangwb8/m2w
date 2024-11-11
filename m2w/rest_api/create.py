@@ -61,7 +61,7 @@ def _create_article(self, md_path, post_metadata) -> None:
 
     # 5 构造上传的请求内容
     post_data = {
-        "title": filename.strip(".md"),
+        "title": filename.split(".md")[0],
         "content": str(post_content_html, encoding="utf-8"),
         "status": post_metadata["status"],
         "comment_status": "open",
