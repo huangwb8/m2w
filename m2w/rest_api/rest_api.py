@@ -85,7 +85,7 @@ class RestApi:
             else:
                 print(f"The post {new_md} is updating")
                 if (
-                    os.path.basename(new_md).strip(".md")
+                    os.path.basename(new_md).split('.md')[0]
                     in self.article_title_dict.keys()
                 ):
                     _update_article(
