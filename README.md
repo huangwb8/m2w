@@ -77,7 +77,7 @@ You can also directly download `m2w`  from this repotory. The usage is exactly t
 You can specify version or resource when installing `m2w`:
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.5.12
+pip install -i https://pypi.org/simple m2w==2.5.13
 ```
 
 Generally, the latest version of `m2w` is recommended.
@@ -172,6 +172,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## LOG
 
++ **2024-11-13**：Optimize optimize strategy for .md removement. [Detail](https://github.com/huangwb8/m2w/pull/18). Thanks [linglilongyi](https://github.com/linglilongyi)!
 + **2023-06-05**: m2w 2.0 was frozen at [v2.2.11](https://github.com/huangwb8/m2w/releases/tag/v2.2.11). Enjoy m2w 2.5+ from now on!
 + **2022-12-14**：`m2w.py` is the same name as `m2w` package, which would bring some bugs. I change the name of the demo script as `myblog.py`.
 + **2022-12-10**：Upload `m2w 2` to PyPi. You can install `m2w 2` with code (in Shell)  like `pip install -i https://pypi.org/simple m2w`. The project url is [https://pypi.org/project/m2w](https://pypi.org/project/m2w).
