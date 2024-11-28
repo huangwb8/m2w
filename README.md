@@ -217,8 +217,9 @@ update: 2023-11-08 16:40:31
 
 > Feel free to dive in! [Open an issue](https://github.com/huangwb8/m2w/issues/new) or submit PRs. m2w follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
 
-+ [@FoxSuzuran](https://github.com/FoxSuzuran)
-
+<a href="https://github.com/eryajf/learn-github/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=eryajf/learn-github" />
+</a>
 
 ## License
 
