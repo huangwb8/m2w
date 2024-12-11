@@ -13,6 +13,8 @@ import markdown
 from wordpress_xmlrpc import WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 
+from m2w.math import MathExtension
+
 
 def make_post(filepath, metadata):
     """
@@ -38,11 +40,12 @@ def make_post(filepath, metadata):
 
     # 2 markdown库导入内容
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content,
+        extensions=['markdown.extensions.fenced_code', MathExtension()],
     )
     post_content_html = post_content_html.encode("utf-8")
     # from markdown_it import MarkdownIt
-    # md = MarkdownIt("gfm-like") 
+    # md = MarkdownIt("gfm-like")
     # post_content_html = md.render(post_from_file.content)
 
     # 3 将本地post的元数据暂存到metadata中
@@ -52,7 +55,7 @@ def make_post(filepath, metadata):
     # 如果post_from_file.metadata中的属性key存在，那么就将metadata[key]替换为它
     for key in metadata_keys:
         if (
-            key in post_from_file.metadata
+                key in post_from_file.metadata
         ):  # 若md文件中没有元数据'category'，则无法调用post.metadata['category']
             metadata[key] = post_from_file.metadata[key]
 
