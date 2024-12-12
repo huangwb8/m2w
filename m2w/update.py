@@ -12,6 +12,7 @@ import sys
 import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
+from m2w.math import MathExtension
 
 # Fix the bug "module 'collections' has no attribute 'Iterable’"
 if sys.version_info.minor >= 9:
@@ -37,7 +38,7 @@ def find_post(filepath, client):
         if filename_suffix != '.md':
             print('ERROR: not Markdown file')
             return None
-        
+
         # get pages in batches of 20
         offset = 0  # 每个batch的初始下标位置
         batch = 20  # 每次得到batch个post，存入posts中
@@ -67,7 +68,7 @@ def update_post_content(post, filepath, client):
     """
     post_from_file = frontmatter.load(filepath)  # 读取文档里的信息
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content, extensions=['markdown.extensions.fenced_code', MathExtension()]
     ).encode(
         "utf-8"
     )  # 转换为html
