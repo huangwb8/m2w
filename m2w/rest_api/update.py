@@ -4,6 +4,7 @@
 # @Author  : Suzuran
 # @FileName: update.py
 # @Software: PyCharm
+from markdown_gfm_admonition import GfmAdmonitionExtension
 
 from .categories import create_category
 from .tags import create_tag
@@ -12,6 +13,7 @@ import markdown
 import os
 import httpx
 import time
+from m2w.math import MathExtension
 
 
 def _update_article(self, md_path, post_metadata, last_update=False) -> None:
@@ -38,7 +40,8 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
 
     # 2 markdown库导入内容
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content,
+        extensions=['markdown.extensions.fenced_code', MathExtension(), 'tables', GfmAdmonitionExtension()]
     )
     post_content_html = post_content_html.encode("utf-8")
 
@@ -46,7 +49,7 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
     metadata_keys = post_metadata.keys()
     for key in metadata_keys:
         if (
-            key in post_from_file.metadata
+                key in post_from_file.metadata
         ):  # 若md文件中没有元数据'category'，则无法调用post.metadata['category']
             post_metadata[key] = post_from_file.metadata[key]
 
@@ -80,13 +83,13 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
         # url=self.url
         # + f"wp-json/wp/v2/posts/{self.article_title_dict[os.path.basename(md_path).strip('.md')]}",
         url=self.url
-        + f"wp-json/wp/v2/posts/{self.article_title_dict[filename_prefix]}",
+            + f"wp-json/wp/v2/posts/{self.article_title_dict[filename_prefix]}",
         headers=self.wp_header,
         json=post_data,
     )
     try:
         assert (
-            resp.status_code == 200
+                resp.status_code == 200
         ), f"File {md_path} updated failed. Please try again!"
     except AssertionError as e:
         print("Reminder from m2w: " + str(e))

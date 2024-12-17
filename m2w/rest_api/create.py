@@ -4,6 +4,7 @@
 # @Author  : Suzuran
 # @FileName: create.py
 # @Software: PyCharm
+from markdown_gfm_admonition import GfmAdmonitionExtension
 
 from .tags import create_tag
 from .categories import create_category
@@ -11,6 +12,7 @@ import frontmatter
 import markdown
 import os
 import httpx
+from m2w.math import MathExtension
 
 
 def _create_article(self, md_path, post_metadata) -> None:
@@ -33,7 +35,8 @@ def _create_article(self, md_path, post_metadata) -> None:
 
     # 2 markdown库导入内容
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content,
+        extensions=['markdown.extensions.fenced_code', MathExtension(), 'tables', GfmAdmonitionExtension()]
     )
     post_content_html = post_content_html.encode("utf-8")
 
@@ -41,7 +44,7 @@ def _create_article(self, md_path, post_metadata) -> None:
     metadata_keys = post_metadata.keys()
     for key in metadata_keys:
         if (
-            key in post_from_file.metadata
+                key in post_from_file.metadata
         ):  # 若md文件中没有元数据'category'，则无法调用post.metadata['category']
             post_metadata[key] = post_from_file.metadata[key]
 
@@ -76,7 +79,7 @@ def _create_article(self, md_path, post_metadata) -> None:
     )
     try:
         assert (
-            resp.status_code == 201
+                resp.status_code == 201
         ), f"File {md_path} uploaded failed. Please try again!"
     except AssertionError as e:
         print("Reminder from m2w: " + str(e))
