@@ -11,6 +11,7 @@ import os
 import sys
 import frontmatter
 import markdown
+from markdown_gfm_admonition import GfmAdmonitionExtension
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 from m2w.math import MathExtension
 
@@ -68,7 +69,8 @@ def update_post_content(post, filepath, client):
     """
     post_from_file = frontmatter.load(filepath)  # 读取文档里的信息
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code', MathExtension()]
+        post_from_file.content,
+        extensions=['markdown.extensions.fenced_code', MathExtension(), 'tables', GfmAdmonitionExtension()]
     ).encode(
         "utf-8"
     )  # 转换为html

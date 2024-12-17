@@ -14,6 +14,7 @@ from wordpress_xmlrpc import WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 
 from m2w.math import MathExtension
+from markdown_gfm_admonition import GfmAdmonitionExtension
 
 
 def make_post(filepath, metadata):
@@ -41,7 +42,7 @@ def make_post(filepath, metadata):
     # 2 markdown库导入内容
     post_content_html = markdown.markdown(
         post_from_file.content,
-        extensions=['markdown.extensions.fenced_code', MathExtension()],
+        extensions=['markdown.extensions.fenced_code', MathExtension(), 'tables', GfmAdmonitionExtension()],
     )
     post_content_html = post_content_html.encode("utf-8")
     # from markdown_it import MarkdownIt

@@ -4,6 +4,7 @@
 # @Author  : Suzuran
 # @FileName: update.py
 # @Software: PyCharm
+from markdown_gfm_admonition import GfmAdmonitionExtension
 
 from .categories import create_category
 from .tags import create_tag
@@ -39,7 +40,8 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
 
     # 2 markdown库导入内容
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code', MathExtension()]
+        post_from_file.content,
+        extensions=['markdown.extensions.fenced_code', MathExtension(), 'tables', GfmAdmonitionExtension()]
     )
     post_content_html = post_content_html.encode("utf-8")
 
