@@ -13,6 +13,8 @@ import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 
+from m2w.delete import delete_post
+
 # Fix the bug "module 'collections' has no attribute 'Iterable’"
 if sys.version_info.minor >= 9:
     import collections.abc
@@ -79,6 +81,9 @@ def update_post_content(post, filepath, client):
         "utf-8"
     )  # 转换为html
     post.content = post_content_html  # 修改内容
+    if post_from_file.metadata['status'] is not None and post_from_file.metadata['status'] == 'delete':
+        # 删除文章
+        return delete_post(post, filepath, client)
     if post_from_file.metadata['status'] is not None:
         post.post_status = post_from_file.metadata['status']
     return client.call(EditPost(post.id, post))

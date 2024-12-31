@@ -53,7 +53,7 @@ def find_files(path, suffix=".md"):
     ff(path, suffix=".md")
     return result
 
-
+PATH_LEGACY_JSON = "" # 用于 delete 更新 json 文件
 def md_detect(path_markdown, path_legacy_json, verbose=True):
     """
     ### Description
@@ -104,6 +104,8 @@ def md_detect(path_markdown, path_legacy_json, verbose=True):
         result = {"new": new, "legacy": []}  #
         return result
     else:
+        global PATH_LEGACY_JSON
+        PATH_LEGACY_JSON = path_legacy_json
         if verbose:
             print('With legacy.json. Confirm new or changed legacy markdown files.')
 
