@@ -63,12 +63,12 @@ def make_post(filepath, metadata):
     # post.slug = metadata['slug']
     post.post_status = metadata['status']
     # 设置 post_type 为 shuoshuo 则发说说
-    if 'post_type' in post_from_file.metadata and post_from_file.metadata['post_type'] is not None and post_from_file.metadata['post_type'] == 'shuoshuo':
+    if 'post_type' in post_from_file.metadata and post_from_file.metadata['post_type'] == 'shuoshuo':
         post.post_type = 'shuoshuo'
     else:
         post.terms_names = {'category': metadata['category'], 'post_tag': metadata['tag']}
     # 通过 slug 设置 url 别名
-    if 'slug' in post_from_file.metadata and post_from_file.metadata['slug'] is not None:
+    if 'slug' in post_from_file.metadata:
         post.slug = post_from_file.metadata['slug']
     post.comment_status = 'open'  # 开启评论
     return post

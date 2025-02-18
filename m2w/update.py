@@ -31,7 +31,7 @@ def find_post(filepath, client):
     """
     try:
         post_from_file = frontmatter.load(filepath)
-        if 'title' in post_from_file.metadata and post_from_file.metadata['title'] is not None:
+        if 'title' in post_from_file.metadata:
             target_title = post_from_file.metadata['title']
         else:
             filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
@@ -48,7 +48,7 @@ def find_post(filepath, client):
         offset = 0  # 每个batch的初始下标位置
         batch = 20  # 每次得到batch个post，存入posts中
         post_type = 'post'
-        if 'post_type' in post_from_file.metadata and post_from_file.metadata['post_type'] is not None:
+        if 'post_type' in post_from_file.metadata:
             post_type = post_from_file.metadata['post_type']
         while True:  # 会得到所有文章，包括private(私密)、draft(草稿)状态的
             posts = client.call(GetPosts({'number': batch, 'offset': offset, 'post_type': post_type}))
@@ -81,10 +81,10 @@ def update_post_content(post, filepath, client):
         "utf-8"
     )  # 转换为html
     post.content = post_content_html  # 修改内容
-    if 'status' in post_from_file.metadata and post_from_file.metadata['status'] is not None and post_from_file.metadata['status'] == 'delete':
+    if 'status' in post_from_file.metadata and post_from_file.metadata['status'] == 'delete':
         # 删除文章
         return delete_post(post, filepath, client)
-    if 'status' in post_from_file.metadata and post_from_file.metadata['status'] is not None:
+    if 'status' in post_from_file.metadata:
         post.post_status = post_from_file.metadata['status']
     return client.call(EditPost(post.id, post))
 
