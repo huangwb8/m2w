@@ -13,6 +13,8 @@ import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 
+from m2w.delete import delete_post
+
 # Fix the bug "module 'collections' has no attribute 'Iterable’"
 if sys.version_info.minor >= 9:
     import collections.abc
@@ -28,26 +30,33 @@ def find_post(filepath, client):
     :return True: if success
     """
     try:
-        filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
-        filename_prefix, filename_suffix = os.path.splitext(
-            filename
-        )  # 例如：test(2021.11.19) | .md
+        post_from_file = frontmatter.load(filepath)
+        if 'title' in post_from_file.metadata:
+            target_title = post_from_file.metadata['title']
+        else:
+            filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
+            target_title, filename_suffix = os.path.splitext(
+                filename
+            )  # 例如：test(2021.11.19) | .md
 
-        # 目前只支持 .md 后缀的文件
-        if filename_suffix != '.md':
-            print('ERROR: not Markdown file')
-            return None
+            # 目前只支持 .md 后缀的文件
+            if filename_suffix != '.md':
+                print('ERROR: not Markdown file')
+                return None
         
         # get pages in batches of 20
         offset = 0  # 每个batch的初始下标位置
         batch = 20  # 每次得到batch个post，存入posts中
+        post_type = 'post'
+        if 'post_type' in post_from_file.metadata:
+            post_type = post_from_file.metadata['post_type']
         while True:  # 会得到所有文章，包括private(私密)、draft(草稿)状态的
-            posts = client.call(GetPosts({'number': batch, 'offset': offset}))
+            posts = client.call(GetPosts({'number': batch, 'offset': offset, 'post_type': post_type}))
             if len(posts) == 0:
                 return None  # no more posts returned
             for post in posts:
                 title = post.title
-                if title == filename_prefix:
+                if title == target_title:
                     return post
             offset = offset + batch
     except Exception as e:
@@ -72,6 +81,11 @@ def update_post_content(post, filepath, client):
         "utf-8"
     )  # 转换为html
     post.content = post_content_html  # 修改内容
+    if 'status' in post_from_file.metadata and post_from_file.metadata['status'] == 'delete':
+        # 删除文章
+        return delete_post(post, filepath, client)
+    if 'status' in post_from_file.metadata:
+        post.post_status = post_from_file.metadata['status']
     return client.call(EditPost(post.id, post))
 
 
