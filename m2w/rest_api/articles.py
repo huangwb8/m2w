@@ -8,6 +8,41 @@
 import httpx
 import math
 import asyncio
+from html import unescape
+import unicodedata
+import re
+
+
+_TITLE_TRANS_TABLE = str.maketrans({
+    "’": "'",
+    "‘": "'",
+    "＇": "'",
+    "“": "'",
+    "”": "'",
+    "＂": "'",
+    "\"": "'",
+    "–": "-",
+    "—": "-",
+    "‐": "-",
+    "−": "-",
+    "﹣": "-",
+    "～": "~",
+    "　": " ",  # full-width space
+    "\xa0": " ",
+})
+
+
+def normalize_title(raw_title):
+    """标准化文章标题，移除空白并解码 HTML 实体。"""
+    if not isinstance(raw_title, str):
+        return raw_title
+    text = unescape(raw_title)
+    text = unicodedata.normalize('NFKC', text)
+    text = text.translate(_TITLE_TRANS_TABLE)
+    text = re.sub(r'-{2,}', '-', text)
+    text = re.sub(r"'+", "'", text)
+    text = ' '.join(text.split())
+    return text.strip()
 
 
 async def __article_title_request(self, client: httpx.AsyncClient(), page_num: int):
@@ -23,7 +58,7 @@ async def __article_title_request(self, client: httpx.AsyncClient(), page_num: i
         raise AssertionError
 
     for article in resp.json():
-        self.article_title_dict[article["title"]["rendered"]] = article['id']
+        self.article_title_dict[normalize_title(article["title"]["rendered"])] = article['id']
 
 
 async def get_all_articles(self, verbose) -> None:

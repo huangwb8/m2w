@@ -8,7 +8,7 @@ import os
 import asyncio
 import base64
 
-from .articles import get_all_articles
+from .articles import get_all_articles, normalize_title
 from .tags import get_all_tags
 from .categories import get_all_categories
 from .update import _update_article
@@ -61,11 +61,9 @@ class RestApi:
         ) if not force_upload else print("You want a force uploading? Great!")
 
         for new_md in md_create:
+            filename_prefix = normalize_title(os.path.splitext(os.path.basename(new_md))[0])
             if not force_upload:
-                if (
-                    os.path.basename(new_md).split('.md')[0]
-                    in self.article_title_dict.keys()
-                ):
+                if filename_prefix in self.article_title_dict:
                     if verbose:
                         print(
                             f'Warning: The post {new_md} is existed in your WordPress site. Ignore uploading!'
@@ -84,10 +82,7 @@ class RestApi:
                         print(f"The post {new_md} uploads successful!")
             else:
                 print(f"The post {new_md} is updating")
-                if (
-                    os.path.basename(new_md).split('.md')[0]
-                    in self.article_title_dict.keys()
-                ):
+                if filename_prefix in self.article_title_dict:
                     _update_article(
                         self,
                         md_path=new_md,
@@ -102,10 +97,8 @@ class RestApi:
                     )
                 print(f"The post {new_md} uploads successful!")
         for legacy_md in md_update:
-            filename_prefix = os.path.splitext(os.path.basename(legacy_md))[0]
-            if (
-                filename_prefix in self.article_title_dict.keys()
-            ):
+            filename_prefix = normalize_title(os.path.splitext(os.path.basename(legacy_md))[0])
+            if filename_prefix in self.article_title_dict:
                 _update_article(
                     self,
                     md_path=legacy_md,
