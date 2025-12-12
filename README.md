@@ -172,6 +172,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## LOG
 
++ **2025-12-12**：Merge changes from [Fix duplicate upload issue for special character filenames](https://github.com/huangwb8/m2w/pull/25) and release [v2.5.14](https://github.com/huangwb8/m2w/releases/tag/v2.5.14). Thanks [@xiehs211](https://github.com/xiehs211)!
 + **2024-11-13**：Optimize optimize strategy for .md removement. [Detail](https://github.com/huangwb8/m2w/pull/18). Thanks [linglilongyi](https://github.com/linglilongyi)!
 + **2023-06-05**: m2w 2.0 was frozen at [v2.2.11](https://github.com/huangwb8/m2w/releases/tag/v2.2.11). Enjoy m2w 2.5+ from now on!
 + **2022-12-14**：`m2w.py` is the same name as `m2w` package, which would bring some bugs. I change the name of the demo script as `myblog.py`.
