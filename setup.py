@@ -21,11 +21,11 @@ from setuptools import setup, find_packages
 
 + 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
-+ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install .\dist\m2w-2.5.13.tar.gz
++ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install ./dist/m2w-2.5.14.tar.gz
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
-+ 上传至PyPi。输入"twine upload dist/*2.5.13* --verbose"来上传项目的源代码包。
++ 上传至PyPi。输入"twine upload dist/*2.5.14* --verbose"来上传项目的源代码包。
 
 + 在上传过程中，你需要输入你在PyPi上注册的用户名和密码。
 
@@ -42,12 +42,12 @@ from setuptools import setup, find_packages
 
 ### How to install
 + pip install --upgrade -i https://pypi.org/simple m2w 
-+ pip install -i https://pypi.org/simple m2w==2.5.13
++ pip install -i https://pypi.org/simple m2w==2.5.14
 + pip install m2w 
 
 """
 
-VERSION = "2.5.13"
+VERSION = "2.5.14"
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
