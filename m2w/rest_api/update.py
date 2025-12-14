@@ -7,6 +7,8 @@
 
 from .categories import create_category
 from .tags import create_tag
+from .articles import normalize_title
+from .utils import lookup_taxonomy_id, ensure_wp_success
 import frontmatter
 import markdown
 import os
@@ -26,6 +28,7 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
     filename_prefix, filename_suffix = os.path.splitext(
         filename
     )
+    filename_prefix = normalize_title(filename_prefix)
 
     try:
         assert filename_suffix == ".md", "Only files with suffix .md supported!"
@@ -54,15 +57,15 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
     tags = []
     categories = []
     for tag in post_metadata["tag"]:
-        if tag in self.tags_dict.keys():
-            tags.append(self.tags_dict[tag])
-        else:
-            tags.append(create_tag(self, tag))
+        tag_id = lookup_taxonomy_id(self.tags_dict, tag)
+        if tag_id is None:
+            tag_id = create_tag(self, tag)
+        tags.append(tag_id)
     for category in post_metadata["category"]:
-        if category in self.categories_dict.keys():
-            categories.append(self.categories_dict[category])
-        else:
-            categories.append(create_category(self, category))
+        category_id = lookup_taxonomy_id(self.categories_dict, category)
+        if category_id is None:
+            category_id = create_category(self, category)
+        categories.append(category_id)
 
     # 5 构造上传的请求内容
     post_data = {
@@ -72,22 +75,15 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
     }
 
     if last_update:
-        post_data['date'] = (
-            time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(time.time())),
+        post_data['date'] = time.strftime(
+            "%Y-%m-%dT%H:%M:%S",
+            time.localtime(time.time()),
         )
 
     resp = httpx.post(
-        # url=self.url
-        # + f"wp-json/wp/v2/posts/{self.article_title_dict[os.path.basename(md_path).strip('.md')]}",
         url=self.url
         + f"wp-json/wp/v2/posts/{self.article_title_dict[filename_prefix]}",
         headers=self.wp_header,
         json=post_data,
     )
-    try:
-        assert (
-            resp.status_code == 200
-        ), f"File {md_path} updated failed. Please try again!"
-    except AssertionError as e:
-        print("Reminder from m2w: " + str(e))
-        raise AssertionError
+    ensure_wp_success(resp, f"File {md_path} updated")

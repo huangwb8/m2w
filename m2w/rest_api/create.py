@@ -7,6 +7,7 @@
 
 from .tags import create_tag
 from .categories import create_category
+from .utils import lookup_taxonomy_id, ensure_wp_success
 import frontmatter
 import markdown
 import os
@@ -49,15 +50,15 @@ def _create_article(self, md_path, post_metadata) -> None:
     tags = []
     categories = []
     for tag in post_metadata["tag"]:
-        if tag in self.tags_dict.keys():
-            tags.append(self.tags_dict[tag])
-        else:
-            tags.append(create_tag(self, tag))
+        tag_id = lookup_taxonomy_id(self.tags_dict, tag)
+        if tag_id is None:
+            tag_id = create_tag(self, tag)
+        tags.append(tag_id)
     for category in post_metadata["category"]:
-        if category in self.categories_dict.keys():
-            categories.append(self.categories_dict[category])
-        else:
-            categories.append(create_category(self, category))
+        category_id = lookup_taxonomy_id(self.categories_dict, category)
+        if category_id is None:
+            category_id = create_category(self, category)
+        categories.append(category_id)
 
     # 5 构造上传的请求内容
     post_data = {
@@ -74,10 +75,4 @@ def _create_article(self, md_path, post_metadata) -> None:
         headers=self.wp_header,
         json=post_data,
     )
-    try:
-        assert (
-            resp.status_code == 201
-        ), f"File {md_path} uploaded failed. Please try again!"
-    except AssertionError as e:
-        print("Reminder from m2w: " + str(e))
-        raise AssertionError
+    ensure_wp_success(resp, f"File {md_path} uploaded")
