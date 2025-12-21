@@ -7,7 +7,7 @@
 
 from .tags import create_tag
 from .categories import create_category
-from .utils import lookup_taxonomy_id, ensure_wp_success
+from .utils import lookup_taxonomy_id, ensure_wp_success, DEFAULT_TIMEOUT
 import frontmatter
 import markdown
 import os
@@ -74,5 +74,6 @@ def _create_article(self, md_path, post_metadata) -> None:
         url=self.url + "wp-json/wp/v2/posts",
         headers=self.wp_header,
         json=post_data,
+        timeout=DEFAULT_TIMEOUT,
     )
     ensure_wp_success(resp, f"File {md_path} uploaded")

@@ -2,8 +2,13 @@
 # -*- coding: utf-8 -*-
 """WordPress REST API utility helpers."""
 
+import httpx
 import unicodedata
 from typing import Dict, Optional
+
+
+# Use a generous default timeout because some WordPress hosts respond slowly.
+DEFAULT_TIMEOUT = httpx.Timeout(30.0)
 
 
 def format_wp_error(response) -> str:

@@ -8,7 +8,7 @@
 from .categories import create_category
 from .tags import create_tag
 from .articles import normalize_title
-from .utils import lookup_taxonomy_id, ensure_wp_success
+from .utils import lookup_taxonomy_id, ensure_wp_success, DEFAULT_TIMEOUT
 import frontmatter
 import markdown
 import os
@@ -85,5 +85,6 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
         + f"wp-json/wp/v2/posts/{self.article_title_dict[filename_prefix]}",
         headers=self.wp_header,
         json=post_data,
+        timeout=DEFAULT_TIMEOUT,
     )
     ensure_wp_success(resp, f"File {md_path} updated")
