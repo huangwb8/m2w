@@ -51,7 +51,7 @@
 ```bash
 pip install m2w
 # 或固定版本
-pip install -i https://pypi.org/simple m2w==2.6.0
+pip install -i https://pypi.org/simple m2w==2.6.1
 ```
 
 从源码构建与安装：

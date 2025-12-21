@@ -1,5 +1,11 @@
 # Change
 
+## [2.6.1]
+
+1. 修复 REST API 模式下文章更新时的无限重试问题，统一 taxonomy 缓存与 term_exists 处理，错误信息更清晰，便于排查。
+2. REST API 请求新增可配置超时（默认 30s），避免因超时过短导致的上传失败。
+3. Password 模式代码拆分为 `m2w.password.*` 模块，保留 `up_password` 兼容旧入口。
+
 ## [2.5.7]
 
 1. 支持REST API/Password模式的一个stable版本。

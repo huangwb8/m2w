@@ -60,7 +60,7 @@ After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/).
 ```bash
 pip install m2w
 # or pin a version
-pip install -i https://pypi.org/simple m2w==2.6.0
+pip install -i https://pypi.org/simple m2w==2.6.1
 ```
 
 From source, you can use the modern build flow:
@@ -163,6 +163,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## LOG
 
+- **2025-12-21**: Release [v2.6.1](https://github.com/huangwb8/m2w/releases/tag/v2.6.1) with REST API robustness fixes (taxonomy cache/term_exists handling, better errors), configurable REST timeout (defaults to 30s), and a refactored Password mode module layout that keeps backward compatibility.
 + **2025-12-12**：Merge changes from [Fix duplicate upload issue for special character filenames](https://github.com/huangwb8/m2w/pull/25) and release [v2.5.14](https://github.com/huangwb8/m2w/releases/tag/v2.5.14). Thanks [@xiehs211](https://github.com/xiehs211)!
 + **2024-11-13**：Optimize optimize strategy for .md removement. [Detail](https://github.com/huangwb8/m2w/pull/18). Thanks [linglilongyi](https://github.com/linglilongyi)!
 + **2023-06-05**: m2w 2.0 was frozen at [v2.2.11](https://github.com/huangwb8/m2w/releases/tag/v2.2.11). Enjoy m2w 2.5+ from now on!
