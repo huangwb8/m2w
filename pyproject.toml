@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.7.6"
 license = { file = "license.txt" }
 authors = [
-  { name = "Bensz", email = "hwb2012@qq.com" },
+  { name = "huangwb8", email = "hwb2012@qq.com" },
   { name = "FoxSuzuran", email = "2903582631@qq.com" }
 ]
 keywords = ["markdown", "wordpress", "xmlrpc", "rest-api", "blog"]
