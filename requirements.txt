@@ -1,0 +1,5 @@
+# 核心运行依赖
+python-frontmatter>=1.0.0
+markdown>=3.3.6
+python-wordpress-xmlrpc>=2.3
+httpx>=0.24.0

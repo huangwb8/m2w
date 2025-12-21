@@ -51,36 +51,27 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 
 > [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended to manage Python version and related dependencies.
 
-Here is the dependency: 
+- Python >= 3.7.6
+- Runtime dependencies: `python-frontmatter>=1.0.0`, `markdown>=3.3.6`, `python-wordpress-xmlrpc>=2.3`, `httpx>=0.24.0` (see `requirements.txt`)
+- Packaging now follows PEP 621 in `pyproject.toml` (setuptools); `setup.py` remains only for compatibility.
 
-```python
-# Python version
-python_requires='>=3.7.6'
-
-# Dependencies
-install_requires=[
-    "python-frontmatter>=1.0.0",
-    "markdown>=3.3.6",
-    "python-wordpress-xmlrpc>=2.3",
-    "httpx>=0.24.0"
-]
-```
-
-After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/). To install `m2w`, just run this code in your shell/conda environment:
-
-```
-pip install m2w
-```
-
-You can also directly download `m2w`  from this repotory. The usage is exactly the same.
-
-You can specify version or resource when installing `m2w`:
+After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/). Install it via:
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.5.13
+pip install m2w
+# or pin a version
+pip install -i https://pypi.org/simple m2w==2.6.0
 ```
 
-Generally, the latest version of `m2w` is recommended.
+From source, you can use the modern build flow:
+
+```bash
+python -m pip install --upgrade build
+python -m build                      # generate wheel + sdist under dist/
+python -m pip install dist/m2w-*.whl # install the built artifact
+# editable install for development
+python -m pip install -e .
+```
 
 ## Usage
 

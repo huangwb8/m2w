@@ -42,36 +42,27 @@
 
 > 推荐使用[Miniconda](https://docs.conda.io/en/latest/miniconda.html)来管理Python版本和相关依赖。
 
-这是所需的依赖项：
+- Python >= 3.7.6
+- 运行依赖：`python-frontmatter>=1.0.0`、`markdown>=3.3.6`、`python-wordpress-xmlrpc>=2.3`、`httpx>=0.24.0`（详见 `requirements.txt`）
+- 采用 `pyproject.toml`（PEP 621 + setuptools）管理元数据和依赖，`setup.py` 仅保留兼容。
 
-```python
-# Python 版本要求
-python_requires='>=3.7.6'
-
-# 依赖项
-install_requires=[
-    "python-frontmatter>=1.0.0",
-    "markdown>=3.3.6",
-    "python-wordpress-xmlrpc>=2.3",
-    "httpx>=0.24.0"
-]
-```
-
-在2022年12月10日之后，`m2w`已经上传到了[PyPi](https://pypi.org/project/m2w/)。要安装 `m2w`，只需要在您的 shell/conda 环境中运行以下代码：
-
-```
-pip install m2w
-```
-
-您也可以直接从这个仓库下载 `m2w`。使用方法完全相同。
-
-在安装 `m2w` 时，您可以指定版本或资源：
+在2022年12月10日之后，`m2w` 已经上传到 [PyPi](https://pypi.org/project/m2w/)。直接安装：
 
 ```bash
-pip install -i https://pypi.org/simple m2w==2.5.12
+pip install m2w
+# 或固定版本
+pip install -i https://pypi.org/simple m2w==2.6.0
 ```
 
-通常建议使用最新版本的 `m2w`。
+从源码构建与安装：
+
+```bash
+python -m pip install --upgrade build
+python -m build                       # 在 dist/ 下生成 wheel 与 sdist
+python -m pip install dist/m2w-*.whl  # 安装构建产物
+# 开发模式安装
+python -m pip install -e .
+```
 
 
 ## 使用

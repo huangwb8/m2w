@@ -5,7 +5,7 @@
 from m2w.rest_api import RestApi
 from m2w.rest_api.utils import DEFAULT_TIMEOUT
 
-from m2w.up_password import md_detect, up_password
+from m2w.password import md_detect, up_password
 
 from m2w.wp import wp_xmlrpc
 
