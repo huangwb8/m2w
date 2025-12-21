@@ -13,15 +13,17 @@ from .tags import get_all_tags
 from .categories import get_all_categories
 from .update import _update_article
 from .create import _create_article
+from .utils import DEFAULT_TIMEOUT
 
 
 class RestApi:
-    def __init__(self, url: str, wp_username=None, wp_password=None):
+    def __init__(self, url: str, wp_username=None, wp_password=None, timeout=DEFAULT_TIMEOUT):
         self.url = url if url.endswith("/") else url + "/"
         self.wp_header = {
             "Authorization": "Basic "
             + base64.b64encode(f"{wp_username}:{wp_password}".encode()).decode("utf-8")
         }
+        self.timeout = timeout or DEFAULT_TIMEOUT
         self.article_title_dict = {}
         self.categories_dict = {}
         self.tags_dict = {}

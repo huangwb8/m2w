@@ -3,6 +3,7 @@
 
 
 from m2w.rest_api import RestApi
+from m2w.rest_api.utils import DEFAULT_TIMEOUT
 
 from m2w.up_password import md_detect, up_password
 
@@ -24,7 +25,7 @@ async def up(
 
         domain, username, password, application_password, post_metadata,
 
-        last_update_time_change = False, force_upload=False, verbose=True, rest_api=True, max_retries = 10
+        last_update_time_change = False, force_upload=False, verbose=True, rest_api=True, max_retries = 10, rest_timeout = DEFAULT_TIMEOUT
 
         ):
 
@@ -56,6 +57,7 @@ async def up(
 
     + max_retries: Integer. The max retry time when meeting failure
 
+    + rest_timeout: Timeout (seconds) for REST API HTTP requests. Default is DEFAULT_TIMEOUT
 
 
     ### Return
@@ -88,7 +90,7 @@ async def up(
 
         rest = RestApi(
 
-            url=domain, wp_username=username, wp_password=application_password
+            url=domain, wp_username=username, wp_password=application_password, timeout=rest_timeout
 
         )
 

@@ -74,6 +74,6 @@ def _create_article(self, md_path, post_metadata) -> None:
         url=self.url + "wp-json/wp/v2/posts",
         headers=self.wp_header,
         json=post_data,
-        timeout=DEFAULT_TIMEOUT,
+        timeout=getattr(self, "timeout", DEFAULT_TIMEOUT),
     )
     ensure_wp_success(resp, f"File {md_path} uploaded")

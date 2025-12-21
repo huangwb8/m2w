@@ -33,14 +33,15 @@ async def get_all_tags(self, verbose) -> None:
     """
     获取所有的标签信息
     """
+    timeout = getattr(self, "timeout", DEFAULT_TIMEOUT)
     tags_num = httpx.get(
         self.url + "wp-json/wp/v2/tags?page=1&per_page=1",
-        timeout=DEFAULT_TIMEOUT,
+        timeout=timeout,
     ).headers[
         'x-wp-total'
     ]
     page_num = math.ceil(float(tags_num) / 30.0)
-    async with httpx.AsyncClient(timeout=DEFAULT_TIMEOUT) as client:
+    async with httpx.AsyncClient(timeout=timeout) as client:
         task_list = []
         for num in range(1, page_num + 1):
             req = __tags_request(self, client, num)
@@ -62,7 +63,7 @@ def create_tag(self, tag_name: str) -> int:
         url=self.url + "wp-json/wp/v2/tags",
         headers=self.wp_header,
         json={"name": tag_name},
-        timeout=DEFAULT_TIMEOUT,
+        timeout=getattr(self, "timeout", DEFAULT_TIMEOUT),
     )
     if resp.status_code == 201:
         payload = resp.json()

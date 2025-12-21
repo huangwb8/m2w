@@ -66,14 +66,15 @@ async def get_all_articles(self, verbose) -> None:
     """
     获取所有的文章信息
     """
+    timeout = getattr(self, "timeout", DEFAULT_TIMEOUT)
     article_num = httpx.get(
         self.url + "wp-json/wp/v2/posts?page=1&per_page=1",
-        timeout=DEFAULT_TIMEOUT,
+        timeout=timeout,
     ).headers[
         'x-wp-total'
     ]
     page_num = math.ceil(float(article_num) / 30.0)
-    async with httpx.AsyncClient(timeout=DEFAULT_TIMEOUT) as client:
+    async with httpx.AsyncClient(timeout=timeout) as client:
         task_list = []
         for num in range(1, page_num + 1):
             req = __article_title_request(self, client, num)

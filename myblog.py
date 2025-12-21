@@ -35,6 +35,9 @@ last_update_time_change = False
 # Retry time when meeting failure
 max_retries = 10
 
+# REST API HTTP timeout (seconds). Default 30s; increase for slow hosts.
+rest_timeout = 30
+
 
 # ===============================Program
 async def main():
@@ -95,7 +98,8 @@ async def main():
             force_upload = force_upload, 
             verbose = verbose, 
             rest_api = rest_api, 
-            max_retries = max_retries
+            max_retries = max_retries,
+            rest_timeout = rest_timeout
         )
 
 

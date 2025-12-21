@@ -35,12 +35,13 @@ async def get_all_categories(self, verbose) -> None:
     """
     获取所有的类别信息
     """
+    timeout = getattr(self, "timeout", DEFAULT_TIMEOUT)
     categories_num = httpx.get(
         self.url + "wp-json/wp/v2/categories?page=1&per_page=1",
-        timeout=DEFAULT_TIMEOUT,
+        timeout=timeout,
     ).headers['x-wp-total']
     page_num = math.ceil(float(categories_num) / 30.0)
-    async with httpx.AsyncClient(timeout=DEFAULT_TIMEOUT) as client:
+    async with httpx.AsyncClient(timeout=timeout) as client:
         task_list = []
         for num in range(1, page_num + 1):
             req = __categories_request(self, client, num)
@@ -62,7 +63,7 @@ def create_category(self, category_name: str) -> int:
         url=self.url + "wp-json/wp/v2/categories",
         headers=self.wp_header,
         json={"name": category_name},
-        timeout=DEFAULT_TIMEOUT,
+        timeout=getattr(self, "timeout", DEFAULT_TIMEOUT),
     )
     if resp.status_code == 201:
         payload = resp.json()

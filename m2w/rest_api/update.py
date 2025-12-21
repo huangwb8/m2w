@@ -85,6 +85,6 @@ def _update_article(self, md_path, post_metadata, last_update=False) -> None:
         + f"wp-json/wp/v2/posts/{self.article_title_dict[filename_prefix]}",
         headers=self.wp_header,
         json=post_data,
-        timeout=DEFAULT_TIMEOUT,
+        timeout=getattr(self, "timeout", DEFAULT_TIMEOUT),
     )
     ensure_wp_success(resp, f"File {md_path} updated")
