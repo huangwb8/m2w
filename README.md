@@ -11,7 +11,7 @@
 </p>
 Automatically upload and update local markdown to WordPress based on REST API/Password via Python
 
-:star2::star2::star2: Welcome m2w 2.6! REST uploads are sturdier (taxonomy cache/`term_exists` fixes, clearer errors) with configurable timeouts, the Password mode got a cleaner module layout while keeping old entry points working, and the project is now maintained with vibe coding practices across the board.
+:star2::star2::star2: Welcome m2w 2.6! REST uploads are sturdier (taxonomy cache/`term_exists` fixes, clearer errors) with configurable timeouts, the Password mode got a cleaner module layout while keeping old entry points working, vibe coding is used across the board, and you can filter out local files (e.g., `AGENTS.md`) in `myblog.py` to skip upload/update.
 
 Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -53,6 +53,7 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 - REST requests now honor a configurable timeout (default 30s) so you can tune slow sites instead of hard failures.
 - Password mode was refactored into `m2w.password.*` modules while keeping `up_password` for backward compatibility.
 - Project maintenance follows vibe coding practices to keep the codebase consistent and lightweight.
+- You can exclude specific local files in `myblog.py` so they never enter the upload/update pipeline (useful for docs like `AGENTS.md`, `CLAUDE.md`, etc.).
 
 ## Install
 
@@ -67,7 +68,7 @@ After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/).
 ```bash
 pip install m2w
 # or pin a version
-pip install -i https://pypi.org/simple m2w==2.6.1
+pip install -i https://pypi.org/simple m2w==2.6.2
 ```
 
 From source, you can use the modern build flow:
@@ -160,6 +161,14 @@ path_m2w = '<path02>' # Absolute path of m2w config folder
 python <path01>/myblog.py
 ```
 
+> Need to ignore local helper files? In `myblog.py` set `ignore_files = ["AGENTS.md", "CLAUDE.md"]` (globs and `re:` regex supported). No user.json edits required.
+
+### Ignore unwanted files
+
+- Default ignore list in `myblog.py`: `["AGENTS.md", "CLAUDE.md"]` (avoid uploading AI helper docs).
+- You can add globs (e.g., `"**/draft-*.md"`, `"notes/**"`) or regex prefixed with `re:` (e.g., `"re:.*/temp-.*\\.md$"`).
+- Leave `ignore_files` empty/remove it to scan all markdown files (backward compatible for older scripts).
+
 ## Demo
 
 > This demo is conducted in Win10 with [VScode](https://code.visualstudio.com/).
@@ -170,6 +179,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## LOG
 
+- **2025-12-22**: Release [v2.6.2](https://github.com/huangwb8/m2w/releases/tag/v2.6.2) with default ignore list (`AGENTS.md`/`CLAUDE.md`), glob/`re:` regex support, and verbose logs when files are skipped; backward compatibility when `ignore_files` is absent.
 - **2025-12-21**: Release [v2.6.1](https://github.com/huangwb8/m2w/releases/tag/v2.6.1) with REST API robustness fixes (taxonomy cache/term_exists handling, better errors), configurable REST timeout (defaults to 30s), and a refactored Password mode module layout that keeps backward compatibility.
 + **2025-12-12**：Merge changes from [Fix duplicate upload issue for special character filenames](https://github.com/huangwb8/m2w/pull/25) and release [v2.5.14](https://github.com/huangwb8/m2w/releases/tag/v2.5.14). Thanks [@xiehs211](https://github.com/xiehs211)!
 + **2024-11-13**：Optimize optimize strategy for .md removement. [Detail](https://github.com/huangwb8/m2w/pull/18). Thanks [linglilongyi](https://github.com/linglilongyi)!

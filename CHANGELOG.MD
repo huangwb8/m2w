@@ -1,5 +1,12 @@
 # Change
 
+# Change
+
+## [2.6.2]
+
+1. 默认在 `myblog.py` 忽略 `AGENTS.md`、`CLAUDE.md`，支持 gitignore 样式 glob 和以 `re:` 开头的正则，扫描日志会提示被忽略的文件路径。
+2. 忽略列表仅在脚本内配置，未设置 `ignore_files` 的旧脚本保持原始行为。
+
 ## [2.6.1]
 
 1. 修复 REST API 模式下文章更新时的无限重试问题，统一 taxonomy 缓存与 term_exists 处理，错误信息更清晰，便于排查。

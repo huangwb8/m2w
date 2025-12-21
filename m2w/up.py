@@ -25,7 +25,7 @@ async def up(
 
         domain, username, password, application_password, post_metadata,
 
-        last_update_time_change = False, force_upload=False, verbose=True, rest_api=True, max_retries = 10, rest_timeout = DEFAULT_TIMEOUT
+        last_update_time_change = False, force_upload=False, verbose=True, rest_api=True, max_retries = 10, rest_timeout = DEFAULT_TIMEOUT, ignore_files = None
 
         ):
 
@@ -58,6 +58,8 @@ async def up(
     + max_retries: Integer. The max retry time when meeting failure
 
     + rest_timeout: Timeout (seconds) for REST API HTTP requests. Default is DEFAULT_TIMEOUT
+    
+    + ignore_files: List. Gitignore-like glob patterns or regex (prefix with "re:").
 
 
     ### Return
@@ -108,7 +110,7 @@ async def up(
 
     # Gather paths of brand-new and changed legacy markdown files
 
-    res = md_detect(path_markdown, path_legacy_json, verbose=verbose)
+    res = md_detect(path_markdown, path_legacy_json, verbose=verbose, ignore_files=ignore_files)
 
     md_upload = res["new"]
 

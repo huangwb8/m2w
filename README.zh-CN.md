@@ -8,7 +8,7 @@
 </p>
 基于Python将本地markdown推送和更新至Wordpress，支持REST API和Password模式
 
-:star2::star2::star2: 欢迎 m2w 2.6！REST 上传更稳（taxonomy 缓存/`term_exists` 修正、报错更清晰、避免更新时无限重试），支持可配置超时；Password 模式拆分为模块化结构，旧入口依然可用；项目全面采用 vibe coding 方式维护，保持一致和轻量。
+:star2::star2::star2: 欢迎 m2w 2.6！REST 上传更稳（taxonomy 缓存/`term_exists` 修正、报错更清晰、避免更新时无限重试），支持可配置超时；Password 模式拆分为模块化结构，旧入口依然可用；项目全面采用 vibe coding 方式维护，保持一致和轻量；可在 `myblog.py` 里过滤本地文件（如 `AGENTS.md`）避免进入上传流程。
 
 中文教程: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -44,6 +44,7 @@
 - REST 请求支持可配置超时（默认 30s），适配网络较慢的网站。
 - Password 模式重构为 `m2w.password.*` 模块，保留 `up_password` 等旧入口，兼容老脚本。
 - 代码维护全面引入 vibe coding 方式，保证风格统一、依赖轻量。
+- 可以在 `myblog.py` 中忽略特定本地文件（如 `AGENTS.md`、`CLAUDE.md`），防止它们参与上传/更新。
 
 ## 安装
 
@@ -58,7 +59,7 @@
 ```bash
 pip install m2w
 # 或固定版本
-pip install -i https://pypi.org/simple m2w==2.6.1
+pip install -i https://pypi.org/simple m2w==2.6.2
 ```
 
 从源码构建与安装：
@@ -115,6 +116,16 @@ path_m2w = '<path02>' # config文件夹的路径
 python <path01>/myblog.py
 ```
 
+> 想忽略某些本地辅助文件？在 `myblog.py` 里先过滤掉它们再调用 `up`，比如排除 `AGENTS.md` / `CLAUDE.md`，确保 vibe coding 文档不会被上传。
+>
+> 现在只需在 `myblog.py` 设置 `ignore_files = ["AGENTS.md", "CLAUDE.md"]`（支持 glob 与以 `re:` 开头的正则），无需改动 user.json。
+
+### 忽略文件
+
+- `myblog.py` 默认忽略 `AGENTS.md`、`CLAUDE.md`（避免上传 AI 助手文档）。
+- 可添加 glob（如 `"**/draft-*.md"`、`"notes/**"`）或以 `re:` 开头的正则（如 `"re:.*/temp-.*\\.md$"`）。
+- 如果不需要忽略，清空或删除 `ignore_files` 变量即可，旧脚本保持兼容。
+
 ### 开启 REST API
 
 > 如果你想使用 REST API 模式，则需要这一步。
@@ -151,6 +162,11 @@ python <path01>/myblog.py
 3. Q：我的服务器在国内但是上传速度慢并且经常失败
 
    A：如果开了代理，请将自己的网站加入到过滤地址内，尤其是`CFW(clash for windows)`用户。
+
+## 更新日志
+
+- **2025-12-22｜2.6.2**：默认忽略 `AGENTS.md` / `CLAUDE.md`，支持 glob 与以 `re:` 开头的正则；扫描时会输出被忽略的文件路径；未设置 `ignore_files` 时保持旧行为。
+- **2025-12-21｜2.6.1**：修复 REST API 更新时的无限重试，统一 taxonomy 缓存与 `term_exists` 处理，REST 请求支持可配置超时；Password 模式模块化并保持兼容。
 
 ## 维护者
 

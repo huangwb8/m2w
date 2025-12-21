@@ -1,6 +1,8 @@
 """Helpers for detecting markdown files for Password mode uploads."""
 
+import fnmatch
 import os
+import re
 import sys
 
 from m2w.json2 import read_json_as_dict
@@ -8,7 +10,59 @@ from m2w.json2 import save_dict_as_json
 from m2w.md5 import get_file_md5
 
 
-def find_files(path, suffix=".md"):
+def _compile_ignore(ignore_files):
+    """
+    Normalize ignore rules.
+
+    Returns a list of dicts with "type" ("glob" | "regex") and "pattern".
+    """
+    compiled = []
+    if not ignore_files:
+        return compiled
+
+    if isinstance(ignore_files, str):
+        ignore_files = [ignore_files]
+
+    for rule in ignore_files:
+        if not rule:
+            continue
+        if isinstance(rule, str) and rule.startswith("re:"):
+            try:
+                compiled.append({"type": "regex", "pattern": re.compile(rule[3:])})
+            except re.error:
+                # Fall back to glob match if regex is invalid
+                compiled.append({"type": "glob", "pattern": rule[3:]})
+        else:
+            compiled.append({"type": "glob", "pattern": rule})
+    return compiled
+
+
+def _should_ignore(path_abs, path_rel, ignore_rules):
+    """
+    Decide whether to ignore the given path according to compiled rules.
+    """
+    if not ignore_rules:
+        return False
+
+    basename = os.path.basename(path_abs)
+    for rule in ignore_rules:
+        pattern = rule["pattern"]
+        if rule["type"] == "regex":
+            if pattern.search(path_abs) or pattern.search(path_rel) or pattern.search(
+                basename
+            ):
+                return True
+        else:
+            if (
+                fnmatch.fnmatch(path_abs, pattern)
+                or fnmatch.fnmatch(path_rel, pattern)
+                or fnmatch.fnmatch(basename, pattern)
+            ):
+                return True
+    return False
+
+
+def find_files(path, suffix=".md", ignore_files=None, verbose=False):
     """
     Find all files with specified suffix in the path.
 
@@ -16,17 +70,25 @@ def find_files(path, suffix=".md"):
     ----------
     path: String. The path of files. Allow one or more paths.
     suffix: String. The suffix of target files.
+    ignore_files: List. Gitignore-like glob patterns or regex (prefix with "re:").
+    verbose: Boolean. Whether to output ignored entries.
 
     Returns
     -------
     List. Paths of target files.
     """
     result = []
+    ignore_rules = _compile_ignore(ignore_files)
 
     def _walk(cur_path, suff=".md"):
         file_list = os.listdir(cur_path)
         for file in file_list:
             next_path = os.path.join(cur_path, file)
+            rel_path = os.path.relpath(next_path, path)
+            if _should_ignore(next_path, rel_path, ignore_rules):
+                if verbose:
+                    print(f"Ignored by ignore_files: {rel_path}")
+                continue
             if os.path.isdir(next_path):
                 _walk(next_path, suff)
             else:
@@ -37,7 +99,7 @@ def find_files(path, suffix=".md"):
     return result
 
 
-def md_detect(path_markdown, path_legacy_json, verbose=True):
+def md_detect(path_markdown, path_legacy_json, verbose=True, ignore_files=None):
     """
     Gather paths of brand-new and changed legacy markdown files.
 
@@ -46,6 +108,7 @@ def md_detect(path_markdown, path_legacy_json, verbose=True):
     + path_markdown: String. The path of markdown files. Allow one or more paths.
     + path_legacy_json: String. The path of the 'legacy.json' file.
     + verbose: Boolean. Whether output running messages of the function.
+    + ignore_files: List. Gitignore-like glob patterns or regex (prefix with "re:").
 
     Returns
     -------
@@ -64,7 +127,7 @@ def md_detect(path_markdown, path_legacy_json, verbose=True):
 
         new = []
         for path in path_markdown:
-            new = new + find_files(path, suffix=".md")
+            new = new + find_files(path, suffix=".md", ignore_files=ignore_files, verbose=verbose)
         new = sorted(set(new), key=new.index)
 
         md5_dict = {}
@@ -81,7 +144,7 @@ def md_detect(path_markdown, path_legacy_json, verbose=True):
 
     all_files = []
     for path in path_markdown:
-        all_files = all_files + find_files(path, suffix=".md")
+        all_files = all_files + find_files(path, suffix=".md", ignore_files=ignore_files, verbose=verbose)
 
     md5_legacy = read_json_as_dict(path_legacy_json)
     md5_all = {}
