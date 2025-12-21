@@ -11,7 +11,7 @@
 </p>
 Automatically upload and update local markdown to WordPress based on REST API/Password via Python
 
-:star2::star2::star2: Welcome m2w 2.6! REST uploads are sturdier (taxonomy cache/`term_exists` fixes, clearer errors) with configurable timeouts, and the Password mode got a cleaner module layout while keeping old entry points working.
+:star2::star2::star2: Welcome m2w 2.6! REST uploads are sturdier (taxonomy cache/`term_exists` fixes, clearer errors) with configurable timeouts, the Password mode got a cleaner module layout while keeping old entry points working, and the project is now maintained with vibe coding practices across the board.
 
 Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -52,6 +52,7 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 - REST API uploads are more reliable: unified taxonomy cache handling, `term_exists` fixes, clearer errors, and no more infinite retries on updates.
 - REST requests now honor a configurable timeout (default 30s) so you can tune slow sites instead of hard failures.
 - Password mode was refactored into `m2w.password.*` modules while keeping `up_password` for backward compatibility.
+- Project maintenance follows vibe coding practices to keep the codebase consistent and lightweight.
 
 ## Install
 
