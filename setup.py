@@ -21,7 +21,11 @@ from setuptools import setup, find_packages
 
 + 输入"pip install twine"来安装twine工具。 必要时可更新工具包：pip install --upgrade twine setuptools wheel
 
-+ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： python setup.py sdist; pip install ./dist/m2w-2.5.14.tar.gz
++ 使用"python setup.py sdist"命令来生成项目的源代码包。 如果要测试该包，可运行类似命令： 
+  + Windows: python setup.py sdist; pip install .\dist\m2w-2.5.14.tar.gz
+  + macOS: python setup.py sdist; pip install ./dist/m2w-2.5.14.tar.gz
+
++ 确定目前的测试是最新的版本： pip show m2w | grep Version
 
 + 使用"python setup.py bdist_wheel"命令来生成项目的长描述。
 
