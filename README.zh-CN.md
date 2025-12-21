@@ -8,7 +8,7 @@
 </p>
 基于Python将本地markdown推送和更新至Wordpress，支持REST API和Password模式
 
-:star2::star2::star2: 欢迎m2w 2.5正式投入使用!
+:star2::star2::star2: 欢迎 m2w 2.6！REST 上传更稳（taxonomy 缓存/`term_exists` 修正、报错更清晰、避免更新时无限重试），支持可配置超时；Password 模式拆分为模块化结构，旧入口依然可用。
 
 中文教程: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -37,6 +37,12 @@
 + 通过多个`legacy_*.json` 同时管理多个网站。
 + 只需要使用1个 python 脚本 `myblog.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。
+
+### 2.6 相比 2.5 的变化
+
+- REST API 上传更可靠：统一 taxonomy 缓存与 `term_exists` 处理，报错信息更清晰，避免更新时的无限重试。
+- REST 请求支持可配置超时（默认 30s），适配网络较慢的网站。
+- Password 模式重构为 `m2w.password.*` 模块，保留 `up_password` 等旧入口，兼容老脚本。
 
 ## 安装
 
