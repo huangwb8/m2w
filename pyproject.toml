@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "m2w"
+version = "2.6.0"
+description = "Automatically upload and update local markdown to WordPress via Python"
+readme = "README.md"
+requires-python = ">=3.7.6"
+license = { file = "license.txt" }
+authors = [
+  { name = "Bensz", email = "hwb2012@qq.com" },
+  { name = "FoxSuzuran", email = "2903582631@qq.com" }
+]
+keywords = ["markdown", "wordpress", "xmlrpc", "rest-api", "blog"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  "python-frontmatter>=1.0.0",
+  "markdown>=3.3.6",
+  "python-wordpress-xmlrpc>=2.3",
+  "httpx>=0.24.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/huangwb8/m2w"
+Documentation = "https://github.com/huangwb8/m2w#readme"
+Source = "https://github.com/huangwb8/m2w"
+Bug-Tracker = "https://github.com/huangwb8/m2w/issues"
+
+[tool.setuptools]
+include-package-data = true
+license-files = ["license.txt"]
+
+[tool.setuptools.packages.find]
+include = ["m2w*"]

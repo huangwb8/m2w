@@ -1,30 +1,40 @@
-.gitattributes
-@test/*
+# OS
+.DS_Store
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+
+# Caches / coverage
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.*
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+/poetry/.venv
+
+# Editors / IDE
+.vscode/
+.idea/
 *.code-workspace
-m2w/dist/*
-m2w/m2w.egg-info/*
-m2w/setup.py
-dist/*
-m2w.egg-info/*
-m2w/__pycache__/*
-build/*
-.vscode/*
 
-# pycharm config
-.idea
-venv
-
-# configuration
+# Project config (user/local)
 /config
 config.ini
 
-# poetry enviroments
-/poetry/.venv
-pyproject.toml
-poetry.lock
-.venv
-
-m2w/rest_api/__pycache__
-
-#vscode configuration
-.vscode
+# Fixtures / local test data
+@test/*
