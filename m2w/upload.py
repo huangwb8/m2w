@@ -13,6 +13,14 @@ import markdown
 from wordpress_xmlrpc import WordPressPost
 from wordpress_xmlrpc.methods.posts import NewPost
 
+try:
+    from markdown_gfm_admonition import GfmAdmonitionExtension
+    HAS_GFM_ADMONITION = True
+except ImportError:
+    HAS_GFM_ADMONITION = False
+
+from m2w.math import MathExtension
+
 
 def make_post(filepath, metadata):
     """
@@ -37,8 +45,12 @@ def make_post(filepath, metadata):
     post_from_file = frontmatter.load(filepath)
 
     # 2 markdown库导入内容
+    extensions = ['markdown.extensions.fenced_code', 'tables', MathExtension()]
+    if HAS_GFM_ADMONITION:
+        extensions.append(GfmAdmonitionExtension())
+
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content, extensions=extensions
     )
     post_content_html = post_content_html.encode("utf-8")
     # from markdown_it import MarkdownIt

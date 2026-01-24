@@ -13,6 +13,14 @@ import markdown
 import os
 import httpx
 
+try:
+    from markdown_gfm_admonition import GfmAdmonitionExtension
+    HAS_GFM_ADMONITION = True
+except ImportError:
+    HAS_GFM_ADMONITION = False
+
+from m2w.math import MathExtension
+
 
 def _create_article(self, md_path, post_metadata) -> None:
     """
@@ -33,8 +41,12 @@ def _create_article(self, md_path, post_metadata) -> None:
     post_from_file = frontmatter.load(md_path)
 
     # 2 markdown库导入内容
+    extensions = ['markdown.extensions.fenced_code', 'tables', MathExtension()]
+    if HAS_GFM_ADMONITION:
+        extensions.append(GfmAdmonitionExtension())
+
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content, extensions=extensions
     )
     post_content_html = post_content_html.encode("utf-8")
 

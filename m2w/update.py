@@ -13,6 +13,14 @@ import frontmatter
 import markdown
 from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 
+try:
+    from markdown_gfm_admonition import GfmAdmonitionExtension
+    HAS_GFM_ADMONITION = True
+except ImportError:
+    HAS_GFM_ADMONITION = False
+
+from m2w.math import MathExtension
+
 # Fix the bug "module 'collections' has no attribute 'Iterable’"
 if sys.version_info.minor >= 9:
     import collections.abc
@@ -66,8 +74,12 @@ def update_post_content(post, filepath, client):
     :return True: if success
     """
     post_from_file = frontmatter.load(filepath)  # 读取文档里的信息
+    extensions = ['markdown.extensions.fenced_code', 'tables', MathExtension()]
+    if HAS_GFM_ADMONITION:
+        extensions.append(GfmAdmonitionExtension())
+
     post_content_html = markdown.markdown(
-        post_from_file.content, extensions=['markdown.extensions.fenced_code']
+        post_from_file.content, extensions=extensions
     ).encode(
         "utf-8"
     )  # 转换为html

@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.7.2] - 2026-01-24
+
+### Added（新增）
+- **LaTeX 数学公式渲染支持**：新增 `m2w/math.py` 模块，支持 `$...$` 行内公式和 `$$...$$` / `\begin...\end` 块级公式的 LaTeX 渲染
+- **Markdown 表格支持**：所有模式下（REST API 和 Password）现已启用 `tables` 扩展
+- **GFM Admonition 支持**（可选）：新增对 GitHub 风格提示框（`> [!NOTE]`、`> [!TIP]` 等）的支持，需安装 `markdown-gfm-admonition` 可选依赖
+- 感谢 [@Mareep-YANG](https://github.com/Mareep-YANG) 通过 [PR #20](https://github.com/huangwb8/m2w/pull/20) 提供的 LaTeX 公式渲染、表格和 GFM Admonition 功能代码
+
+### Changed（变更）
+- 所有 Markdown 处理模块（REST API 的 create/update 和传统模式的 upload/update）统一扩展配置，新增数学公式、表格和 Admonition 支持
+- 优化依赖管理：将 `markdown-gfm-admonition` 设为可选依赖（`pip install m2w[admonition]`），未安装时自动回退跳过
+
 ## [2.7.1] - 2026-01-24
 
 ### Fixed（修复）

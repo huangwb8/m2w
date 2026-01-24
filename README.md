@@ -11,7 +11,7 @@
 </p>
 Automatically upload and update local markdown to WordPress based on REST API/Password via Python
 
-:star2::star2::star2: Welcome m2w 2.7! Custom post types (shuoshuo, page), URL aliases, status control, and title-based matching coming in v2.8. Current v2.7.0 features rate limiting, resumable uploads, and batch processing for safe mass uploads of 1000+ articles!
+:star2::star2::star2: Welcome m2w 2.7.2! LaTeX math rendering, tables, and GFM Admonition support now available. Custom post types (shuoshuo, page), URL aliases, status control, and title-based matching in v2.8. Current v2.7.2 also features rate limiting, resumable uploads, and batch processing for safe mass uploads of 1000+ articles!
 
 Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -38,7 +38,7 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 
 `m2w` is a tool for automatically uploading or updating local Markdown to WordPress via Python, based on REST API (`2.5+`) or Password.
 
-`m2w` has these features: 
+`m2w` has these features:
 
 + **Support REST API**, which is safer then conventional password!
 + Use `config/user.json` to maintain the user information in a little different way comparing with `m2w 1.0`.
@@ -46,11 +46,21 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 + You can manage lots of websites at the same time via multiple `legacy_*.json`.
 + All you need to deal with is a single python script `myblog.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
 + Ignore repeated new markdown files for uploading (`v2.2.4+`)
++ **LaTeX math rendering** (`v2.7.2+`): Support for inline math (`$...$`) and display math (`$$...$$`, `\begin...\end`) formulas
++ **Markdown tables** (`v2.7.2+`): Native table support for better content formatting
++ **GFM Admonition** (`v2.7.2+`, optional): GitHub-style callout boxes (`> [!NOTE]`, `> [!TIP]`, etc.) - requires `pip install m2w[admonition]`
 + **Custom post types** (`v2.8+`): Support for custom post types like `shuoshuo` (status updates), `page`, etc.
 + **URL alias (slug)** (`v2.8+`): Set custom URL aliases via frontmatter `slug` field
 + **Status control** (`v2.8+`): Modify article status (draft/publish) or delete articles via frontmatter
 + **Rate limiting & batch processing** (`v2.7+`): Prevent server bans with configurable delays, batch processing, and exponential backoff for HTTP 429 errors
 + **Resumable uploads** (`v2.7+`): Progress tracking saves your work—interrupt and resume without losing progress
+
+### What's new in 2.7.2 vs 2.7.1
+
+- **LaTeX math rendering**: Full support for LaTeX formulas with `$...$` for inline math and `$$...$$` or `\begin...\end` for display math
+- **Markdown tables**: Native table support enabled by default
+- **GFM Admonition** (optional): GitHub-style callout boxes with `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]` syntax
+- **Thanks to [@Mareep-YANG](https://github.com/Mareep-YANG)** for contributing these enhancements via [PR #20](https://github.com/huangwb8/m2w/pull/20)!
 
 ### What's new in 2.8 vs 2.7
 
@@ -88,7 +98,10 @@ After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/).
 ```bash
 pip install m2w
 # or pin a version
-pip install -i https://pypi.org/simple m2w==2.7.1
+pip install -i https://pypi.org/simple m2w==2.7.2
+
+# For GFM Admonition support (optional)
+pip install m2w[admonition]
 ```
 
 From source, you can use the modern build flow:
@@ -280,9 +293,11 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 See [CHANGELOG.MD](CHANGELOG.MD) for the complete version history.
 
-**Current release: v2.7.1** (2026-01-24)
-- Rate limiting, batch processing, exponential backoff for HTTP 429
-- Resumable progress tracking for interrupted uploads
+**Current release: v2.7.2** (2026-01-24)
+- LaTeX math rendering support ($...$ and $$...$$)
+- Markdown tables support
+- GFM Admonition support (optional, requires `pip install m2w[admonition]`)
+- Thanks to [@Mareep-YANG](https://github.com/Mareep-YANG) for contributing via [PR #20](https://github.com/huangwb8/m2w/pull/20)!
 
 **Coming in v2.8.0:**
 - Custom post types (shuoshuo, page), URL aliases, status control
