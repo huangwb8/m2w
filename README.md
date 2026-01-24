@@ -45,7 +45,7 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 + You can manage lots of websites at the same time via multiple `legacy_*.json`.
 + All you need to deal with is a single python script `myblog.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
 + Ignore repeated new markdown files for uploading (`v2.2.4+`)
-+ **LaTeX math rendering** (`v2.7.2+`): Support for inline math (`$...$`) and display math (`$$...$$`, `\begin...\end`) formulas
++ **LaTeX math rendering** (`v2.7.2+`): Support for inline math (`$...$`) and display math (`$$...$$`, `\begin...\end{}`) formulas
 + **Markdown tables** (`v2.7.2+`): Native table support for better content formatting
 + **GFM Admonition** (`v2.7.2+`, optional): GitHub-style callout boxes (`> [!NOTE]`, `> [!TIP]`, etc.) - requires `pip install m2w[admonition]`
 + **Rate limiting & batch processing** (`v2.7+`): Prevent server bans with configurable delays, batch processing, and exponential backoff for HTTP 429 errors
@@ -150,7 +150,7 @@ path_m2w = '<path02>' # Absolute path of m2w config folder
     }
 ```
 
-  + **domain, username, application_password/password**:  The information of your WordPress site and account. `application_password` is REST API, and `password` is the conventional passord of your account. if both `application_password` and `password` exit, only `application_password` is available for m2w.
+  + **domain, username, application_password/password**: The information of your WordPress site and account. `application_password` is REST API, and `password` is the conventional password of your account. If both `application_password` and `password` exist, only `application_password` is available for m2w.
   + **path_markdown**: Add as much top folders as you want! 
   + **post_metadata/path_legacy_json**: Set default if you don't know what they are. 
 
@@ -260,7 +260,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 See [CHANGELOG.MD](CHANGELOG.MD) for the complete version history.
 
 **Current release: v2.7.2** (2026-01-24)
-- LaTeX math rendering support ($...$ and $$...$$)
+- LaTeX math rendering support ($...$ and $$...$$ / \begin...\end{})
 - Markdown tables support
 - GFM Admonition support (optional, requires `pip install m2w[admonition]`)
 - Thanks to [@Mareep-YANG](https://github.com/Mareep-YANG) for contributing via [PR #20](https://github.com/huangwb8/m2w/pull/20)!

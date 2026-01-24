@@ -37,6 +37,9 @@
 + 通过多个`legacy_*.json` 同时管理多个网站。
 + 只需要使用1个 python 脚本 `myblog.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。
++ **LaTeX 数学公式渲染** (`v2.7.2+`)：支持行内公式 (`$...$`) 和块级公式 (`$$...$$` / `\begin...\end{}`)
++ **Markdown 表格** (`v2.7.2+`)：原生表格支持，更好的内容格式化
++ **GFM Admonition** (`v2.7.2+`，可选)：GitHub 风格提示框（`> [!NOTE]`、`> [!TIP]` 等）——需 `pip install m2w[admonition]`
 + **速率限制与批次处理** (`v2.7+`)：通过可配置延迟、批次处理和 HTTP 429 指数退避防止服务器封禁
 + **断点续传** (`v2.7+`)：进度跟踪保存到文件，中断后可从断点恢复
 
@@ -53,7 +56,10 @@
 ```bash
 pip install m2w
 # 或固定版本
-pip install -i https://pypi.org/simple m2w==2.7.1
+pip install -i https://pypi.org/simple m2w==2.7.2
+
+# GFM Admonition 支持（可选）
+pip install m2w[admonition]
 ```
 
 从源码构建与安装：
@@ -181,6 +187,7 @@ progress_file = None           # None 表示与 legacy.json 同目录
 
 ## 更新日志
 
+- **2026-01-24｜2.7.2**：LaTeX 数学公式渲染、Markdown 表格、GFM Admonition 支持（可选）。感谢 [@Mareep-YANG](https://github.com/Mareep-YANG) 的贡献（[PR #20](https://github.com/huangwb8/m2w/pull/20)）。
 - **2026-01-24｜2.7.1**：新增速率限制、批次处理、HTTP 429 指数退避和断点续传功能——批量上传 1000+ 篇文章的完美方案。
 - **2025-12-22｜2.6.2**：默认忽略 `AGENTS.md` / `CLAUDE.md`，支持 glob 与以 `re:` 开头的正则；扫描时会输出被忽略的文件路径；未设置 `ignore_files` 时保持旧行为。
 - **2025-12-21｜2.6.1**：修复 REST API 更新时的无限重试，统一 taxonomy 缓存与 `term_exists` 处理，REST 请求支持可配置超时；Password 模式模块化并保持兼容。
