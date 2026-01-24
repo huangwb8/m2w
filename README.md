@@ -11,7 +11,7 @@
 </p>
 Automatically upload and update local markdown to WordPress based on REST API/Password via Python
 
-:star2::star2::star2: Welcome m2w 2.6! REST uploads are sturdier (taxonomy cache/`term_exists` fixes, clearer errors) with configurable timeouts, the Password mode got a cleaner module layout while keeping old entry points working, vibe coding is used across the board, and you can filter out local files (e.g., `AGENTS.md`) in `myblog.py` to skip upload/update.
+:star2::star2::star2: Welcome m2w 2.7! New rate limiting prevents server bans during bulk uploads, resumable progress saves your work from interruptions, and batch processing with exponential backoff handles HTTP 429 gracefully—perfect for uploading 1000+ articles safely!
 
 Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -46,6 +46,16 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 + You can manage lots of websites at the same time via multiple `legacy_*.json`.
 + All you need to deal with is a single python script `myblog.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
 + Ignore repeated new markdown files for uploading (`v2.2.4+`)
++ **Rate limiting & batch processing** (`v2.7+`): Prevent server bans with configurable delays, batch processing, and exponential backoff for HTTP 429 errors
++ **Resumable uploads** (`v2.7+`): Progress tracking saves your work—interrupt and resume without losing progress
+
+### What's new in 2.7 vs 2.6
+
+- **Rate limiting**: Add configurable delays between requests to prevent server rate limiting (HTTP 429)
+- **Batch processing**: Process files in configurable batches with delays between batches
+- **Exponential backoff**: Automatic retry with exponential backoff when encountering HTTP 429 errors
+- **Resumable uploads**: Progress tracking saves to file, allowing you to resume from interruptions
+- **Mass upload friendly**: Safely upload 1000+ articles without getting banned
 
 ### What's new in 2.6 vs 2.5
 
@@ -68,7 +78,7 @@ After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/).
 ```bash
 pip install m2w
 # or pin a version
-pip install -i https://pypi.org/simple m2w==2.6.2
+pip install -i https://pypi.org/simple m2w==2.7.0
 ```
 
 From source, you can use the modern build flow:
@@ -169,6 +179,28 @@ python <path01>/myblog.py
 - You can add globs (e.g., `"**/draft-*.md"`, `"notes/**"`) or regex prefixed with `re:` (e.g., `"re:.*/temp-.*\\.md$"`).
 - Leave `ignore_files` empty/remove it to scan all markdown files (backward compatible for older scripts).
 
+### Rate limiting and resumable uploads (v2.7+)
+
+When uploading a large number of articles (e.g., 1000+), you may want to enable rate limiting to avoid server bans:
+
+```python
+# In myblog.py
+rate_limit_enabled = True      # Enable rate limiting
+request_delay = 1.0            # Delay between requests (seconds)
+batch_size = 10                # Files per batch
+batch_delay = 5.0              # Delay between batches (seconds)
+max_429_retries = 5            # Max retries on HTTP 429
+initial_backoff = 2.0          # Initial backoff time (seconds)
+
+progress_enabled = True        # Enable progress saving
+progress_file = None           # None = same dir as legacy.json
+```
+
+**Recommended configurations:**
+- **Conservative** (strict servers): `request_delay=2.0`, `batch_size=5`, `batch_delay=10.0`
+- **Balanced** (recommended): `request_delay=1.0`, `batch_size=10`, `batch_delay=5.0`
+- **Aggressive** (lenient servers): `request_delay=0.5`, `batch_size=20`, `batch_delay=3.0`
+
 ## Demo
 
 > This demo is conducted in Win10 with [VScode](https://code.visualstudio.com/).
@@ -179,6 +211,7 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ## LOG
 
+- **2026-01-24**: Release [v2.7.0](https://github.com/huangwb8/m2w/releases/tag/v2.7.0) with rate limiting, batch processing, exponential backoff for HTTP 429, and resumable progress tracking—perfect for mass uploads of 1000+ articles.
 - **2025-12-22**: Release [v2.6.2](https://github.com/huangwb8/m2w/releases/tag/v2.6.2) with default ignore list (`AGENTS.md`/`CLAUDE.md`), glob/`re:` regex support, and verbose logs when files are skipped; backward compatibility when `ignore_files` is absent.
 - **2025-12-21**: Release [v2.6.1](https://github.com/huangwb8/m2w/releases/tag/v2.6.1) with REST API robustness fixes (taxonomy cache/term_exists handling, better errors), configurable REST timeout (defaults to 30s), and a refactored Password mode module layout that keeps backward compatibility.
 + **2025-12-12**：Merge changes from [Fix duplicate upload issue for special character filenames](https://github.com/huangwb8/m2w/pull/25) and release [v2.5.14](https://github.com/huangwb8/m2w/releases/tag/v2.5.14). Thanks [@xiehs211](https://github.com/xiehs211)!

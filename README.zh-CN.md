@@ -8,7 +8,7 @@
 </p>
 基于Python将本地markdown推送和更新至Wordpress，支持REST API和Password模式
 
-:star2::star2::star2: 欢迎 m2w 2.6！REST 上传更稳（taxonomy 缓存/`term_exists` 修正、报错更清晰、避免更新时无限重试），支持可配置超时；Password 模式拆分为模块化结构，旧入口依然可用；项目全面采用 vibe coding 方式维护，保持一致和轻量；可在 `myblog.py` 里过滤本地文件（如 `AGENTS.md`）避免进入上传流程。
+:star2::star2::star2: 欢迎 m2w 2.7！新增速率限制防止批量上传时被封禁，可断点续传保护您的上传进度，批次处理配合指数退避优雅处理 HTTP 429 错误——安全上传 1000+ 篇文章的完美方案！
 
 中文教程: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -37,6 +37,16 @@
 + 通过多个`legacy_*.json` 同时管理多个网站。
 + 只需要使用1个 python 脚本 `myblog.py` 而不是两个（`m2w 1.0` 中的 `update.py` 和 `upload.py`）。
 + 忽略重复的新markdown的上传操作（`v2.2.4+`）。
++ **速率限制与批次处理** (`v2.7+`)：通过可配置延迟、批次处理和 HTTP 429 指数退避防止服务器封禁
++ **断点续传** (`v2.7+`)：进度跟踪保存到文件，中断后可从断点恢复
+
+### 2.7 相比 2.6 的变化
+
+- **速率限制**：添加可配置的请求间延迟，防止服务器速率限制（HTTP 429）
+- **批次处理**：按可配置批次大小处理文件，批次间有延迟
+- **指数退避**：遇到 HTTP 429 错误时自动重试并指数退避
+- **断点续传**：进度跟踪保存到文件，允许中断后恢复
+- **批量上传友好**：安全上传 1000+ 篇文章而不会被封禁
 
 ### 2.6 相比 2.5 的变化
 
@@ -59,7 +69,7 @@
 ```bash
 pip install m2w
 # 或固定版本
-pip install -i https://pypi.org/simple m2w==2.6.2
+pip install -i https://pypi.org/simple m2w==2.7.0
 ```
 
 从源码构建与安装：
@@ -126,6 +136,28 @@ python <path01>/myblog.py
 - 可添加 glob（如 `"**/draft-*.md"`、`"notes/**"`）或以 `re:` 开头的正则（如 `"re:.*/temp-.*\\.md$"`）。
 - 如果不需要忽略，清空或删除 `ignore_files` 变量即可，旧脚本保持兼容。
 
+### 速率限制与断点续传 (v2.7+)
+
+当需要上传大量文章（如 1000+ 篇）时，建议启用速率限制以避免被封禁：
+
+```python
+# 在 myblog.py 中配置
+rate_limit_enabled = True      # 启用速率限制
+request_delay = 1.0            # 请求间延迟（秒）
+batch_size = 10                # 每批处理的文章数
+batch_delay = 5.0              # 批次间延迟（秒）
+max_429_retries = 5            # HTTP 429 最大重试次数
+initial_backoff = 2.0          # 指数退避初始时间（秒）
+
+progress_enabled = True        # 启用进度保存
+progress_file = None           # None 表示与 legacy.json 同目录
+```
+
+**推荐配置：**
+- **保守配置**（严格限制的服务器）：`request_delay=2.0`, `batch_size=5`, `batch_delay=10.0`
+- **平衡配置**（推荐）：`request_delay=1.0`, `batch_size=10`, `batch_delay=5.0`
+- **激进配置**（宽松限制的服务器）：`request_delay=0.5`, `batch_size=20`, `batch_delay=3.0`
+
 ### 开启 REST API
 
 > 如果你想使用 REST API 模式，则需要这一步。
@@ -165,6 +197,7 @@ python <path01>/myblog.py
 
 ## 更新日志
 
+- **2026-01-24｜2.7.0**：新增速率限制、批次处理、HTTP 429 指数退避和断点续传功能——批量上传 1000+ 篇文章的完美方案。
 - **2025-12-22｜2.6.2**：默认忽略 `AGENTS.md` / `CLAUDE.md`，支持 glob 与以 `re:` 开头的正则；扫描时会输出被忽略的文件路径；未设置 `ignore_files` 时保持旧行为。
 - **2025-12-21｜2.6.1**：修复 REST API 更新时的无限重试，统一 taxonomy 缓存与 `term_exists` 处理，REST 请求支持可配置超时；Password 模式模块化并保持兼容。
 

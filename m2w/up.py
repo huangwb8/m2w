@@ -4,6 +4,8 @@
 
 from m2w.rest_api import RestApi
 from m2w.rest_api.utils import DEFAULT_TIMEOUT
+from m2w.rest_api.rate_limiter import RateLimiter
+from m2w.rest_api.progress_manager import ProgressManager
 
 from m2w.password import md_detect, up_password
 
@@ -19,13 +21,25 @@ import shutil
 
 async def up(
 
-        path_markdown, 
+        path_markdown,
 
         path_legacy_json,
 
         domain, username, password, application_password, post_metadata,
 
-        last_update_time_change = False, force_upload=False, verbose=True, rest_api=True, max_retries = 10, rest_timeout = DEFAULT_TIMEOUT, ignore_files = None
+        last_update_time_change = False, force_upload=False, verbose=True, rest_api=True, max_retries = 10, rest_timeout = DEFAULT_TIMEOUT, ignore_files = None,
+
+        # 新增速率限制参数
+        rate_limit_enabled = False,
+        request_delay = 1.0,
+        batch_size = 10,
+        batch_delay = 5.0,
+        max_429_retries = 5,
+        initial_backoff = 2.0,
+
+        # 新增断点续传参数
+        progress_enabled = False,
+        progress_file = None
 
         ):
 
@@ -58,8 +72,24 @@ async def up(
     + max_retries: Integer. The max retry time when meeting failure
 
     + rest_timeout: Timeout (seconds) for REST API HTTP requests. Default is DEFAULT_TIMEOUT
-    
+
     + ignore_files: List. Gitignore-like glob patterns or regex (prefix with "re:").
+
+    + rate_limit_enabled: Boolean. Whether to enable rate limiting for requests.
+
+    + request_delay: Float. Delay between requests in seconds. Default is 1.0.
+
+    + batch_size: Integer. Number of files to process per batch. Default is 10.
+
+    + batch_delay: Float. Delay between batches in seconds. Default is 5.0.
+
+    + max_429_retries: Integer. Maximum retries when encountering HTTP 429 errors. Default is 5.
+
+    + initial_backoff: Float. Initial backoff time for 429 errors in seconds. Default is 2.0.
+
+    + progress_enabled: Boolean. Whether to enable progress saving for resumable uploads.
+
+    + progress_file: String. Path to progress file. If None, defaults to legacy.json directory.
 
 
     ### Return
@@ -76,7 +106,7 @@ async def up(
 
     if is_first_legacy_exist:
 
-        shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_old")
+        shutil.copyfile(str(path_legacy_json), str(path_legacy_json) + "_temporary_old")
 
 
 
@@ -95,6 +125,26 @@ async def up(
             url=domain, wp_username=username, wp_password=application_password, timeout=rest_timeout
 
         )
+
+        # 初始化速率限制器
+        if rate_limit_enabled:
+            rest.rate_limiter = RateLimiter(
+                request_delay=request_delay,
+                batch_size=batch_size,
+                batch_delay=batch_delay,
+                max_429_retries=max_429_retries,
+                initial_backoff=initial_backoff,
+                verbose=verbose
+            )
+
+        # 初始化进度管理器
+        if progress_enabled:
+            progress_path = progress_file or str(os.path.join(os.path.dirname(path_legacy_json), ".m2w_progress.json"))
+            rest.progress_manager = ProgressManager(
+                progress_file=progress_path,
+                enabled=True,
+                verbose=verbose
+            )
 
     else:
 
@@ -120,11 +170,11 @@ async def up(
 
     # Backup the latest legacy*.json
 
-    shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_latest")
+    shutil.copyfile(str(path_legacy_json), str(path_legacy_json) + "_temporary_latest")
 
     if not is_first_legacy_exist:
 
-        shutil.copyfile(path_legacy_json, path_legacy_json + "_temporary_old")
+        shutil.copyfile(str(path_legacy_json), str(path_legacy_json) + "_temporary_old")
 
 
 
@@ -174,9 +224,9 @@ async def up(
 
                     )
 
-                if os.path.exists(path_legacy_json + "_temporary_latest"):
+                if os.path.exists(str(path_legacy_json) + "_temporary_latest"):
 
-                    shutil.copyfile(path_legacy_json + "_temporary_latest", path_legacy_json)     
+                    shutil.copyfile(str(path_legacy_json) + "_temporary_latest", str(path_legacy_json))     
 
                 break
 
@@ -186,9 +236,9 @@ async def up(
 
                 print(f"{e.__class__.__name__}: {e}")
 
-                if os.path.exists(path_legacy_json + "_temporary_old"):
+                if os.path.exists(str(path_legacy_json) + "_temporary_old"):
 
-                    shutil.copyfile(path_legacy_json + "_temporary_old", path_legacy_json)
+                    shutil.copyfile(str(path_legacy_json) + "_temporary_old", str(path_legacy_json))
 
                 if retry < max_retries - 1:
 

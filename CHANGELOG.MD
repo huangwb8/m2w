@@ -1,6 +1,13 @@
-# Change
+# Change Log
 
-# Change
+## [Unreleased]
+
+### Changed（变更）
+- 重构项目文档，采用 `/init-project` 规范组织 `AGENTS.md` 和 `CLAUDE.md`
+- 新增 `@test` 目录的详细说明，明确测试配置示例 [@test/config/user.json](@test/config/user.json) 的用途
+- 新增"测试驱动"工程原则：所有新优化的 m2w 代码，都要在 @test 里通过测试才可以交付
+- 优化配置说明，增加配置结构示例和自动生成机制说明
+- 统一文件引用规范，使用 markdown 链接语法使路径可点击
 
 ## [2.6.2]
 
