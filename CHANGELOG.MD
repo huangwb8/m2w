@@ -1,5 +1,12 @@
 # Change Log
 
+## [Unreleased]
+
+### Changed（变更）
+- 文档结构优化：删除 README 中的版本对比章节和 TO-DO 章节，统一在 CHANGELOG.MD 中维护版本历史
+- 删除未发布版本的表述（v2.8.0 相关功能已移除）
+- Maintainers 章节更新：添加贡献者[@Mareep-YANG](https://github.com/Mareep-YANG) 和 [@Shulelk](https://github.com/Shulelk) 及其贡献说明
+
 ## [2.7.2] - 2026-01-24
 
 ### Added（新增）
@@ -16,23 +23,6 @@
 
 ### Fixed（修复）
 - 版本号更正：将版本号从 2.7.0 更新为 2.7.1
-
-## [Unreleased]
-
-### Added（新增）
-- 支持 `post_type` 字段：可创建自定义文章类型（如 `shuoshuo`、`page` 等）
-- 支持 `slug` 字段：可设置文章 URL 别名
-- 支持 `status` 字段修改：可动态修改文章状态（`draft`、`publish` 等）
-- 支持 `status: delete` 删除文章：设置后可删除 WordPress 文章和本地 Markdown 文件
-- 文章匹配逻辑优化：现在基于 frontmatter 中的 `title` 而非文件名进行匹配
-- 感谢 [@Shulelk](https://github.com/Shulelk) 通过 [PR #21](https://github.com/huangwb8/m2w/pull/21) 提供的功能灵感和建议
-
-### Changed（变更）
-- 重构项目文档，采用 `/init-project` 规范组织 `AGENTS.md` 和 `CLAUDE.md`
-- 新增 `@test` 目录的详细说明，明确测试配置示例 [@test/config/user.json](@test/config/user.json) 的用途
-- 新增"测试驱动"工程原则：所有新优化的 m2w 代码，都要在 @test 里通过测试才可以交付
-- 优化配置说明，增加配置结构示例和自动生成机制说明
-- 统一文件引用规范，使用 markdown 链接语法使路径可点击
 
 ## [2.6.2]
 

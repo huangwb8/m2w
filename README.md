@@ -11,7 +11,7 @@
 </p>
 Automatically upload and update local markdown to WordPress based on REST API/Password via Python
 
-:star2::star2::star2: Welcome m2w 2.7.2! LaTeX math rendering, tables, and GFM Admonition support now available. Custom post types (shuoshuo, page), URL aliases, status control, and title-based matching in v2.8. Current v2.7.2 also features rate limiting, resumable uploads, and batch processing for safe mass uploads of 1000+ articles!
+:star2::star2::star2: Welcome m2w 2.7.2! LaTeX math rendering, tables, and GFM Admonition support now available. Current v2.7.2 also features rate limiting, resumable uploads, and batch processing for safe mass uploads of 1000+ articles!
 
 Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -27,7 +27,6 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
     - [Use m2w](#use-m2w)
   - [Demo](#demo)
   - [LOG](#log)
-  - [TO-DO](#to-do)
   - [Related Efforts](#related-efforts)
   - [Maintainers](#maintainers)
   - [Contributing](#contributing)
@@ -49,41 +48,8 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 + **LaTeX math rendering** (`v2.7.2+`): Support for inline math (`$...$`) and display math (`$$...$$`, `\begin...\end`) formulas
 + **Markdown tables** (`v2.7.2+`): Native table support for better content formatting
 + **GFM Admonition** (`v2.7.2+`, optional): GitHub-style callout boxes (`> [!NOTE]`, `> [!TIP]`, etc.) - requires `pip install m2w[admonition]`
-+ **Custom post types** (`v2.8+`): Support for custom post types like `shuoshuo` (status updates), `page`, etc.
-+ **URL alias (slug)** (`v2.8+`): Set custom URL aliases via frontmatter `slug` field
-+ **Status control** (`v2.8+`): Modify article status (draft/publish) or delete articles via frontmatter
 + **Rate limiting & batch processing** (`v2.7+`): Prevent server bans with configurable delays, batch processing, and exponential backoff for HTTP 429 errors
 + **Resumable uploads** (`v2.7+`): Progress tracking saves your work—interrupt and resume without losing progress
-
-### What's new in 2.7.2 vs 2.7.1
-
-- **LaTeX math rendering**: Full support for LaTeX formulas with `$...$` for inline math and `$$...$$` or `\begin...\end` for display math
-- **Markdown tables**: Native table support enabled by default
-- **GFM Admonition** (optional): GitHub-style callout boxes with `> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]` syntax
-- **Thanks to [@Mareep-YANG](https://github.com/Mareep-YANG)** for contributing these enhancements via [PR #20](https://github.com/huangwb8/m2w/pull/20)!
-
-### What's new in 2.8 vs 2.7
-
-- **Custom post types**: Support for `post_type` field to create different content types (e.g., `shuoshuo`, `page`)
-- **URL aliases**: Add `slug` field to customize article URLs
-- **Status control**: Modify article status via `status` field, or delete articles with `status: delete`
-- **Title-based matching**: Articles are now matched by frontmatter `title` instead of filename
-
-### What's new in 2.7 vs 2.6
-
-- **Rate limiting**: Add configurable delays between requests to prevent server rate limiting (HTTP 429)
-- **Batch processing**: Process files in configurable batches with delays between batches
-- **Exponential backoff**: Automatic retry with exponential backoff when encountering HTTP 429 errors
-- **Resumable uploads**: Progress tracking saves to file, allowing you to resume from interruptions
-- **Mass upload friendly**: Safely upload 1000+ articles without getting banned
-
-### What's new in 2.6 vs 2.5
-
-- REST API uploads are more reliable: unified taxonomy cache handling, `term_exists` fixes, clearer errors, and no more infinite retries on updates.
-- REST requests now honor a configurable timeout (default 30s) so you can tune slow sites instead of hard failures.
-- Password mode was refactored into `m2w.password.*` modules while keeping `up_password` for backward compatibility.
-- Project maintenance follows vibe coding practices to keep the codebase consistent and lightweight.
-- You can exclude specific local files in `myblog.py` so they never enter the upload/update pipeline (useful for docs like `AGENTS.md`, `CLAUDE.md`, etc.).
 
 ## Install
 
@@ -224,7 +190,7 @@ progress_file = None           # None = same dir as legacy.json
 - **Balanced** (recommended): `request_delay=1.0`, `batch_size=10`, `batch_delay=5.0`
 - **Aggressive** (lenient servers): `request_delay=0.5`, `batch_size=20`, `batch_delay=3.0`
 
-### Frontmatter options (v2.8+)
+### Frontmatter options
 
 You can use frontmatter in your Markdown files to control article behavior:
 
@@ -299,41 +265,16 @@ See [CHANGELOG.MD](CHANGELOG.MD) for the complete version history.
 - GFM Admonition support (optional, requires `pip install m2w[admonition]`)
 - Thanks to [@Mareep-YANG](https://github.com/Mareep-YANG) for contributing via [PR #20](https://github.com/huangwb8/m2w/pull/20)!
 
-**Coming in v2.8.0:**
-- Custom post types (shuoshuo, page), URL aliases, status control
-- Title-based article matching
-- Thanks to [@Shulelk](https://github.com/Shulelk) for the inspiration!
-
-## TO-DO
-
-- [x] shuoshuo and page update & upload (completed in v2.8.0)
-
-- [ ] Enhanced markdown support: `python-markdown` to `markdown-it-py`
-
-- [ ] Support Hexo-like YAML head：
-
-```yaml
-title: I Love You
-tags:
-  - You
-  - I
-  - Love
-categories:
-  - Note
-date: 2023-11-08 16:38:31
-update: 2023-11-08 16:40:31
---
-```
-
-- [ ] Develop GUI across OS
-
 ## Related Efforts
 
 - [nefu-ljw/python-markdown-to-wordpress](https://github.com/nefu-ljw/python-markdown-to-wordpress)
 
 ## Maintainers
 
-+ [@huangwb8](https://t.me/hwb0307)
++ [@huangwb8](https://t.me/hwb0307) - Project founder
++ [@FoxSuzuran](https://github.com/FoxSuzuran) - Core maintainer
++ [@Mareep-YANG](https://github.com/Mareep-YANG) - LaTeX math, tables, and GFM Admonition support ([PR #20](https://github.com/huangwb8/m2w/pull/20))
++ [@Shulelk](https://github.com/Shulelk) - Custom post types, URL aliases, and status control features ([PR #21](https://github.com/huangwb8/m2w/pull/21))
 
 ## Contributing
 

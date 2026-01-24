@@ -40,22 +40,6 @@
 + **速率限制与批次处理** (`v2.7+`)：通过可配置延迟、批次处理和 HTTP 429 指数退避防止服务器封禁
 + **断点续传** (`v2.7+`)：进度跟踪保存到文件，中断后可从断点恢复
 
-### 2.7 相比 2.6 的变化
-
-- **速率限制**：添加可配置的请求间延迟，防止服务器速率限制（HTTP 429）
-- **批次处理**：按可配置批次大小处理文件，批次间有延迟
-- **指数退避**：遇到 HTTP 429 错误时自动重试并指数退避
-- **断点续传**：进度跟踪保存到文件，允许中断后恢复
-- **批量上传友好**：安全上传 1000+ 篇文章而不会被封禁
-
-### 2.6 相比 2.5 的变化
-
-- REST API 上传更可靠：统一 taxonomy 缓存与 `term_exists` 处理，报错信息更清晰，避免更新时的无限重试。
-- REST 请求支持可配置超时（默认 30s），适配网络较慢的网站。
-- Password 模式重构为 `m2w.password.*` 模块，保留 `up_password` 等旧入口，兼容老脚本。
-- 代码维护全面引入 vibe coding 方式，保证风格统一、依赖轻量。
-- 可以在 `myblog.py` 中忽略特定本地文件（如 `AGENTS.md`、`CLAUDE.md`），防止它们参与上传/更新。
-
 ## 安装
 
 > 推荐使用[Miniconda](https://docs.conda.io/en/latest/miniconda.html)来管理Python版本和相关依赖。
@@ -203,8 +187,10 @@ progress_file = None           # None 表示与 legacy.json 同目录
 
 ## 维护者
 
-+ [@huangwb8](https://t.me/hwb0307)
-+ [@FoxSuzuran](https://github.com/FoxSuzuran)
++ [@huangwb8](https://t.me/hwb0307) - 项目创始人
++ [@FoxSuzuran](https://github.com/FoxSuzuran) - 核心维护者
++ [@Mareep-YANG](https://github.com/Mareep-YANG) - LaTeX 数学公式、表格和 GFM Admonition 支持（[PR #20](https://github.com/huangwb8/m2w/pull/20)）
++ [@Shulelk](https://github.com/Shulelk) - 自定义文章类型、URL 别名和状态控制功能（[PR #21](https://github.com/huangwb8/m2w/pull/21)）
 
 ## 使用许可
 

@@ -118,9 +118,16 @@ twine upload dist/*<ver>*
 ### 文档一致性
 
 保持以下文件的一致性：
-- README 文档
+- README 文档（README.md 和 README.zh-CN.md）
 - 示例脚本
 - 配置示例
+
+### 文档更新优先级
+
+更新项目文档时遵循以下优先级：
+1. **先更新英文版** ([README.md](README.md))：确保技术内容准确完整
+2. **再同步到中文版** ([README.zh-CN.md](README.zh-CN.md))：保持与英文版内容一致
+3. **同步更新 CHANGELOG.MD**：所有文档变更都需记录在变更日志中
 
 ## 提交规范
 
