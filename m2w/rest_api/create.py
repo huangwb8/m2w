@@ -60,9 +60,12 @@ def _create_article(self, md_path, post_metadata) -> None:
             category_id = create_category(self, category)
         categories.append(category_id)
 
-    # 5 构造上传的请求内容
+    # 5 确定标题：优先使用 frontmatter 中的 title
+    title = post_from_file.metadata.get("title", filename.split(".md")[0])
+
+    # 6 构造上传的请求内容
     post_data = {
-        "title": filename.split(".md")[0],
+        "title": title,
         "content": str(post_content_html, encoding="utf-8"),
         "status": post_metadata["status"],
         "comment_status": "open",
@@ -70,8 +73,26 @@ def _create_article(self, md_path, post_metadata) -> None:
         "tags": tags,
     }
 
+    # 7 支持自定义 post_type（如 shuoshuo、page 等）
+    if "post_type" in post_from_file.metadata:
+        post_data["post_type"] = post_from_file.metadata["post_type"]
+
+    # 8 支持 URL 别名设置
+    if "slug" in post_from_file.metadata:
+        post_data["slug"] = post_from_file.metadata["slug"]
+
+    # 9 确定 API 端点：post_type 可能不同
+    post_type = post_data.get("post_type", "post")
+    if post_type == "post":
+        endpoint = "wp-json/wp/v2/posts"
+    elif post_type == "page":
+        endpoint = "wp-json/wp/v2/pages"
+    else:
+        # 对于自定义 post_type（如 shuoshuo），尝试使用自定义文章类型端点
+        endpoint = f"wp-json/wp/v2/{post_type}"
+
     resp = httpx.post(
-        url=self.url + "wp-json/wp/v2/posts",
+        url=self.url + endpoint,
         headers=self.wp_header,
         json=post_data,
         timeout=getattr(self, "timeout", DEFAULT_TIMEOUT),

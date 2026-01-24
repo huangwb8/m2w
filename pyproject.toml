@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "m2w"
-version = "2.7.0"
+version = "2.7.1"
 description = "Automatically upload and update local markdown to WordPress via Python"
 readme = "README.md"
 requires-python = ">=3.7.6"

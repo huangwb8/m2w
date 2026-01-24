@@ -6,3 +6,6 @@
 # @Software: PyCharm
 
 from .rest_api import RestApi
+from .update import _delete_article
+
+__all__ = ['RestApi', '_delete_article']

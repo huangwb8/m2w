@@ -1,6 +1,19 @@
 # Change Log
 
+## [2.7.1] - 2026-01-24
+
+### Fixed（修复）
+- 版本号更正：将版本号从 2.7.0 更新为 2.7.1
+
 ## [Unreleased]
+
+### Added（新增）
+- 支持 `post_type` 字段：可创建自定义文章类型（如 `shuoshuo`、`page` 等）
+- 支持 `slug` 字段：可设置文章 URL 别名
+- 支持 `status` 字段修改：可动态修改文章状态（`draft`、`publish` 等）
+- 支持 `status: delete` 删除文章：设置后可删除 WordPress 文章和本地 Markdown 文件
+- 文章匹配逻辑优化：现在基于 frontmatter 中的 `title` 而非文件名进行匹配
+- 感谢 [@Shulelk](https://github.com/Shulelk) 通过 [PR #21](https://github.com/huangwb8/m2w/pull/21) 提供的功能灵感和建议
 
 ### Changed（变更）
 - 重构项目文档，采用 `/init-project` 规范组织 `AGENTS.md` 和 `CLAUDE.md`

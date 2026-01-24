@@ -69,7 +69,7 @@
 ```bash
 pip install m2w
 # 或固定版本
-pip install -i https://pypi.org/simple m2w==2.7.0
+pip install -i https://pypi.org/simple m2w==2.7.1
 ```
 
 从源码构建与安装：
@@ -197,7 +197,7 @@ progress_file = None           # None 表示与 legacy.json 同目录
 
 ## 更新日志
 
-- **2026-01-24｜2.7.0**：新增速率限制、批次处理、HTTP 429 指数退避和断点续传功能——批量上传 1000+ 篇文章的完美方案。
+- **2026-01-24｜2.7.1**：新增速率限制、批次处理、HTTP 429 指数退避和断点续传功能——批量上传 1000+ 篇文章的完美方案。
 - **2025-12-22｜2.6.2**：默认忽略 `AGENTS.md` / `CLAUDE.md`，支持 glob 与以 `re:` 开头的正则；扫描时会输出被忽略的文件路径；未设置 `ignore_files` 时保持旧行为。
 - **2025-12-21｜2.6.1**：修复 REST API 更新时的无限重试，统一 taxonomy 缓存与 `term_exists` 处理，REST 请求支持可配置超时；Password 模式模块化并保持兼容。
 

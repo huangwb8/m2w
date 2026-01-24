@@ -11,7 +11,7 @@
 </p>
 Automatically upload and update local markdown to WordPress based on REST API/Password via Python
 
-:star2::star2::star2: Welcome m2w 2.7! New rate limiting prevents server bans during bulk uploads, resumable progress saves your work from interruptions, and batch processing with exponential backoff handles HTTP 429 gracefully—perfect for uploading 1000+ articles safely!
+:star2::star2::star2: Welcome m2w 2.7! Custom post types (shuoshuo, page), URL aliases, status control, and title-based matching coming in v2.8. Current v2.7.0 features rate limiting, resumable uploads, and batch processing for safe mass uploads of 1000+ articles!
 
 Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown的最佳实践-m2w 2.0](https://blognas.hwb0307.com/linux/docker/2813)
 
@@ -46,8 +46,18 @@ Chinese tutorial: [Docker系列 WordPress系列 WordPress上传或更新Markdown
 + You can manage lots of websites at the same time via multiple `legacy_*.json`.
 + All you need to deal with is a single python script `myblog.py` instead of two (`update.py` and `upload.py` in `m2w 1.0`).
 + Ignore repeated new markdown files for uploading (`v2.2.4+`)
++ **Custom post types** (`v2.8+`): Support for custom post types like `shuoshuo` (status updates), `page`, etc.
++ **URL alias (slug)** (`v2.8+`): Set custom URL aliases via frontmatter `slug` field
++ **Status control** (`v2.8+`): Modify article status (draft/publish) or delete articles via frontmatter
 + **Rate limiting & batch processing** (`v2.7+`): Prevent server bans with configurable delays, batch processing, and exponential backoff for HTTP 429 errors
 + **Resumable uploads** (`v2.7+`): Progress tracking saves your work—interrupt and resume without losing progress
+
+### What's new in 2.8 vs 2.7
+
+- **Custom post types**: Support for `post_type` field to create different content types (e.g., `shuoshuo`, `page`)
+- **URL aliases**: Add `slug` field to customize article URLs
+- **Status control**: Modify article status via `status` field, or delete articles with `status: delete`
+- **Title-based matching**: Articles are now matched by frontmatter `title` instead of filename
 
 ### What's new in 2.7 vs 2.6
 
@@ -78,7 +88,7 @@ After 2022-12-10, `m2w` was uploaded onto [PyPi](https://pypi.org/project/m2w/).
 ```bash
 pip install m2w
 # or pin a version
-pip install -i https://pypi.org/simple m2w==2.7.0
+pip install -i https://pypi.org/simple m2w==2.7.1
 ```
 
 From source, you can use the modern build flow:
@@ -201,6 +211,63 @@ progress_file = None           # None = same dir as legacy.json
 - **Balanced** (recommended): `request_delay=1.0`, `batch_size=10`, `batch_delay=5.0`
 - **Aggressive** (lenient servers): `request_delay=0.5`, `batch_size=20`, `batch_delay=3.0`
 
+### Frontmatter options (v2.8+)
+
+You can use frontmatter in your Markdown files to control article behavior:
+
+```yaml
+---
+title: Your Article Title
+slug: custom-url-alias
+status: publish
+post_type: post
+category: [Technology]
+tag: [python, wordpress]
+---
+```
+
+**Available fields:**
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| `title` | Article title (used for matching existing articles) | `title: My First Post` |
+| `slug` | Custom URL alias | `slug: my-custom-url` |
+| `status` | Article status: `publish`, `draft`, `delete` | `status: publish` |
+| `post_type` | Content type: `post`, `page`, or custom types like `shuoshuo` | `post_type: shuoshuo` |
+| `category` | Article categories | `category: [Tech, Python]` |
+| `tag` | Article tags | `tag: [code, tutorial]` |
+
+**Examples:**
+
+Create a shuoshuo (status update):
+```yaml
+---
+title: Today's weather is nice!
+post_type: shuoshuo
+slug: shuoshuo-2025-01-24
+status: publish
+---
+```
+
+Set custom URL alias:
+```yaml
+---
+title: My Article
+slug: my-custom-url
+status: publish
+---
+```
+
+Delete an article:
+```yaml
+---
+title: Old Article
+status: delete
+---
+```
+
+> **Note**: When `status: delete` is set, the article will be deleted from WordPress and the local Markdown file will be removed. Use with caution!`
+
 ## Demo
 
 > This demo is conducted in Win10 with [VScode](https://code.visualstudio.com/).
@@ -209,25 +276,22 @@ As shown in the following GIF, all changed or brand-new markdowns can be automat
 
 ![image-20230609173358533](https://chevereto.hwb0307.com/images/2023/06/09/image-20230609173358533.png)
 
-## LOG
+## Changelog
 
-- **2026-01-24**: Release [v2.7.0](https://github.com/huangwb8/m2w/releases/tag/v2.7.0) with rate limiting, batch processing, exponential backoff for HTTP 429, and resumable progress tracking—perfect for mass uploads of 1000+ articles.
-- **2025-12-22**: Release [v2.6.2](https://github.com/huangwb8/m2w/releases/tag/v2.6.2) with default ignore list (`AGENTS.md`/`CLAUDE.md`), glob/`re:` regex support, and verbose logs when files are skipped; backward compatibility when `ignore_files` is absent.
-- **2025-12-21**: Release [v2.6.1](https://github.com/huangwb8/m2w/releases/tag/v2.6.1) with REST API robustness fixes (taxonomy cache/term_exists handling, better errors), configurable REST timeout (defaults to 30s), and a refactored Password mode module layout that keeps backward compatibility.
-+ **2025-12-12**：Merge changes from [Fix duplicate upload issue for special character filenames](https://github.com/huangwb8/m2w/pull/25) and release [v2.5.14](https://github.com/huangwb8/m2w/releases/tag/v2.5.14). Thanks [@xiehs211](https://github.com/xiehs211)!
-+ **2024-11-13**：Optimize optimize strategy for .md removement. [Detail](https://github.com/huangwb8/m2w/pull/18). Thanks [linglilongyi](https://github.com/linglilongyi)!
-+ **2023-06-05**: m2w 2.0 was frozen at [v2.2.11](https://github.com/huangwb8/m2w/releases/tag/v2.2.11). Enjoy m2w 2.5+ from now on!
-+ **2022-12-14**：`m2w.py` is the same name as `m2w` package, which would bring some bugs. I change the name of the demo script as `myblog.py`.
-+ **2022-12-10**：Upload `m2w 2` to PyPi. You can install `m2w 2` with code (in Shell)  like `pip install -i https://pypi.org/simple m2w`. The project url is [https://pypi.org/project/m2w](https://pypi.org/project/m2w).
-+ **2022-12-08**：Ignore repeated uploading of new markdown based on their file names. Update ot `m2w 2.2.4` (Strongly recommended)! 
-+ **2022-12-06**：Optimized parameter space of m2w, which make it more flexible. Update ot `m2w 2.2`!
-+ **2022-12-03**：Brand-new m2w 2.0!
-+ **2022-11-13**：Add error control for the `Client` function, which is helpful to avoid legacy bugs if the connection to the WordPress website is not available.
-+ **Before**: Create `m2w` project.
+See [CHANGELOG.MD](CHANGELOG.MD) for the complete version history.
+
+**Current release: v2.7.1** (2026-01-24)
+- Rate limiting, batch processing, exponential backoff for HTTP 429
+- Resumable progress tracking for interrupted uploads
+
+**Coming in v2.8.0:**
+- Custom post types (shuoshuo, page), URL aliases, status control
+- Title-based article matching
+- Thanks to [@Shulelk](https://github.com/Shulelk) for the inspiration!
 
 ## TO-DO
 
-- [ ] shuoshuo and page update & upload
+- [x] shuoshuo and page update & upload (completed in v2.8.0)
 
 - [ ] Enhanced markdown support: `python-markdown` to `markdown-it-py`
 
