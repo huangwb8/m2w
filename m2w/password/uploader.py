@@ -85,4 +85,8 @@ def up_password(client, md_upload, md_update, post_metadata, force_upload=False,
                         print('FAILURE: Update the file "%s"' % filepath)
             else:
                 if verbose:
-                    print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')
+                    print(
+                        'Warning: Could not find the post "%s" in WordPress. '
+                        'Treating it as new content and uploading instead...' % filepath
+                    )
+                res = upload_one_post(client, filepath, post_metadata, 1, 0, 0, verbose)

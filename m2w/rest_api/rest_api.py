@@ -111,5 +111,13 @@ class RestApi:
             else:
                 if verbose:
                     print(
-                        'FAILURE to find the post. Please check your User Configuration and the title in your WordPress.'
+                        f'Warning: Could not find the post "{legacy_md}" in WordPress. '
+                        f'Treating it as new content and uploading instead...'
                     )
+                _create_article(
+                    self,
+                    md_path=legacy_md,
+                    post_metadata=post_metadata,
+                )
+                if verbose:
+                    print(f"The post {legacy_md} uploads successful!")
