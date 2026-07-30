@@ -23,10 +23,11 @@ def up_password(client, md_upload, md_update, post_metadata, force_upload=False,
         process_number2 = process_number + 1
         if post is not None:
             m2w.upload.push_post(post, client)
+            md_cnt2 = md_cnt + 1
             if is_verbose:
-                md_cnt2 = md_cnt + 1
                 print('Process number: %d/%d  SUCCESS: Push "%s"' % (process_number2, all_cnt, filepath))
         else:
+            md_cnt2 = md_cnt
             failpaths.append(filepath)
             if is_verbose:
                 print(
