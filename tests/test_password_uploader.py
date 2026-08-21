@@ -24,7 +24,7 @@ def load_uploader_module():
 
 
 class PasswordUploaderTests(unittest.TestCase):
-    def test_quiet_upload_keeps_success_count(self):
+    def test_quiet_upload_processes_multiple_posts_without_counter_error(self):
         uploader = load_uploader_module()
         uploaded_posts = []
         uploader.m2w.upload.make_post = lambda filepath, metadata: object()
@@ -32,14 +32,14 @@ class PasswordUploaderTests(unittest.TestCase):
 
         uploader.up_password(
             client=object(),
-            md_upload=["post.md"],
+            md_upload=["first.md", "second.md"],
             md_update=[],
             post_metadata={"category": [], "tag": [], "status": "draft"},
             force_upload=True,
             verbose=False,
         )
 
-        self.assertEqual(len(uploaded_posts), 1)
+        self.assertEqual(len(uploaded_posts), 2)
 
 
 if __name__ == "__main__":
